@@ -1,0 +1,26 @@
+.data-search-form {
+    display: flex;
+    text-align: left;
+    align-items: flex-end;
+
+    .el-input__inner {
+        width: 150px;
+    }
+
+    .el-date-editor {
+        width: 150px;
+    }
+    .el-range-editor.el-date-editor {
+        width: auto !important;
+    }
+    .el-cascader .el-input .el-input__inner {
+        width: auto !important;
+    }
+    .el-form-item {
+        margin-right: 20px;
+    }
+
+    .buttons {
+        margin-bottom: 22px;
+    }
+}

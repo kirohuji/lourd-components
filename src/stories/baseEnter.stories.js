@@ -15,7 +15,7 @@ export const withJSX = () => ({
         size="mini"
         children={{
           use: "option",
-          option: [
+          options: [
             { label: 1, value: 1 },
             { label: 2, value: 2 },
           ],
