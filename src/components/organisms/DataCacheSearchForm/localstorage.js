@@ -1,27 +1,5 @@
 import _ from "lodash";
-import { Meteor } from "meteor/meteor";
-// import request from "@/utils/request";
 import Vue from "vue";
-function S4() {
-  return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-}
-function guid() {
-  return (
-    S4() +
-    S4() +
-    "-" +
-    S4() +
-    "-" +
-    S4() +
-    "-" +
-    S4() +
-    "-" +
-    S4() +
-    S4() +
-    S4()
-  );
-}
-
 /**
  *
  * @param {*} name 仓库名
@@ -80,60 +58,24 @@ class MeteorBackend {
     );
   }
   // 请求
-  removeItem(id) {
-    return new Promise((resolve, reject) => {
-      Meteor.call("searcher.remove",id, (err, res) => {
-        resolve(true);
-      });
+  removeItem() {
+    return new Promise((resolve) => {
+      resolve(true);
     });
-    // return request({
-    //   url: this.url.get("del"),
-    //   method: "post",
-    //   data: { cacheid: id, scope: this.config.scope },
-    // });
   }
   // 请求
   list() {
-    return new Promise((resolve, reject) => {
-      Meteor.call("searcher.find", (err, res) => {
-        resolve({
-          data: res
-        });
+    return new Promise((resolve) => {
+      resolve({
+        data: [],
       });
     });
-    // return request({
-    //   url: this.url.get("list"),
-    //   method: "post",
-    //   params: {
-    //     scope: this.config.scope,
-    //   },
-    // });
   }
   // 请求
-  setItem(name, payload) {
-    return new Promise((resolve, reject) => {
-      Meteor.call(
-        "searcher.insert",
-        {
-          alias: name,
-          label: JSON.stringify(payload),
-        },
-        (err, res) => {
-          resolve(true);
-        }
-      );
+  setItem() {
+    return new Promise((resolve) => {
+      resolve(true);
     });
-    // return request({
-    //   url: this.url.get("add"),
-    //   method: "post",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   data: {
-    //     ...params,
-    //     type: this.config.type,
-    //   },
-    // });
   }
   select(name, payload) {
     localStorage.setItem(name, JSON.stringify(payload));
@@ -185,7 +127,7 @@ class MeteorBackend {
         Vue.set(this, "isLoading", false);
         return this.datasource()
           .setItem(model.name, model.data)
-          .then((res) => {
+          .then(() => {
             this.select(model);
             return this.refresh();
           })

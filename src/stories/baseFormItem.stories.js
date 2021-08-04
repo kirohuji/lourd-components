@@ -1,7 +1,7 @@
 import BaseFormItem from "../components/molecules/BaseFormItem";
 import { Form } from "element-ui";
 export default {
-  title: "BaseFormItem",
+  title: "molecules/BaseFormItem",
 };
 export const withAttrs = () => ({
   render() {

@@ -1,7 +1,7 @@
 import InlineNumber from "../components/molecules/Layout/inline-number";
 
 export default {
-  title: "InlineNumber",
+  title: "Layout/InlineNumber",
 };
 
 export const withLength25By2 = () => ({

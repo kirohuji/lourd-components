@@ -1,7 +1,7 @@
 import Inline from "../components/molecules/Layout/inline";
 
 export default {
-  title: "Inline",
+  title: "Layout/Inline",
 };
 
 export const withLength25 = () => ({

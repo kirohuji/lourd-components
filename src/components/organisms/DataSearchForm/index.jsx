@@ -1,14 +1,28 @@
 import DataForm from "../DataForm/index.jsx";
 export default {
-  props: ["forms", "layout", "data"],
+  props: ["forms", "layout", "data", "searcher"],
+  methods: {
+    search() {
+      this.$emit("search", this.$refs.dataForm.model);
+    },
+  },
   render() {
     return (
       <div style="display: flex;align-items: end">
         <DataForm
+          ref="dataForm"
           {...{
             props: this._props,
           }}
         />
+        {this.searcher && (
+          <ButtonGroup
+            ref="buttonGroup"
+            class="search-button"
+            onReset={() => this.reset()}
+            onSubmit={(payload) => this.submit(payload)}
+          />
+        )}
         {this.$scopedSlots.right ? (
           <div class="buttons">{this.$scopedSlots.right()}</div>
         ) : (

@@ -1,9 +1,10 @@
 import DataForm from "../components/organisms/DataForm";
 import DataSearchForm from "../components/organisms/DataSearchForm";
+import DataCacheSearchForm from "../components/organisms/DataCacheSearchForm";
 import Inline from "../components/molecules/Layout/inline";
-import { Button } from "element-ui";
+// import { Button } from "element-ui";
 export default {
-  title: "DataForm",
+  title: "organisms/DataForm",
 };
 const forms = [
   {
@@ -269,6 +270,28 @@ export const withSearch = () => ({
   render() {
     return (
       <DataSearchForm
+        {...{
+          props: {
+            forms: searchForm,
+            data: {
+              name: "zyd",
+              title: 1,
+              age: 30,
+              sex: "男",
+            },
+            layout: {
+              use: "inline",
+            },
+          },
+        }}
+      />
+    );
+  },
+});
+export const withCacheSearchForm = () => ({
+  render() {
+    return (
+      <DataCacheSearchForm
         {...{
           props: {
             forms: searchForm,

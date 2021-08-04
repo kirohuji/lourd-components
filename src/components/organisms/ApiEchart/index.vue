@@ -21,7 +21,8 @@
           @update="() => (isUpdate = false)"
         />
         <HWNoContent
-          :img-url="require('@/assets/nodata.png')"
+          v-else
+          :img-url="require('@/assets/nodata/index.png')"
           bottom-words="暂无数据"
         />
       </div>
@@ -31,7 +32,7 @@
 
 <script>
 import BaseEchart from "@/components/molecules/BaseEchart";
-import HWNoContent from "@/atoms/components/NoContentShow";
+import HWNoContent from "@/components/atoms/NoContentShow";
 export default {
   props: ["options", "template", "isLoading"],
   components: {

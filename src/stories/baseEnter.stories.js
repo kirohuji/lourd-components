@@ -1,7 +1,7 @@
 import BaseEnter from "../components/molecules/BaseEnter";
 
 export default {
-  title: "BaseEnter",
+  title: "molecules/BaseEnter",
 };
 
 export const withJSX = () => ({

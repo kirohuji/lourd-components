@@ -1,0 +1,12 @@
+.data-table {
+  padding: 8px;
+
+  .pagination {
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+  }
+}
+.el-input__validateIcon.el-icon-circle-check {
+  display: none;
+}

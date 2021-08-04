@@ -1,7 +1,7 @@
 import RowGrid from "../components/molecules/Layout/row-grid";
 
 export default {
-  title: "RowGrid",
+  title: "Layout/RowGrid",
 };
 
 export const withRowGrid = () => ({

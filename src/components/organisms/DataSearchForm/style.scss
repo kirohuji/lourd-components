@@ -23,4 +23,14 @@
     .buttons {
         margin-bottom: 22px;
     }
+    .search-button {
+        margin-left: auto;
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 17px;
+        align-items: center;
+        .el-button + .el-button {
+          margin-left: 24px;
+        }
+    }
 }

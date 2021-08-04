@@ -2,7 +2,7 @@ import BaseEchart from "../components/molecules/BaseEchart";
 
 export default {
   component: BaseEchart,
-  title: "BaseEchart",
+  title: "molecules/BaseEchart",
   parameters: {
     backgrounds: {
       values: [
