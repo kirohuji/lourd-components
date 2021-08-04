@@ -8,12 +8,40 @@ const forms = [
     label: "名称",
     prop: "name",
     use: "label",
+    row: 1,
+    span: 8,
+  },
+  {
+    label: "年龄",
+    prop: "age",
+    use: "label",
+    row: 1,
+    span: 16,
+  },
+  {
+    label: "性别",
+    prop: "sex",
+    use: "label",
+    row: 2,
+  },
+  {
+    label: "等级",
+    prop: "level",
+    use: "label",
+    row: 2,
+  },
+  {
+    label: "部门",
+    prop: "position",
+    use: "label",
+    row: 3,
   },
   {
     label: "标题",
     prop: "title",
     use: "select",
     size: "mini",
+    row: 3,
     children: {
       use: "option",
       options: [
@@ -23,7 +51,6 @@ const forms = [
     },
   },
 ];
-
 export const withAttrs = () => ({
   render() {
     return (
@@ -34,6 +61,10 @@ export const withAttrs = () => ({
             data: {
               name: "zyd",
               title: 1,
+              age: 30,
+              sex: "男",
+              level: 10,
+              position: "测试部",
             },
             layout: {
               use: "inline",
@@ -56,6 +87,10 @@ export const withScopedSlots = () => ({
             data: {
               name: "zyd",
               title: 1,
+              age: 30,
+              sex: "男",
+              level: 10,
+              position: "测试部",
             },
           },
           scopedSlots: {
@@ -83,6 +118,10 @@ export const withTemplate = () => ({
       data: {
         name: "zyd",
         title: 1,
+        age: 30,
+        sex: "男",
+        level: 10,
+        position: "测试部",
       },
     };
   },
@@ -98,4 +137,102 @@ export const withTemplate = () => ({
       </template>
     </DataForm>
   `,
+});
+
+const formsRowGrid = [
+  [
+    {
+      label: "名称",
+      prop: "name",
+      use: "label",
+      span: 8,
+    },
+    {
+      label: "年龄",
+      prop: "age",
+      use: "label",
+      span: 16,
+    },
+  ],
+  [
+    {
+      label: "性别",
+      prop: "sex",
+      use: "label",
+    },
+    {
+      label: "等级",
+      prop: "level",
+      use: "label",
+    },
+  ],
+  [
+    {
+      label: "部门",
+      prop: "position",
+      use: "label",
+    },
+    {
+      label: "标题",
+      prop: "title",
+      use: "select",
+      size: "mini",
+      children: {
+        use: "option",
+        options: [
+          { label: "标题一", value: 1 },
+          { label: "标题二", value: 2 },
+        ],
+      },
+    },
+  ],
+];
+
+export const withAttrsRowGrid = () => ({
+  render() {
+    return (
+      <DataForm
+        {...{
+          props: {
+            forms,
+            data: {
+              name: "zyd",
+              title: 1,
+              age: 30,
+              sex: "男",
+              level: 10,
+              position: "测试部",
+            },
+            layout: {
+              use: "row-grid",
+            },
+          },
+        }}
+      />
+    );
+  },
+});
+export const withAttrsFormRowGrid = () => ({
+  render() {
+    return (
+      <DataForm
+        {...{
+          props: {
+            forms: formsRowGrid,
+            data: {
+              name: "zyd",
+              title: 1,
+              age: 30,
+              sex: "男",
+              level: 10,
+              position: "测试部",
+            },
+            layout: {
+              use: "row-grid",
+            },
+          },
+        }}
+      />
+    );
+  },
 });

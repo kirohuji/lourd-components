@@ -1,5 +1,7 @@
 import { Row, Col } from "element-ui";
+import _ from "lodash";
 export default {
+  inheritAttrs: false,
   name: "RowGrid",
   data() {
     return {
@@ -10,15 +12,33 @@ export default {
       ],
     };
   },
+  methods: {
+    transform() {
+      if (this.$attrs.uses) {
+        if (Array.isArray(this.$attrs.uses[0])) {
+          this.matrix = this.$attrs.uses;
+        } else {
+          let group = _.groupBy(
+            this.$attrs.uses,
+            "componentOptions.propsData.item.row"
+          );
+          this.matrix = Object.keys(group).map((item) => group[item]);
+        }
+      }
+    },
+    span(item) {
+      return item.componentOptions.propsData.item.span;
+    },
+  },
   render() {
+    this.transform();
     return (
-      <div>
+      <div style="width:100%">
         {this.matrix.map((row, rowIndex) => (
           <Row gutter={this.gutter} key={rowIndex}>
             {row.map((col, colIndex) => (
-              <Col span={1} key={colIndex}>
-                {(this.$attrs.uses && this.$attrs.uses[rowIndex][colIndex]) ||
-                  col}
+              <Col span={this.span(col) || 24 / row.length} key={colIndex}>
+                {col}
               </Col>
             ))}
           </Row>

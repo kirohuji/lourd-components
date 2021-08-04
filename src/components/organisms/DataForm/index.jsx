@@ -57,16 +57,29 @@ export default {
     },
   },
   render() {
-    const uses = this.forms.map((item, index) => (
-      <BaseFormItem
-        key={index}
-        item={item}
-        value={this.model[item.prop]}
-        {...{
-          on: this.$listeners,
-        }}
-      />
-    ));
+    const uses = this.forms.map((item, index) =>
+      Array.isArray(item) ? (
+        item.map((rowItem) => (
+          <BaseFormItem
+            key={index}
+            item={rowItem}
+            value={this.model[rowItem.prop]}
+            {...{
+              on: this.$listeners,
+            }}
+          />
+        ))
+      ) : (
+        <BaseFormItem
+          key={index}
+          item={item}
+          value={this.model[item.prop]}
+          {...{
+            on: this.$listeners,
+          }}
+        />
+      )
+    );
     return (
       <ElForm
         inline
