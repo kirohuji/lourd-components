@@ -7,6 +7,7 @@ import {
   Option,
 } from "element-ui";
 import { isFunction } from "lodash";
+import Inline from "../Layout/inline";
 const Label = ({ props: { value } }) => <span>{value} </span>;
 const HtmlText = ({ props: { value } }) => <div domPropsInnerHTML={value} />;
 const components = {
@@ -18,6 +19,7 @@ const components = {
   select: Select,
   option: Option,
   "radio-group": RadioGroup,
+  inline: Inline,
 };
 export default {
   name: "BaseEnter",
@@ -32,8 +34,10 @@ export default {
       (key) =>
         isFunction(this.$attrs[key]) && (this.$attrs[key] = this.$attrs[key]())
     );
+    console.log(this.$attrs, this.$props);
     return h(this.components[this.use], {
       props: this.$attrs,
+      attrs: this.$attrs,
       on: this.$listeners,
       scopedSlots: this.$attrs.children
         ? {
