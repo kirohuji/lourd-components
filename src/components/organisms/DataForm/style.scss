@@ -2,16 +2,18 @@
     display: flex;
     text-align: left;
     align-items: flex-end;
-
+    .el-form-item__label {
+        text-align: left;
+    }
     .el-input__inner {
-        width: 250px;
+        width: 120px;
     }
 
     .el-date-editor.el-input {
         width: 150px;
     }
     .el-form-item__label {
-        width: 80px;
+        width: 50px;
     }
     .el-form-item {
         margin-right: 20px;

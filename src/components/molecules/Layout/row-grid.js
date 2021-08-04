@@ -27,7 +27,9 @@ export default {
       }
     },
     span(item) {
-      return item.componentOptions.propsData.item.span;
+      if (item.componentOptions)
+        return item.componentOptions.propsData.item.span;
+      return 1;
     },
   },
   render() {

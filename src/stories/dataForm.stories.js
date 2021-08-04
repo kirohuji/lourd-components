@@ -1,5 +1,7 @@
 import DataForm from "../components/organisms/DataForm";
+import DataSearchForm from "../components/organisms/DataSearchForm";
 import Inline from "../components/molecules/Layout/inline";
+import { Button } from "element-ui";
 export default {
   title: "DataForm",
 };
@@ -145,13 +147,13 @@ const formsRowGrid = [
       label: "名称",
       prop: "name",
       use: "label",
-      span: 8,
+      span: 12,
     },
     {
       label: "年龄",
       prop: "age",
       use: "label",
-      span: 16,
+      span: 12,
     },
   ],
   [
@@ -229,6 +231,55 @@ export const withAttrsFormRowGrid = () => ({
             },
             layout: {
               use: "row-grid",
+            },
+          },
+        }}
+      />
+    );
+  },
+});
+
+const searchForm = [
+  {
+    label: "名称",
+    prop: "name",
+    use: "input",
+    size: "mini",
+  },
+  {
+    label: "年龄",
+    prop: "age",
+    use: "input",
+    size: "mini",
+  },
+  {
+    label: "性别",
+    prop: "sex",
+    use: "input",
+    size: "mini",
+  },
+  {
+    label: "标题",
+    prop: "title",
+    use: "input",
+    size: "mini",
+  },
+];
+export const withSearch = () => ({
+  render() {
+    return (
+      <DataSearchForm
+        {...{
+          props: {
+            forms: searchForm,
+            data: {
+              name: "zyd",
+              title: 1,
+              age: 30,
+              sex: "男",
+            },
+            layout: {
+              use: "inline",
             },
           },
         }}
