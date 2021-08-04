@@ -1,0 +1,22 @@
+.echarts {
+  position: absolute;
+  width: 100% !important;
+  height: 100% !important;
+}
+.download-btn {
+  position: absolute;
+  top: 10px;
+  right: 24px;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #d8dce6;
+  border-radius: 2px;
+}
+
+.download-btn:hover {
+  color: #409eff;
+  border: 1px solid #409eff;
+}

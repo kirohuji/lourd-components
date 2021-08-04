@@ -1,6 +1,6 @@
 import _ from "lodash";
 import BaseFormItem from "../../molecules/BaseFormItem";
-import Inline from "../../molecules/Layout/inline";
+import BaseEnter from "../../molecules/BaseEnter";
 import "./style.scss";
 export default {
   name: "DataForm",
@@ -57,17 +57,29 @@ export default {
     },
   },
   render() {
-    console.log(this.model);
-    const uses = this.forms.map((item, index) => (
-      <BaseFormItem
-        key={index}
-        item={item}
-        value={this.model[item.prop]}
-        {...{
-          on: this.$listeners,
-        }}
-      />
-    ))
+    const uses = this.forms.map((item, index) =>
+      Array.isArray(item) ? (
+        item.map((rowItem) => (
+          <BaseFormItem
+            key={index}
+            item={rowItem}
+            value={this.model[rowItem.prop]}
+            {...{
+              on: this.$listeners,
+            }}
+          />
+        ))
+      ) : (
+        <BaseFormItem
+          key={index}
+          item={item}
+          value={this.model[item.prop]}
+          {...{
+            on: this.$listeners,
+          }}
+        />
+      )
+    );
     return (
       <ElForm
         inline
@@ -80,12 +92,23 @@ export default {
           },
         }}
       >
-        <Inline
-          length={uses.length}
-          gutter={20}
-          direction="column"
-          uses={uses}
-        />
+        {this.$scopedSlots.default ? (
+          this.$scopedSlots.default({ uses })
+        ) : (
+          <BaseEnter
+            {...{
+              props: {
+                use: this.layout.use,
+              },
+              attrs: {
+                uses: uses,
+                length: uses.length,
+                ...this.layout,
+              },
+              on: this.$listeners,
+            }}
+          />
+        )}
       </ElForm>
     );
   },
