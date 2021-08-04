@@ -1,0 +1,79 @@
+.data-search-form {
+  display: flex;
+  text-align: left;
+  align-items: flex-end;
+
+  .el-input__inner {
+    width: 150px;
+  }
+
+  .el-date-editor.el-input {
+    width: 150px;
+  }
+
+  .el-form-item {
+    margin-right: 20px;
+  }
+
+  .buttons {
+    margin-bottom: 18px;
+    width: 131px;
+  }
+}
+.search-filter {
+  background: rgba(255, 255, 255, 1);
+  padding: 8px 16px 0px 16px;
+  font-size: 14px;
+  margin-top: 1px;
+  display: flex;
+  .search-filter-layout {
+    display: flex;
+    // flex-wrap: wrap;
+    align-items: baseline;
+  }
+  .el-tag {
+    cursor: pointer;
+    height: 26px;
+    // min-width:100px;
+    // text-align:;
+    background: rgba(255, 255, 255, 1);
+    font-size: 12px;
+    line-height: 23px;
+    color: #909399;
+    border-color: #dcdfe6;
+    margin-bottom: 8px;
+    .el-icon-close:hover {
+      background-color: white;
+    }
+    &.search {
+      color: rgb(64, 158, 255);
+      border-color: rgb(64, 158, 255);
+    }
+    // &:hover {
+    //   color: rgb(64, 158, 255);;
+    //   border-color: rgb(64, 158, 255);
+    // }
+  }
+  .el-tag .el-icon-close {
+    font-size: 16px;
+    color: inherit;
+  }
+  .el-tag {
+    margin-left: 10px;
+  }
+
+  .button-new-tag {
+    margin-left: 10px;
+    height: 26px;
+    font-size: 12px;
+    line-height: 23px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .input-new-tag {
+    width: 90px;
+    margin-left: 10px;
+    vertical-align: bottom;
+  }
+}
