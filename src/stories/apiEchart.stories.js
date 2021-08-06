@@ -2,7 +2,7 @@ import ApiEchart from "../components/organisms/ApiEchart/index";
 
 export default {
   component: ApiEchart,
-  title: "organisms/ApiEchart(未写完)",
+  title: "Design System/Organisms/ApiEchart(未写完)",
   argTypes: {
     isLoading: {
       control: { type: "boolean" },

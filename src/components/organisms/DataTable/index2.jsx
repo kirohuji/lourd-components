@@ -10,7 +10,6 @@ export default {
       total: 0,
       "page-sizes": [10, 15, 30, 100],
       "page-size": 10,
-      "hide-on-single-page": true,
       background: false,
     },
   }),
@@ -53,7 +52,6 @@ export default {
             },
             on: {
               "selection-change": this.handleSelectionChange,
-              ...this.$listeners,
             },
           }}
         >
@@ -85,7 +83,7 @@ export default {
             }
           })}
         </ElTable>
-        {!(this.$attrs["no-page"] || this.$attrs.noPage) && (
+        {!this.$attrs["no-page"] && (
           <ElPagination
             class="pagination"
             ref="pagination"
@@ -94,7 +92,6 @@ export default {
               on: {
                 "size-change": this.handleSizeChange,
                 "current-change": this.handleCurrentChange,
-                ...this.$listeners,
               },
             }}
           ></ElPagination>

@@ -1,7 +1,54 @@
 import DataTable from "../components/organisms/DataTable";
-
+import * as TableStories from "./table.stories";
+import * as events from "./events";
+import { action } from "@storybook/addon-actions";
+const data = [
+  {
+    name: "郑勇达",
+    type: "开发者",
+  },
+  {
+    name: "zyd",
+    type: "开发者",
+  },
+  {
+    name: "lourd",
+    type: "开发者",
+  },
+  {
+    name: "hjkl",
+    type: "开发者",
+  },
+  {
+    name: "郑勇达1",
+    type: "开发者",
+  },
+  {
+    name: "zyd1",
+    type: "开发者",
+  },
+  {
+    name: "lourd1",
+    type: "开发者",
+  },
+];
 export default {
-  title: "organisms/DataTable",
+  title: "Design System/Organisms/DataTable",
+  actions: { argTypesRegex: "^on[A-Z].*" },
+  argTypes: {
+    currentRowKey: {
+      options: Object.keys(data[0]),
+      control: { type: "radio" },
+    },
+    size: {
+      options: ["medium", "small", "mini"],
+      control: { type: "radio" },
+    },
+    tooltipEffect: {
+      options: ["dark", "light"],
+      control: { type: "radio" },
+    },
+  },
 };
 const column = [
   {
@@ -12,74 +59,45 @@ const column = [
     prop: "index",
     label: "序号",
     type: "index",
-    width: "100",
   },
   {
     prop: "name",
     label: "名称",
-    width: "100",
   },
   {
     prop: "type",
     label: "分类",
-    width: "150",
     "show-overflow-tooltip": true,
   },
 ];
-const data = [
-  {
-    name: 1,
-    type: 1,
-  },
-  {
-    name: 2,
-    type: 1,
-  },
-  {
-    name: 3,
-    type: 1,
-  },
-  {
-    name: 4,
-    type: 1,
-  },
-  {
-    name: 5,
-    type: 1,
-  },
-  {
-    name: 6,
-    type: 1,
-  },
-  {
-    name: 7,
-    type: 1,
-  },
-  {
-    name: 8,
-    type: 1,
-  },
-  {
-    name: 9,
-    type: 1,
-  },
-  {
-    name: 10,
-    type: 1,
-  },
-  {
-    name: 11,
-    type: 1,
-  },
-  {
-    name: 12,
-    type: 1,
-  },
+const event = [
+  ...events.tableEvents,
+  "size-change",
+  "current-change",
+  "prev-click",
+  "next-click",
 ];
-export const withDataTable = () => ({
+const Template = (args, { argTypes }) => ({
+  props: Object.keys(argTypes),
   render() {
+    let handler = {};
+    event.forEach((item) => (handler[item] = (...args) => action(item)(args)));
     return (
-      <DataTable column={column} data={data} idKey="name" selectData={[1, 2]} />
+      <DataTable
+        column={column}
+        data={data}
+        idKey="name"
+        selectData={[1, 2]}
+        {...{
+          attrs: this.$props,
+          on: handler,
+        }}
+      />
     );
   },
 });
+export const withDataTable = Template.bind({});
+withDataTable.args = {
+  ...TableStories.withTable.args,
+  noPage: false,
+};

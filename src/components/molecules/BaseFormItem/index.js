@@ -35,7 +35,10 @@ export default {
     return (
       <FormItem
         {...{
-          props: this.item,
+          props: {
+            ...this.$attrs,
+            ...this.item,
+          },
         }}
       >
         <BaseEnter

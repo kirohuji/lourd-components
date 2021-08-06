@@ -4,7 +4,7 @@ import DataCacheSearchForm from "../components/organisms/DataCacheSearchForm";
 import Inline from "../components/molecules/Layout/inline";
 // import { Button } from "element-ui";
 export default {
-  title: "organisms/DataForm",
+  title: "Design System/Organisms/DataForm",
 };
 const forms = [
   {

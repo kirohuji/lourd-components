@@ -2,7 +2,7 @@ import BaseEchart from "../components/molecules/BaseEchart";
 
 export default {
   component: BaseEchart,
-  title: "molecules/BaseEchart",
+  title: "Design System/Molecules/BaseEchart",
   parameters: {
     backgrounds: {
       values: [
@@ -26,14 +26,14 @@ export const withBarChartByJSX = () => ({
     return <BaseEchart template="bar-chart" />;
   },
 });
-withBarChartByJSX.storyName = "bar-chart(Jsx)";
+// withBarChartByJSX.storyName = "bar-chart(Jsx)";
 
 /** 使用了template语法 */
 export const withBarStackByTemplate = () => ({
   components: { BaseEchart },
   template: '<BaseEchart template="bar-stack"  />',
 });
-withBarStackByTemplate.storyName = "bar-stack(template)";
+// withBarStackByTemplate.storyName = "bar-stack(template)";
 
 /** 使用了props进行数据的传参数 */
 
@@ -48,7 +48,7 @@ export const withLineSmooth = () => ({
   template: '<BaseEchart :template="template" />',
 });
 
-withLineSmooth.storyName = "line-smooth(值使用props传参)";
+// withLineSmooth.storyName = "line-smooth(值使用props传参)";
 
 const Template = (args, { argTypes }) => ({
   components: { BaseEchart },
@@ -58,7 +58,7 @@ const Template = (args, { argTypes }) => ({
 export const withBarYCategory = Template.bind({});
 withBarYCategory.args = { template: "bar-y-category" };
 
-withBarYCategory.storyName = "bar-y-category(值使用props传参($props简洁语法))";
+// withBarYCategory.storyName = "bar-y-category(值使用props传参($props简洁语法))";
 
 export const withLineStack = () => ({
   render() {

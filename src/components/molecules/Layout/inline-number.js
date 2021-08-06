@@ -33,7 +33,11 @@ export default {
             <Row gutter={this.gutter}>
               {Array.apply(null, { length: this.length }).map(
                 (item, index) =>
-                  this.has(rIndex, index) && <Col span={this.span}>Col</Col>
+                  this.has(rIndex, index) && (
+                    <Col span={this.span} key={index}>
+                      Col
+                    </Col>
+                  )
               )}
             </Row>
           ))

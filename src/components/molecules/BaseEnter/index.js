@@ -4,6 +4,7 @@ import {
   DatePicker,
   Select,
   RadioGroup,
+  Radio,
   Option,
 } from "element-ui";
 import { isFunction } from "lodash";
@@ -11,7 +12,7 @@ import Inline from "../Layout/inline";
 import RowGrid from "../Layout/row-grid";
 const Label = ({ props: { value } }) => <span>{value} </span>;
 const HtmlText = ({ props: { value } }) => <div domPropsInnerHTML={value} />;
-const components = {
+export const components = {
   input: Input,
   cascader: Cascader,
   label: Label,
@@ -20,13 +21,23 @@ const components = {
   select: Select,
   option: Option,
   "radio-group": RadioGroup,
+  "radio": Radio,
   inline: Inline,
   "row-grid": RowGrid,
 };
 export default {
   name: "BaseEnter",
   components: {},
-  props: ["use"],
+  props: {
+    /**
+     * 要渲染的组件名称
+     */
+    use: {
+      type: String,
+      required: true,
+      default: false,
+    },
+  },
   inheritAttrs: false,
   data: () => ({
     components: components,
@@ -48,7 +59,7 @@ export default {
                   this.components[this.$attrs.children.use],
                   {
                     props: item,
-                    key: index,
+                    key: index + new Date(),
                   },
                   item.label
                 )

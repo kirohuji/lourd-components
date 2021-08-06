@@ -1,0 +1,133 @@
+import { Meta, ArgsTable, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+import { linkTo } from "@storybook/addon-links";
+import DataForm from "../components/organisms/DataForm";
+import DataSearchForm from "../components/organisms/DataSearchForm";
+import DataCacheSearchForm from "../components/organisms/DataCacheSearchForm";
+import Inline from "../components/molecules/Layout/inline";
+
+<Meta
+  title="Design System/Organisms/DataForm.MDX"
+  component={(DataForm, DataSearchForm, DataCacheSearchForm, Inline)}
+/>
+
+# DataForm
+
+<ArgsTable of={DataForm} />
+
+一个基于 配置的 Element UI 表单(基于 ElForm)组件
+
+参数都是基于 Element UI 原生组件
+
+## 前置条件
+
+### dataForm的基本描述
+
+| 属性  | 值      | 描述                                               |
+| ----- | ------- | -------------------------------------------------- |
+| forms | []  | 表单配置项                                       |
+| layout  | `{ use: "inline" }`  | 用于告诉DataForm如何进行布局        |
+| data   | {} | 值填充                                       |
+
+### form-item 的基本描述
+
+| 属性  | 值      | 描述                                               |
+| ----- | ------- | -------------------------------------------------- |
+| label | "名称"  | 表单项的名称                                       |
+| prop  | "name"  | 表单项 prop，用于配置 Form 以及表单验证等          |
+| use   | "label" | 要使用的组件                                       |
+| row   | 1       | 布局 row-grid 时使用，代表要分类的组名称           |
+| span  | 8       | 布局 row-grid 时使用，表示占多少比例，一行 24 比例 |
+
+### 例子
+
+更多例子可以查看DataForm的
+
+我想要渲染一个表单组件，我已经有以下表单的配置项：
+
+```javascript
+const forms = [
+  {
+    label: "名称",
+    prop: "name",
+    use: "label",
+    row: 1,
+    span: 8,
+  },
+  {
+    label: "年龄",
+    prop: "age",
+    use: "label",
+    row: 1,
+    span: 16,
+  },
+  {
+    label: "性别",
+    prop: "sex",
+    use: "label",
+    row: 2,
+  },
+  {
+    label: "等级",
+    prop: "level",
+    use: "label",
+    row: 2,
+  },
+  {
+    label: "部门",
+    prop: "position",
+    use: "label",
+    row: 3,
+  },
+  {
+    label: "标题",
+    prop: "title",
+    use: "select",
+    size: "mini",
+    row: 3,
+    children: {
+      use: "option",
+      options: [
+        { label: "标题一", value: 1 },
+        { label: "标题二", value: 2 },
+      ],
+    },
+  },
+];
+```
+#### 基于 Template 语法 通过 Attrs 进行传递，使用自定义布局
+
+可以通过 默认插槽的值传递得到`uses`,`uses`是已经映射好的一个表单项集合
+
+```jsx
+export default {
+  components: { DataForm, Inline },
+  data() {
+    return {
+      forms: forms,
+      data: {
+        name: "zyd",
+        title: 1,
+        age: 30,
+        sex: "男",
+        level: 10,
+        position: "测试部",
+      },
+    };
+  },
+  template: `
+    <DataForm :forms="forms" :data="data">
+      <template v-slot:default="{uses}">
+        <Inline
+          :length="uses.length"
+          :gutter="20"
+          direction="column"
+          :uses="uses"
+        />
+      </template>
+    </DataForm>
+  `,
+});
+```
+<Story id="design-system-organisms-dataform--with-template" />
+

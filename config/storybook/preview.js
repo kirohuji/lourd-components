@@ -1,6 +1,7 @@
 import "@/plugins/element";
 import "@/plugins/echarts";
 export const parameters = {
+  controls: { expanded: true },
   backgrounds: {
     values: [
       { name: "red", value: "#f00" },

@@ -5,7 +5,23 @@ import "./style.scss";
 export default {
   name: "DataForm",
   inheritAttrs: false,
-  props: ["forms", "layout", "data"],
+  props: {
+    /**
+     * 表单配置项
+     */
+    forms: {
+      type: Array,
+      required: true,
+    },
+    layout: {
+      type: Object,
+      required: false,
+    },
+    data: {
+      type: Object,
+      required: false,
+    },
+  },
   provider() {
     return {
       form: this,
