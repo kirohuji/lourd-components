@@ -98,7 +98,14 @@ export default {
             </ElButton>
             {this.currentRecord && this.currentRecord.length ? (
               <ElButton size="mini" type="danger" style="margin-left: 8px">
-                删除
+                批量删除
+              </ElButton>
+            ) : (
+              ""
+            )}
+            {this.currentRecord && this.currentRecord.length ? (
+              <ElButton size="mini" style="margin-left: 8px">
+                批量复制
               </ElButton>
             ) : (
               ""
@@ -146,6 +153,7 @@ export default {
                   this.hasOperation && (
                     <div class="manager-table-operation">
                       <ElButton size="mini">编辑</ElButton>
+                      <ElButton size="mini">复制</ElButton>
                       <ElButton size="mini" type="danger">
                         删除
                       </ElButton>
