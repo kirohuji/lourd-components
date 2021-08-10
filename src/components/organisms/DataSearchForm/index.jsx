@@ -30,7 +30,7 @@ export default {
             <ElButton type="primary" size="mini" onClick={() => this.search()}>
               搜索
             </ElButton>
-            <ElButton size="mini">导出</ElButton>
+            {this.$attrs.export && <ElButton size="mini">导出</ElButton>}
           </div>
         )}
       </div>

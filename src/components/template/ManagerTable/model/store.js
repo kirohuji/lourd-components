@@ -6,5 +6,18 @@ export default class Store {
         this[option] = options[option];
       }
     }
+    if (!this.searcher.forms) {
+      this.searcher.forms = options.schema
+        .filter((o) => o.formUse)
+        .map((o) => {
+          return {
+            ...o,
+            use: o.formUse,
+          };
+        });
+    }
+    if (!this.table.column) {
+      this.table.column = options.schema;
+    }
   }
 }

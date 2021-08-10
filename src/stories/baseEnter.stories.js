@@ -100,6 +100,20 @@ withInput.argTypes = {
 };
 withInput.args = {
   use: "input",
+  children: {
+    use: "select",
+    slot: "prepend",
+    options: [
+      {
+        label: "男",
+        value: 1,
+      },
+      {
+        label: "女",
+        value: 2,
+      },
+    ],
+  },
   showPassword: false,
   type: "text",
   ...common,

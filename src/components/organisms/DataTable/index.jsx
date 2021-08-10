@@ -10,7 +10,6 @@ export default {
       total: 0,
       "page-sizes": [10, 15, 30, 100],
       "page-size": 10,
-      "hide-on-single-page": true,
       background: false,
     },
   }),

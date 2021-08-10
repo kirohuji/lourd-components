@@ -30,6 +30,7 @@ export default {
   },
   data() {
     return {
+      properties: [],
       model: {},
     };
   },
@@ -55,18 +56,19 @@ export default {
       this.$refs.form && this.$refs.form.resetFields();
     },
     initData(data) {
-      this.model = Object.assign(this.model, data);
+      this.model = _.pick(Object.assign(this.model, data), this.properties);
     },
     search() {
       this.$emit("search", this.model);
     },
     transform() {
       this.model = {};
+      this.properties = this.forms.map((n) => n.prop)
       this.$set(
         this,
         "model",
         _.zipObject(
-          this.forms.map((n) => n.prop),
+          this.properties,
           this.forms.map((n) => _.defaultTo(n.default, ""))
         )
       );

@@ -21,7 +21,7 @@ export const components = {
   select: Select,
   option: Option,
   "radio-group": RadioGroup,
-  "radio": Radio,
+  radio: Radio,
   inline: Inline,
   "row-grid": RowGrid,
 };
@@ -45,7 +45,8 @@ export default {
   render(h) {
     Reflect.ownKeys(this.$attrs).map(
       (key) =>
-        isFunction(this.$attrs[key]) && (this.$attrs[key] = this.$attrs[key]())
+        isFunction(this.$attrs[key]) &&
+        (this.$attrs[key] = this.$attrs[key].call(this))
     );
     return h(this.components[this.use], {
       props: this.$attrs,
@@ -53,7 +54,7 @@ export default {
       on: this.$listeners,
       scopedSlots: this.$attrs.children
         ? {
-            default: () =>
+            [this.$attrs.children.slot || "default"]: () =>
               this.$attrs.children.options?.map((item, index) =>
                 h(
                   this.components[this.$attrs.children.use],
