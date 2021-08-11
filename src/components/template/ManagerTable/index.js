@@ -96,14 +96,14 @@ export default {
             <ElButton size="mini" type="primary">
               新增
             </ElButton>
-            {this.currentRecord && this.currentRecord.length ? (
+            {this.currentRecord && this.currentRecord.length > 1 ? (
               <ElButton size="mini" type="danger" style="margin-left: 8px">
                 批量删除
               </ElButton>
             ) : (
               ""
             )}
-            {this.currentRecord && this.currentRecord.length ? (
+            {this.currentRecord && this.currentRecord.length > 1 ? (
               <ElButton size="mini" style="margin-left: 8px">
                 批量复制
               </ElButton>
