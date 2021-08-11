@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "よく使われるコンポーネント",
   "mian": "lib/lourd-components.umd.min.js",
-  "author": "lourd",
+  "author": "lourd70330729",
   "private": false,
   "license": "MIT",
   "scripts": {
