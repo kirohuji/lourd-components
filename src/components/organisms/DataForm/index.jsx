@@ -63,7 +63,7 @@ export default {
     },
     transform() {
       this.model = {};
-      this.properties = this.forms.map((n) => n.prop)
+      this.properties = this.forms.map((n) => n.prop);
       this.$set(
         this,
         "model",

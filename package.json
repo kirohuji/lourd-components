@@ -1,8 +1,13 @@
 {
   "name": "lourd-components",
   "version": "0.1.0",
-  "private": true,
+  "description": "よく使われるコンポーネント",
+  "mian": "lib/lourd-components.umd.min.js",
+  "author": "lourd",
+  "private": false,
+  "license": "MIT",
   "scripts": {
+    "lib": "vue-cli-service build --target lib --name lourd-components --dest lib src/index.js",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
