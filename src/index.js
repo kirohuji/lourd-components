@@ -1,3 +1,4 @@
+import "./plugins/element.js";
 import NoContnetShow from "./components/atoms/NoContentShow";
 import Card from "./components/atoms/Card";
 import BaseEnter from "./components/molecules/BaseEnter";
@@ -9,7 +10,6 @@ import DataForm from "./components/organisms/DataForm";
 import DataSearchForm from "./components/organisms/DataSearchForm";
 import DataTable from "./components/organisms/DataTable";
 import ManagerTable from "./components/template/ManagerTable";
-
 const components = [
   NoContnetShow,
   Card,
@@ -34,7 +34,7 @@ if (typeof window !== "undefined" && window.Vue) {
 }
 
 export default {
-  version: "0.1.3",
+  version: "0.1.6",
   install,
   ...components,
 };
