@@ -13,7 +13,7 @@ import "./index.scss";
 //   render() {},
 // };
 export default {
-  name: "managerTable",
+  name: "ManagerTable",
   props: ["config"],
   components: {
     DataSearchForm,

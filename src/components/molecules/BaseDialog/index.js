@@ -2,6 +2,7 @@ import { Dialog } from "element-ui";
 import emitter from "element-ui/src/mixins/emitter";
 export default {
   componentName: "baseDialog",
+  name: 'BaseDialog',
   mixins: [emitter],
   data: () => ({
     visible: false,

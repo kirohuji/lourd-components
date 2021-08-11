@@ -34,6 +34,7 @@
 import BaseEchart from "@/components/molecules/BaseEchart";
 import HWNoContent from "@/components/atoms/NoContentShow";
 export default {
+  name:'ApiEchart',
   props: ["options", "template", "isLoading"],
   components: {
     BaseEchart,

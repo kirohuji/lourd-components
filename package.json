@@ -1,8 +1,8 @@
 {
-  "name": "lourd-components",
-  "version": "0.1.0",
+  "name": "lourd_components",
+  "version": "0.1.2",
   "description": "よく使われるコンポーネント",
-  "mian": "lib/lourd-components.umd.min.js",
+  "main": "lib/lourd-components.umd.min.js",
   "author": "lourd70330729",
   "private": false,
   "license": "MIT",

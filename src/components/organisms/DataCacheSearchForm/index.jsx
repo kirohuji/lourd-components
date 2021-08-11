@@ -30,6 +30,7 @@ const BottomLayout = {
 };
 
 export default {
+  name: 'DataCacheSearchForm',
   // props: ["filter", "forms", "layout", "data", "searcher"],
   props: {
     filter: {

@@ -2,6 +2,7 @@ import Chart from "./model/chart";
 import "./index.css";
 import _ from "lodash";
 export default {
+  name: 'BaseEchart',
   props: {
     template: String || Function,
     options: Object,

@@ -1,5 +1,6 @@
 import DataForm from "../DataForm/index.jsx";
 export default {
+  name: 'DataSearchForm',
   props: ["forms", "layout", "data", "searcher"],
   methods: {
     search() {
