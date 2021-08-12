@@ -1,4 +1,4 @@
-import { defaultTo } from "lodash";
+import { has } from "lodash";
 export default class Store {
   constructor(options) {
     for (let option in options) {
@@ -9,25 +9,28 @@ export default class Store {
     }
     if (this.searcher && !this.searcher.forms) {
       this.searcher.forms = options.schema
-        .filter((o) => o.formUse)
+        .filter((o) => !!o["searcher"])
         .map((o) => {
           return {
             ...o,
-            use: o.formUse,
+            ...o["searcher"],
           };
         });
     }
-    if (this.form && !this.form.forms) {
-      this.form.forms = options.schema
-        .filter((o) => o.formUse)
+    if (this.forms && !this.forms.forms) {
+      this.forms.forms = options.schema
+        .filter((o) => !!o["forms"])
         .map((o) => {
           return {
             ...o,
-            edit: defaultTo(o.edit, true),
-            use: o.formUse,
+            ...o["forms"],
+            edit: has(o["forms"], "edit") ? !o["forms"].edit : false,
+            add: has(o["forms"], "add") ? !o["forms"].add : false,
           };
         });
     }
+    // debugger;
+    console.log("执行一次");
     if (this.table && !this.table.column) {
       this.table.column = options.schema;
     }

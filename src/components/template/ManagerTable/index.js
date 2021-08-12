@@ -102,7 +102,7 @@ export default {
                 this.handleDialog({
                   mode: "add",
                   form: {
-                    ...this.store.form,
+                    ...this.store.forms,
                     data: {},
                   },
                 })
@@ -183,9 +183,9 @@ export default {
                         size="mini"
                         onClick={() =>
                           this.handleDialog({
-                            mode: "add",
+                            mode: "edit",
                             form: {
-                              ...this.store.form,
+                              ...this.store.forms,
                               data: row,
                             },
                           })

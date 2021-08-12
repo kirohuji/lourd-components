@@ -123,28 +123,53 @@ const schema = {
     {
       prop: "name",
       label: "名称",
-      formUse: "input",
+      searcher: {
+        use: "input",
+      },
+      forms: {
+        use: "input",
+      },
       size: "mini",
       edit: false,
     },
     {
       prop: "sex",
       label: "性别",
-      formUse: "select",
-      children: () => {
-        return {
-          use: "option",
-          options: [
-            {
-              label: "男",
-              value: 1,
-            },
-            {
-              label: "女",
-              value: 2,
-            },
-          ],
-        };
+      forms: {
+        use: "select",
+        children: () => {
+          return {
+            use: "option",
+            options: [
+              {
+                label: "男",
+                value: 1,
+              },
+              {
+                label: "女",
+                value: 2,
+              },
+            ],
+          };
+        },
+      },
+      searcher: {
+        use: "select",
+        children: () => {
+          return {
+            use: "option",
+            options: [
+              {
+                label: "男",
+                value: 1,
+              },
+              {
+                label: "女",
+                value: 2,
+              },
+            ],
+          };
+        },
       },
       size: "mini",
       formatter: (row) => {
@@ -154,7 +179,13 @@ const schema = {
     {
       prop: "title",
       label: "标题",
-      formUse: "input",
+      searcher: {
+        use: "input",
+      },
+      forms: {
+        edit: false,
+        use: "input",
+      },
       size: "mini",
     },
     {
@@ -172,13 +203,13 @@ const schema = {
       use: "inline",
     },
   },
-  form:{
+  forms: {
     data: {},
     layout: {
-      use: 'inline',
+      use: "inline",
       gutter: 20,
       direction: "column",
-    }
+    },
   },
   searcher: {
     data: {
@@ -214,14 +245,14 @@ const events = [
 ];
 export const withSchema = () => ({
   render() {
-    let handler = {};
-    events.forEach((item) => (handler[item] = (...args) => action(item)(args)));
+    // let handler = {};
+    // events.forEach((item) => (handler[item] = (...args) => action(item)(args)));
     return (
       <ManagerTable
         config={schema}
-        {...{
-          on: handler,
-        }}
+        // {...{
+        //   on: handler,
+        // }}
       />
     );
   },
