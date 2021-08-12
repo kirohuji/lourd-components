@@ -1,5 +1,5 @@
 export default {
-  name: 'Card',
+  name: "Card",
   render() {
     return (
       <div

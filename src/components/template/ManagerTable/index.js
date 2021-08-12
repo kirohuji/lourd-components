@@ -5,6 +5,7 @@ import Store from "./model/store";
 import emitter from "element-ui/src/mixins/emitter";
 import { find } from "lodash";
 import BaseEnter from "../../molecules/BaseEnter";
+import DataDialog from "../../organisms/DataDialog";
 // import _ from "lodash";
 // import BaseDialog from "../../molecules/BaseDialog";
 // import DataForm from "../../organisms/DataForm";
@@ -19,6 +20,7 @@ export default {
     DataSearchForm,
     DataTable,
     BaseEnter,
+    DataDialog,
   },
   // watch: {
   //   "operationHeader.select": {
@@ -35,7 +37,7 @@ export default {
   data() {
     const store = new Store(this.config);
     return {
-      hasOperation: false,
+      hasOperation: true,
       store: store,
       currentRecord: null,
       operationHeader: {
@@ -93,7 +95,19 @@ export default {
                 )}
               </ElSelect>
             </ElInput> */}
-            <ElButton size="mini" type="primary">
+            <ElButton
+              size="mini"
+              type="primary"
+              onClick={() =>
+                this.handleDialog({
+                  mode: "add",
+                  form: {
+                    ...this.store.form,
+                    data: {},
+                  },
+                })
+              }
+            >
               新增
             </ElButton>
             {this.currentRecord && this.currentRecord.length > 1 ? (
@@ -123,14 +137,27 @@ export default {
     }
   },
   methods: {
+    handleDialog(opt) {
+      this.$nextTick(() => {
+        console.log(opt);
+        if (this.$refs.dialog) {
+          this.$refs.dialog.open(opt);
+        }
+      });
+    },
     handleSelect(select) {
       this.currentRecord = select;
       console.log(this.currentRecord);
     },
   },
+  mounted() {
+    console.log("更新");
+    this.$forceUpdate();
+  },
   render() {
     return (
       <div class="manager-table">
+        <DataDialog ref="dialog" />
         <Card class="main-content-header">
           <DataSearchForm
             {...{
@@ -149,10 +176,23 @@ export default {
                 "select-all": this.handleSelect,
               },
               scopedSlots: {
-                operation: () =>
+                operation: ({ row }) =>
                   this.hasOperation && (
                     <div class="manager-table-operation">
-                      <ElButton size="mini">编辑</ElButton>
+                      <ElButton
+                        size="mini"
+                        onClick={() =>
+                          this.handleDialog({
+                            mode: "add",
+                            form: {
+                              ...this.store.form,
+                              data: row,
+                            },
+                          })
+                        }
+                      >
+                        编辑
+                      </ElButton>
                       <ElButton size="mini">复制</ElButton>
                       <ElButton size="mini" type="danger">
                         删除

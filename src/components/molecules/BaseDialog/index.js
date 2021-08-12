@@ -2,12 +2,10 @@ import { Dialog } from "element-ui";
 import emitter from "element-ui/src/mixins/emitter";
 export default {
   componentName: "baseDialog",
-  name: 'BaseDialog',
+  name: "BaseDialog",
   mixins: [emitter],
   data: () => ({
     visible: false,
-    loading: false,
-    loadingInstance: undefined,
   }),
   inheritAttrs: false,
   mounted() {
@@ -18,9 +16,9 @@ export default {
   methods: {
     open() {
       this.visible = true;
-      this.loading = true;
     },
     close() {
+      this.$emit("closed");
       this.visible = false;
     },
     handleClose(done) {
@@ -51,7 +49,6 @@ export default {
           style={{
             minHeight: "50px",
           }}
-          v-loading={this.loading}
         >
           {this.$scopedSlots.default && this.$scopedSlots.default()}
         </div>

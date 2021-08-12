@@ -1,7 +1,7 @@
 import "./style.scss";
 import multipleSelect from "./multipleSelect";
 export default {
-  name: 'DataTable',
+  name: "DataTable",
   props: ["column", "data", "total", "idKey", "selectData"],
   mixins: [multipleSelect],
   data: () => ({

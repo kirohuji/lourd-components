@@ -125,6 +125,7 @@ const schema = {
       label: "名称",
       formUse: "input",
       size: "mini",
+      edit: false,
     },
     {
       prop: "sex",
@@ -170,6 +171,14 @@ const schema = {
     layout: {
       use: "inline",
     },
+  },
+  form:{
+    data: {},
+    layout: {
+      use: 'inline',
+      gutter: 20,
+      direction: "column",
+    }
   },
   searcher: {
     data: {

@@ -121,7 +121,7 @@
 // import { service } from "./service";
 import { VueCropper } from "vue-cropper";
 export default {
-  name: 'BaseImageUpload',
+  name: "BaseImageUpload",
   components: {
     VueCropper,
   },
