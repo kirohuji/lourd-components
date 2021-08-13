@@ -212,6 +212,8 @@ const schema = {
     },
   },
   searcher: {
+    filter: true,
+    searcher: true,
     data: {
       name: "zyd",
       title: 1,

@@ -24,11 +24,7 @@ export default {
           ""
         )}
         <ElButton
-          style={{
-            height: "32px",
-            display: "flex",
-            alignItems: "center",
-          }}
+          size="mini"
           type="primary"
           icon={this.searchIcon}
           onClick={() => this.$emit("submit", "search")}

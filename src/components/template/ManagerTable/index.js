@@ -1,5 +1,5 @@
 import Card from "../../atoms/Card";
-import DataCacheSearchForm from "../../organisms/DataSearchForm";
+import DataCacheSearchForm from "../../organisms/DataCacheSearchForm";
 import DataTable from "../../organisms/DataTable";
 import Store from "./model/store";
 import emitter from "element-ui/src/mixins/emitter";

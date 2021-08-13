@@ -91,6 +91,7 @@ export default {
       this.refresh();
     }
     this.store = Store(this.author, this.id);
+    // debugger;
   },
   methods: {
     refresh() {
