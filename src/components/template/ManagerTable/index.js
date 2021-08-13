@@ -1,5 +1,5 @@
 import Card from "../../atoms/Card";
-import DataSearchForm from "../../organisms/DataSearchForm";
+import DataCacheSearchForm from "../../organisms/DataSearchForm";
 import DataTable from "../../organisms/DataTable";
 import Store from "./model/store";
 import emitter from "element-ui/src/mixins/emitter";
@@ -17,7 +17,7 @@ export default {
   name: "ManagerTable",
   props: ["config"],
   components: {
-    DataSearchForm,
+    DataCacheSearchForm,
     DataTable,
     BaseEnter,
     DataDialog,
@@ -159,7 +159,7 @@ export default {
       <div class="manager-table">
         <DataDialog ref="dialog" />
         <Card class="main-content-header">
-          <DataSearchForm
+          <DataCacheSearchForm
             {...{
               props: this.store.searcher,
               on: this.$listeners,
