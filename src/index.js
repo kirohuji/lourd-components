@@ -10,7 +10,33 @@ import DataForm from "./components/organisms/DataForm";
 import DataSearchForm from "./components/organisms/DataSearchForm";
 import DataTable from "./components/organisms/DataTable";
 import ManagerTable from "./components/template/ManagerTable";
-const components = [
+import {
+  Input,
+  Cascader,
+  DatePicker,
+  Select,
+  RadioGroup,
+  Radio,
+  Option,
+} from "element-ui";
+import Inline from "./components/molecules/Layout/inline";
+import RowGrid from "./components/molecules/Layout/row-grid";
+const Label = ({ props: { value } }) => <span>{value} </span>;
+const HtmlText = ({ props: { value } }) => <div domPropsInnerHTML={value} />;
+export const components = {
+  input: Input,
+  cascader: Cascader,
+  label: Label,
+  html: HtmlText,
+  "date-picker": DatePicker,
+  select: Select,
+  option: Option,
+  "radio-group": RadioGroup,
+  radio: Radio,
+  inline: Inline,
+  "row-grid": RowGrid,
+};
+const installComponents = [
   NoContnetShow,
   Card,
   BaseEnter,
@@ -23,10 +49,11 @@ const components = [
   DataTable,
   ManagerTable,
 ];
-const install = function (Vue) {
-  components.forEach((component) => {
+const install = function (Vue, opts) {
+  installComponents.forEach((component) => {
     Vue.component(component.name, component);
   });
+  Vue.prototype.$baseComponents = Object.assign(components, opts.baseEnter);
 };
 /* istanbul ignore if */
 if (typeof window !== "undefined" && window.Vue) {
@@ -34,7 +61,7 @@ if (typeof window !== "undefined" && window.Vue) {
 }
 
 export default {
-  version: "0.1.11",
+  version: "0.1.12",
   install,
-  ...components,
+  ...installComponents,
 };

@@ -1,6 +1,6 @@
 {
   "name": "lourd_components",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "よく使われるコンポーネント",
   "main": "lib/lourd-components.umd.min.js",
   "author": "lourd70330729",

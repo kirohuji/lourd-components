@@ -10,10 +10,11 @@ export default {
       data: {},
       mode: null,
       visible: false,
+      width: null,
     };
   },
   methods: {
-    open({ form, mode }) {
+    open({ form, mode, width = "330px" }) {
       this.form = form;
       this.form.forms = form.forms.map((item) => {
         return {
@@ -22,6 +23,7 @@ export default {
         };
       });
       this.mode = mode;
+      this.width = width;
       this.visible = true;
       this.$refs.dialog.open();
     },
@@ -31,7 +33,12 @@ export default {
   },
   render() {
     return (
-      <BaseDialog ref="dialog" onClosed={() => this.close()} title="编辑">
+      <BaseDialog
+        width={this.width}
+        ref="dialog"
+        onClosed={() => this.close()}
+        title={this.mode === "edit" ? "编辑" : "新增"}
+      >
         {this.visible && (
           <DataForm
             {...{
@@ -39,6 +46,19 @@ export default {
             }}
           />
         )}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <ElButton size="mini" type="primary">
+            确定
+          </ElButton>
+          <ElButton size="mini" onClick={() => this.$refs.dialog.close()}>
+            取消
+          </ElButton>
+        </div>
       </BaseDialog>
     );
   },

@@ -117,13 +117,13 @@ export default {
             ) : (
               ""
             )}
-            {this.currentRecord && this.currentRecord.length > 1 ? (
+            {/* {this.currentRecord && this.currentRecord.length > 1 ? (
               <ElButton size="mini" style="margin-left: 8px">
                 批量复制
               </ElButton>
             ) : (
               ""
-            )}
+            )} */}
           </div>
         ),
       },
@@ -193,6 +193,7 @@ export default {
                       >
                         编辑
                       </ElButton>
+                      <ElButton size="mini">查看</ElButton>
                       <ElButton size="mini">复制</ElButton>
                       <ElButton size="mini" type="danger">
                         删除

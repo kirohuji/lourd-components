@@ -218,7 +218,7 @@ const schema = {
       name: "zyd",
       title: 1,
       age: 30,
-      sex: 1,
+      sex: 2,
     },
     layout: {
       use: "inline",

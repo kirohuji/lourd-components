@@ -30,6 +30,7 @@ export default {
     return (
       <Dialog
         ref="dialog"
+        // style="width: 530px"
         {...{
           props: this.$attrs,
           on: {

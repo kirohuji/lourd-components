@@ -1,4 +1,5 @@
-import BaseEnter, { components } from "../components/molecules/BaseEnter";
+import BaseEnter from "../components/molecules/BaseEnter";
+import { components } from "../index";
 const common = {
   disabled: false,
   readonly: false,

@@ -1,30 +1,5 @@
-import {
-  Input,
-  Cascader,
-  DatePicker,
-  Select,
-  RadioGroup,
-  Radio,
-  Option,
-} from "element-ui";
 import { isFunction } from "lodash";
-import Inline from "../Layout/inline";
-import RowGrid from "../Layout/row-grid";
-const Label = ({ props: { value } }) => <span>{value} </span>;
-const HtmlText = ({ props: { value } }) => <div domPropsInnerHTML={value} />;
-export const components = {
-  input: Input,
-  cascader: Cascader,
-  label: Label,
-  html: HtmlText,
-  "date-picker": DatePicker,
-  select: Select,
-  option: Option,
-  "radio-group": RadioGroup,
-  radio: Radio,
-  inline: Inline,
-  "row-grid": RowGrid,
-};
+import { components } from "../../../index";
 export default {
   name: "BaseEnter",
   components: {},
@@ -39,9 +14,11 @@ export default {
     },
   },
   inheritAttrs: false,
-  data: () => ({
-    components: components,
-  }),
+  data() {
+    return {
+      components: this.$baseComponents || components,
+    };
+  },
   render(h) {
     Reflect.ownKeys(this.$attrs).map(
       (key) =>
