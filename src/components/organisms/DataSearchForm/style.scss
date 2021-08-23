@@ -1,12 +1,11 @@
 .data-search-form {
   .data-form {
     display: flex;
-    text-align: left;
+    text-align: right;
     align-items: flex-end;
     .el-input__inner {
       width: 150px;
     }
-
     .el-date-editor {
       width: 150px;
     }
@@ -19,7 +18,10 @@
     .el-form-item {
       margin-right: 20px;
     }
-
+    .el-form-item__label {
+      width: 68px;
+      text-align: right;
+  }
     .buttons {
       margin-bottom: 22px;
     }

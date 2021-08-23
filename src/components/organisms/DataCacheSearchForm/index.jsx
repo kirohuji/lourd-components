@@ -90,7 +90,7 @@ export default {
       this.store.fetchCurrent(this.fetchCurrent);
       this.refresh();
     }
-    this.store = Store(this.author || 'lourd', this.id);
+    this.store = Store(this.author || "lourd", this.id);
     // debugger;
   },
   methods: {
