@@ -29,8 +29,6 @@ export default class Store {
           };
         });
     }
-    // debugger;
-    console.log("执行一次");
     if (this.table && !this.table.column) {
       this.table.column = options.schema;
     }

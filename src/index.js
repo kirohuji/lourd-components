@@ -10,6 +10,8 @@ import DataForm from "./components/organisms/DataForm";
 import DataSearchForm from "./components/organisms/DataSearchForm";
 import DataTable from "./components/organisms/DataTable";
 import ManagerTable from "./components/template/ManagerTable";
+import EditTable from "./components/template/EditTable/index.js";
+import BaseSearch from "./components/molecules/BaseSearch";
 import {
   Input,
   Cascader,
@@ -35,6 +37,7 @@ export const components = {
   radio: Radio,
   inline: Inline,
   "row-grid": RowGrid,
+  search: BaseSearch,
 };
 const installComponents = [
   NoContnetShow,
@@ -48,6 +51,7 @@ const installComponents = [
   DataSearchForm,
   DataTable,
   ManagerTable,
+  EditTable,
 ];
 const install = function (Vue, opts) {
   installComponents.forEach((component) => {
@@ -61,7 +65,7 @@ if (typeof window !== "undefined" && window.Vue) {
 }
 
 export default {
-  version: "0.1.13",
+  version: "0.1.14",
   install,
   ...installComponents,
 };

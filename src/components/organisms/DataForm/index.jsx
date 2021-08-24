@@ -4,7 +4,14 @@ import BaseEnter from "../../molecules/BaseEnter";
 import "./style.scss";
 export default {
   name: "DataForm",
+  componentName: "DataForm",
   inheritAttrs: false,
+  inject: {
+    template: {
+      from: "template",
+      default: {},
+    },
+  },
   props: {
     /**
      * 表单配置项
@@ -21,9 +28,14 @@ export default {
       type: Object,
       required: false,
     },
+    collector: {
+      type: String,
+      required: false,
+    },
   },
   provider() {
     return {
+      organisms: this,
       form: this,
       model: this.model,
     };
@@ -61,6 +73,17 @@ export default {
     search() {
       this.$emit("search", this.model);
     },
+    currentData() {
+      const currentData = {};
+      // console.log(this);
+      // debugger;
+      Object.keys(this.$refs)
+        .filter((item) => item.includes("baseFormItem-"))
+        .forEach((item) => {
+          currentData[this.$refs[item].item.prop] = this.$refs[item].innerValue;
+        });
+      return currentData;
+    },
     transform() {
       this.model = {};
       this.properties = this.forms.map((n) => n.prop);
@@ -69,7 +92,12 @@ export default {
         "model",
         _.zipObject(
           this.properties,
-          this.forms.map((n) => _.defaultTo(n.default, ""))
+          this.forms.map((n) =>
+            _.defaultTo(
+              _.isFunction(n.default) ? n.default.call(this) : n.default,
+              ""
+            )
+          )
         )
       );
     },
@@ -77,8 +105,9 @@ export default {
   render() {
     const uses = this.forms.map((item, index) =>
       Array.isArray(item) ? (
-        item.map((rowItem) => (
+        item.map((rowItem, rowIndex) => (
           <BaseFormItem
+            ref={`baseFormItem-${rowIndex}`}
             key={index}
             item={rowItem}
             value={this.model[rowItem.prop]}
@@ -90,6 +119,7 @@ export default {
       ) : (
         <BaseFormItem
           key={index}
+          ref={`baseFormItem-${index}`}
           item={item}
           value={this.model[item.prop]}
           {...{

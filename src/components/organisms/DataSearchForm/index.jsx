@@ -1,12 +1,20 @@
 import DataForm from "../DataForm/index.jsx";
 import ButtonGroup from "./ButtonGroup/index.js";
 import "./style.scss";
+import emitter from "element-ui/src/mixins/emitter";
 export default {
   name: "DataSearchForm",
-  props: ["forms", "layout", "data", "searcher"],
+  componentName: "DataSearchForm",
+  props: ["forms", "layout", "data", "searcher", "actual"],
+  mixins: [emitter],
   methods: {
     search() {
-      this.$emit("search", this.$refs.dataForm.model);
+      // this.$emit("search", this.$refs.dataForm.currentData());
+      this.$emit("events", {
+        name: "search",
+        componentName: "DataSearchForm",
+        data: this.$refs.dataForm.currentData(),
+      });
     },
     submit(payload) {
       this.$emit("submit", {
@@ -21,14 +29,25 @@ export default {
       this.$refs.dataForm.initData(data);
     },
   },
+  mounted() {
+    this.$on("search", () => {
+      this.search();
+    });
+  },
   render() {
     return (
-      <div style="display: flex;align-items: end" class="data-search-form">
+      <div
+        style="display: flex;align-items: end;justify-content: space-between;"
+        class="data-search-form"
+      >
         <DataForm
           ref="dataForm"
           class="data-form"
           {...{
-            props: this._props,
+            props: {
+              collector: "dataSearchForm",
+              ...this._props,
+            },
           }}
         />
         {this.searcher && (
@@ -43,7 +62,7 @@ export default {
           <div class="buttons">{this.$scopedSlots.right()}</div>
         ) : (
           <div class="buttons">
-            {!this.searcher && (
+            {!this.searcher && !this.actual && (
               <ElButton
                 type="primary"
                 size="mini"

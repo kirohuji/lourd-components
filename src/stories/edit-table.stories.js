@@ -1,5 +1,5 @@
 import EditTable from "../components/template/EditTable";
-import { cascaderOption } from "./config";
+import { cascaderOption, radioBorderGroup } from "./config";
 export default {
   title: "Design System/Template/EditTable",
 };
@@ -40,22 +40,33 @@ const schema = {
       prop: "name",
       label: "姓名",
       width: "150",
+      forms: {
+        size: "small",
+        order: 2,
+        placeholder: "请输入内容",
+        use: "input",
+      },
     },
     {
       prop: "node_name",
       label: "所属机构",
       width: "450",
-      searcher: {
-        order: 2,
-        use: "cascader",
-        size: "mini",
-        expandTrigger: "hover",
-        "collapse-tags": true,
-        options: cascaderOption,
-        props: {
-          value: "node_id",
-          label: "name",
-          checkStrictly: false,
+      add: true,
+      order: 1,
+      use: "cascader",
+      size: "small",
+      expandTrigger: "hover",
+      "collapse-tags": true,
+      options: cascaderOption,
+      props: {
+        value: "node_id",
+        label: "name",
+        checkStrictly: false,
+      },
+      searcher: {},
+      forms: {
+        default: function () {
+          return this.template.currentState.dataSearchForm.node_name;
         },
       },
       isHide: () => {
@@ -65,14 +76,39 @@ const schema = {
     {
       prop: "r_name",
       label: "所属角色",
-      width: "250",
+      width: "435",
+      size: "small",
       isHide: () => {
         return localStorage.getItem("selectedTab") === "1";
+      },
+      forms: {
+        use: "radio-group",
+        class: "radio-border-group",
+        children: () => {
+          return {
+            use: "radio",
+            cache: "r_name",
+            options: () =>
+              radioBorderGroup.map((item) => {
+                return {
+                  label: item.name,
+                  value: item.r_id,
+                };
+              }),
+          };
+        },
       },
     },
     {
       prop: "remark",
       label: "备注",
+      size: "small",
+      forms: {
+        class: "textarea-435",
+        use: "input",
+        type: "textarea",
+        placeholder: "请输入备注",
+      },
     },
     {
       prop: "status",
@@ -89,41 +125,11 @@ const schema = {
     {
       prop: "sex",
       label: "性别",
-      forms: {
-        use: "select",
-        children: () => {
-          return {
-            use: "option",
-            options: [
-              {
-                label: "男",
-                value: 1,
-              },
-              {
-                label: "女",
-                value: 2,
-              },
-            ],
-          };
-        },
-      },
-      size: "mini",
+      size: "small",
       formatter: (row) => {
         return row?.sex === 1 ? "男" : "女";
       },
-    },
-    {
-      prop: "title",
-      label: "标题",
-      searcher: {
-        order: 1,
-        use: "input",
-      },
-      forms: {
-        edit: false,
-        use: "input",
-      },
-      size: "mini",
+      isHide: () => true,
     },
     {
       prop: "type",
@@ -133,14 +139,26 @@ const schema = {
     },
   ],
   table: {
-    data: tableData,
+    data: [],
   },
   dialog: {
     layout: {
       use: "inline",
     },
+    create: "新建用户",
   },
   forms: {
+    forms: [
+      {
+        prop: "phone",
+        label: "手机号",
+        width: "150",
+        size: "small",
+        order: 3,
+        placeholder: "请输入手机号",
+        use: "input",
+      },
+    ],
     data: {},
     layout: {
       use: "inline",
@@ -149,21 +167,83 @@ const schema = {
     },
   },
   searcher: {
+    forms: [
+      {
+        prop: "title",
+        label: "用户搜索",
+        order: 2,
+        use: "search",
+        size: "small",
+      },
+    ],
     filter: false,
     searcher: false,
-    data: {
-      name: "zyd",
-      title: 1,
-      age: 30,
-      sex: 2,
-    },
+    actual: true,
+    create: "新建用户",
+    data: {},
     layout: {
       use: "inline",
     },
   },
 };
 export const withSchema = () => ({
+  modules: ["service1", "service2"],
+  provide() {
+    return {
+      page: this,
+    };
+  },
+  data() {
+    return {
+      tableData: [
+        {
+          name: 1,
+          type: 1,
+          age: 64,
+          sex: 1,
+          status: "allow",
+          title: "test",
+        },
+        {
+          name: 2,
+          type: 1,
+          age: 64,
+          sex: 2,
+          title: "test",
+        },
+        {
+          name: 2,
+          type: 1,
+          age: 64,
+          sex: 2,
+          title: "test",
+        },
+        {
+          name: 2,
+          type: 1,
+          age: 64,
+          sex: 2,
+          title: "test",
+        },
+      ],
+    };
+  },
+  methods: {
+    show(payload) {
+      console.log(payload);
+      this.tableData.push({
+        name: 1,
+        type: 1,
+        age: 64,
+        sex: 1,
+        status: "allow",
+        title: "test",
+      });
+    },
+  },
   render() {
-    return <EditTable config={schema} />;
+    return (
+      <EditTable config={schema} onEvents={(payload) => this.show(payload)} />
+    );
   },
 });

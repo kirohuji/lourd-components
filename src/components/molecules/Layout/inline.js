@@ -1,4 +1,3 @@
-import { orderBy } from "lodash";
 export default {
   name: "Inline",
   props: ["length", "direction", "gutter", "wrap"],
@@ -14,7 +13,7 @@ export default {
     },
   },
   render() {
-    this.$attrs.uses = orderBy(this.$attrs.uses, ["order"], "desc");
+    // this.$attrs.uses = orderBy(this.$attrs.uses, ["order"], "desc");
     return (
       <div
         class="inline"

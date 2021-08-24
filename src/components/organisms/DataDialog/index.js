@@ -1,5 +1,6 @@
 import BaseDialog from "../../molecules/BaseDialog";
 import DataForm from "../DataForm";
+import "./index.scss";
 export default {
   components: {
     BaseDialog,
@@ -11,10 +12,11 @@ export default {
       mode: null,
       visible: false,
       width: null,
+      title: "",
     };
   },
   methods: {
-    open({ form, mode, width = "330px" }) {
+    open({ form, mode, title, width = "50%" }) {
       this.form = form;
       this.form.forms = form.forms.map((item) => {
         return {
@@ -23,6 +25,7 @@ export default {
         };
       });
       this.mode = mode;
+      this.title = title;
       this.width = width;
       this.visible = true;
       this.$refs.dialog.open();
@@ -32,17 +35,28 @@ export default {
     },
   },
   render() {
+    // debugger
     return (
       <BaseDialog
         width={this.width}
         ref="dialog"
+        custom-class="data-dialog"
         onClosed={() => this.close()}
-        title={this.mode === "edit" ? "编辑" : "新增"}
+        scopedSlots={{
+          title: () => (
+            <div style="position: relative;">
+              <div class="title">{this.title}</div>
+            </div>
+          ),
+        }}
       >
         {this.visible && (
           <DataForm
             {...{
-              props: this.form,
+              props: {
+                collector: "dialogForm",
+                ...this.form,
+              },
             }}
           />
         )}
@@ -52,12 +66,8 @@ export default {
             justifyContent: "center",
           }}
         >
-          <ElButton size="mini" type="primary">
-            确定
-          </ElButton>
-          <ElButton size="mini" onClick={() => this.$refs.dialog.close()}>
-            取消
-          </ElButton>
+          <ElButton onClick={() => this.$refs.dialog.close()}>取消</ElButton>
+          <ElButton type="primary">确定</ElButton>
         </div>
       </BaseDialog>
     );

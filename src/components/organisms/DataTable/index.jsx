@@ -2,6 +2,7 @@ import "./style.scss";
 import multipleSelect from "./multipleSelect";
 export default {
   name: "DataTable",
+  componentName: "DataTable",
   props: ["column", "data", "total", "idKey", "selectData"],
   mixins: [multipleSelect],
   data: () => ({
@@ -34,10 +35,10 @@ export default {
   },
   methods: {
     handleSizeChange() {
-      this.$emit("change");
+      this.$emit("change", this.pagination);
     },
     handleCurrentChange() {
-      this.$emit("change");
+      this.$emit("change", this.pagination);
     },
   },
   render() {

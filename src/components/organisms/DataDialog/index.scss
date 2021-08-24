@@ -1,0 +1,71 @@
+.data-dialog {
+  width: 50%;
+  .el-dialog__header {
+    // height: 40px;
+    padding: 8px 16px;
+    text-align: left;
+    // background-color: rgba(242, 242, 242, 1);
+    .title {
+      padding: 20px;
+      text-align: center;
+      font-size: 18px;
+      color: #000000;
+      border-bottom: 1px solid #ccd3d9;
+    }
+    .el-dialog__title {
+      font-size: 14px;
+      font-weight: 700;
+      color: rgba(56, 56, 56, 1);
+    }
+
+    .el-dialog__headerbtn {
+      top: 8px;
+      right: 8px;
+      font-size: 22px;
+      .el-dialog__close {
+        color: #ccd3d9;
+      }
+    }
+  }
+
+  .el-dialog__body {
+    padding: 8px 30px;
+    padding-bottom: 10px;
+
+    .data-form {
+      .el-form-item__label {
+        width: 68px;
+        text-align: right;
+      }
+      .el-input__inner {
+        width: 250px;
+      }
+      .textarea-435 {
+        width: 453px;
+      }
+      .radio-border-group {
+        padding: 16px 0px 0 16px;
+        border: 1px solid #b6c8d5;
+        border-radius: 4px;
+        width: 435px;
+        display: flex;
+        flex-wrap: wrap;
+        .el-radio {
+          width: 115px;
+          margin-bottom: 15px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          word-break: break-all;
+        }
+      }
+    }
+  }
+  .el-dialog__footer {
+    display: flex;
+    justify-content: center;
+    .el-button--medium {
+      padding: 10px 32px;
+    }
+  }
+}

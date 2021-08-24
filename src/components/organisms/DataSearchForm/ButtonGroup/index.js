@@ -27,7 +27,7 @@ export default {
           size="mini"
           type="primary"
           icon={this.searchIcon}
-          onClick={() => this.$emit("submit", "search")}
+          onClick={() => this.$emit("search")}
         >
           搜索
         </ElButton>

@@ -1,8 +1,27 @@
 import { isFunction } from "lodash";
 import { components } from "../../../index";
+import { dictionaries } from "../../../composables/context-cache";
 export default {
   name: "BaseEnter",
   components: {},
+  inject: {
+    // organisms: {
+    //   from: "organisms",
+    //   default: {},
+    // },
+    template: {
+      from: "template",
+      default: {},
+    },
+    // model: {
+    //   from: "model",
+    //   default: {},
+    // },
+    // form: {
+    //   from: "form",
+    //   default: [],
+    // },
+  },
   props: {
     /**
      * 要渲染的组件名称
@@ -19,11 +38,22 @@ export default {
       components: this.$baseComponents || components,
     };
   },
+  methods: {
+    checkCached(target) {
+      if (target.cache) {
+        if (!this.$cache[target.cache]) {
+          this.$cache[target.cache] = dictionaries(target.cache);
+        }
+        target.options = this.$cache[target.cache](target.options);
+      }
+    },
+  },
   render(h) {
     Reflect.ownKeys(this.$attrs).map(
       (key) =>
         isFunction(this.$attrs[key]) &&
-        (this.$attrs[key] = this.$attrs[key].call(this))
+        ((this.$attrs[key] = this.$attrs[key].call(this)),
+        this.checkCached(this.$attrs[key]))
     );
     return h(this.components[this.use], {
       props: this.$attrs,

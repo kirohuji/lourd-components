@@ -41,7 +41,7 @@ export default {
         }}
         visible={this.visible}
         scopedSlots={{
-          header: (props) => this.$scopedSlots?.header(props),
+          title: (props) => this.$scopedSlots?.title(props),
           footer: (props) => this.$scopedSlots?.footer(props),
         }}
       >
