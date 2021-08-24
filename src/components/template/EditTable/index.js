@@ -95,7 +95,6 @@ export default {
             {...{
               props: {
                 ...this.store.table,
-                data: this.page.tableData || [],
               },
               on: {
                 change: this.handleDataTableChange,
