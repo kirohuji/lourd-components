@@ -2,6 +2,10 @@ import _ from "lodash";
 import BaseFormItem from "../../molecules/BaseFormItem";
 import BaseEnter from "../../molecules/BaseEnter";
 import "./style.scss";
+// import { isObject, isFunction } from "lodash";
+// const isPromise = (val) => {
+//   return isObject(val) && isFunction(val.then) && isFunction(val.catch);
+// };
 export default {
   name: "DataForm",
   componentName: "DataForm",

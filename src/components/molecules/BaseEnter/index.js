@@ -1,9 +1,12 @@
-import { isFunction } from "lodash";
+import { isFunction, isObject } from "lodash";
 import { components } from "../../../index";
+import Thenable from "@/components/atoms/Thenable";
 import { dictionaries } from "../../../composables/context-cache";
 export default {
   name: "BaseEnter",
-  components: {},
+  components: {
+    Thenable,
+  },
   inject: {
     // organisms: {
     //   from: "organisms",
@@ -35,12 +38,14 @@ export default {
   inheritAttrs: false,
   data() {
     return {
+      thenableKey: "",
+      isThenable: false,
       components: this.$baseComponents || components,
     };
   },
   methods: {
     checkCached(target) {
-      if (target.cache) {
+      if (isObject(target) && target.cache && !target.runner) {
         if (!this.$cache[target.cache]) {
           this.$cache[target.cache] = dictionaries(target.cache);
         }
@@ -49,31 +54,64 @@ export default {
     },
   },
   render(h) {
-    Reflect.ownKeys(this.$attrs).map(
-      (key) =>
-        isFunction(this.$attrs[key]) &&
-        ((this.$attrs[key] = this.$attrs[key].call(this)),
-        this.checkCached(this.$attrs[key]))
-    );
-    return h(this.components[this.use], {
-      props: this.$attrs,
-      attrs: this.$attrs,
-      on: this.$listeners,
-      scopedSlots: this.$attrs.children
-        ? {
-            [this.$attrs.children.slot || "default"]: () =>
-              this.$attrs.children.options?.map((item, index) =>
-                h(
-                  this.components[this.$attrs.children.use],
-                  {
-                    props: item,
-                    key: index + new Date(),
-                  },
-                  item.label
-                )
-              ),
-          }
-        : this.$scopedSlots,
+    Reflect.ownKeys(this.$attrs).forEach((key) => {
+      if (isFunction(this.$attrs[key])) {
+        this.$attrs[key] = this.$attrs[key].call(this);
+        if (this.$attrs[key].runner) {
+          this.isThenable = this.$attrs[key];
+          this.thenableKey = key;
+        }
+      }
+      this.checkCached(this.$attrs[key]);
     });
+    const render = ({ data, loading }) =>
+      h(this.components[this.use], {
+        directives: [
+          {
+            name: "loading",
+            value: loading,
+          },
+        ],
+        props: {
+          ...this.$attrs,
+          [this.thenableKey]: data,
+        },
+        attrs: {
+          ...this.$attrs,
+          [this.thenableKey]: data,
+        },
+        on: this.$listeners,
+        scopedSlots: this.$attrs.children
+          ? {
+              [this.$attrs.children.slot || "default"]: () =>
+                this.$attrs.children.options?.map((item, index) =>
+                  h(
+                    this.components[this.$attrs.children.use],
+                    {
+                      props: item,
+                      key: index + new Date(),
+                    },
+                    item.label
+                  )
+                ),
+            }
+          : this.$scopedSlots,
+      });
+    return this.isThenable ? (
+      <Thenable
+        {...{
+          props: this.isThenable,
+          scopedSlots: {
+            default: ({ result: { loading, data } }) =>
+              render({
+                data: data,
+                loading: loading,
+              }),
+          },
+        }}
+      />
+    ) : (
+      render({})
+    );
   },
 };

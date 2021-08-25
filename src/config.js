@@ -1,40 +1,12 @@
-import EditTable from "../components/template/EditTable";
-import { cascaderOption, radioBorderGroup } from "./config";
+const runner = () =>
+  new Promise((resolve) => {
+    console.log("开始请求拉");
+    setTimeout(() => {
+      console.log("请求结束");
+      resolve([]);
+    }, 3000);
+  });
 export default {
-  title: "Design System/Template/EditTable",
-};
-const tableData = [
-  {
-    name: 1,
-    type: 1,
-    age: 64,
-    sex: 1,
-    status: "allow",
-    title: "test",
-  },
-  {
-    name: 2,
-    type: 1,
-    age: 64,
-    sex: 2,
-    title: "test",
-  },
-  {
-    name: 2,
-    type: 1,
-    age: 64,
-    sex: 2,
-    title: "test",
-  },
-  {
-    name: 2,
-    type: 1,
-    age: 64,
-    sex: 2,
-    title: "test",
-  },
-];
-const schema = {
   schema: [
     {
       prop: "name",
@@ -57,7 +29,12 @@ const schema = {
       size: "small",
       expandTrigger: "hover",
       "collapse-tags": true,
-      options: cascaderOption,
+      options: () => {
+        return {
+          cache: "node_name",
+          runner: runner,
+        };
+      },
       props: {
         value: "node_id",
         label: "name",
@@ -88,13 +65,7 @@ const schema = {
           return {
             use: "radio",
             cache: "r_name",
-            options: () =>
-              radioBorderGroup.map((item) => {
-                return {
-                  label: item.name,
-                  value: item.r_id,
-                };
-              }),
+            options: () => [],
           };
         },
       },
@@ -139,7 +110,45 @@ const schema = {
     },
   ],
   table: {
-    data: [],
+    column: [
+      {
+        prop: "operation",
+        label: "操作",
+        width: "100",
+        scopedSlots: true,
+      },
+    ],
+    data: [
+      {
+        name: 1,
+        type: 1,
+        age: 64,
+        sex: 1,
+        status: "allow",
+        title: "test",
+      },
+      {
+        name: 2,
+        type: 1,
+        age: 64,
+        sex: 2,
+        title: "test",
+      },
+      {
+        name: 2,
+        type: 1,
+        age: 64,
+        sex: 2,
+        title: "test",
+      },
+      {
+        name: 2,
+        type: 1,
+        age: 64,
+        sex: 2,
+        title: "test",
+      },
+    ],
   },
   dialog: {
     layout: {
@@ -186,71 +195,3 @@ const schema = {
     },
   },
 };
-export const withSchema = () => ({
-  modules: ["service1", "service2"],
-  provide() {
-    return {
-      page: this,
-    };
-  },
-  data() {
-    return {
-      tableData: [
-        {
-          name: 1,
-          type: 1,
-          age: 64,
-          sex: 1,
-          status: "allow",
-          title: "test",
-        },
-        {
-          name: 2,
-          type: 1,
-          age: 64,
-          sex: 2,
-          title: "test",
-        },
-        {
-          name: 2,
-          type: 1,
-          age: 64,
-          sex: 2,
-          title: "test",
-        },
-        {
-          name: 2,
-          type: 1,
-          age: 64,
-          sex: 2,
-          title: "test",
-        },
-      ],
-    };
-  },
-  methods: {
-    show(payload) {
-      console.log(payload);
-      this.tableData.push({
-        name: 1,
-        type: 1,
-        age: 64,
-        sex: 1,
-        status: "allow",
-        title: "test",
-      });
-    },
-  },
-  mounted() {
-    console.log("1", this.$refs.editTable.refresh());
-  },
-  render() {
-    return (
-      <EditTable
-        ref="editTable"
-        config={schema}
-        onEvents={(payload) => this.show(payload)}
-      />
-    );
-  },
-});

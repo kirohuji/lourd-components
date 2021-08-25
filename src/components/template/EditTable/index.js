@@ -5,10 +5,16 @@ import DataTable from "../../organisms/DataTable";
 import DataDialog from "../../organisms/DataDialog";
 import Store from "./model/store";
 import emitter from "element-ui/src/mixins/emitter";
+import { find } from "lodash";
 export default {
   name: "EditTable",
   props: ["config"],
-  inject: ["page"],
+  inject: {
+    page: {
+      from: "page",
+      default: {},
+    },
+  },
   provide() {
     return {
       template: this,
@@ -20,6 +26,7 @@ export default {
     const store = new Store(this.config);
     return {
       store,
+      hasOperation: false,
       currentState: {
         dataSearchForm: {},
       },
@@ -42,9 +49,19 @@ export default {
         }
       });
     },
+    refresh() {
+      const collectors = this.collect();
+      return {
+        dataSearchForm: collectors.dataSearchForm.currentData(),
+        dataTable: collectors.dataTable.pagination,
+      };
+    },
   },
   created() {
-    if (!find(this.store.table.column, ["prop", "operation"])) {
+    if (
+      !find(this.store.table.column, ["prop", "operation"]) &&
+      !this.hasOperation
+    ) {
       this.store.table.column.push({
         prop: "operation",
         label: "操作",
@@ -54,11 +71,12 @@ export default {
         width: "100px",
         current: null,
       });
+      this.hasOperation = true;
     }
   },
   render() {
     return (
-      <div>
+      <div style="background: rgb(255, 255, 255);padding: 0px 14px 14px;">
         <DataDialog ref="dialog" />
         <Card style="padding: 14px;padding-bottom: 0">
           <DataSearchForm
@@ -94,6 +112,7 @@ export default {
           <DataTable
             {...{
               props: {
+                collector: "dataTable",
                 ...this.store.table,
               },
               on: {

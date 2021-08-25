@@ -43,8 +43,8 @@ export default class Store {
         ["order"]
       );
     }
-    if (this.table && !this.table.column) {
-      this.table.column = options.schema;
+    if (this.table && options.schema) {
+      this.table.column = unionBy(options.schema, this.table.column, "prop");
     }
   }
 }

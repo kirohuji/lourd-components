@@ -1,12 +1,33 @@
 import _ from "lodash";
 import Vue from "vue";
-class Thenable {
-  constructor({ vm, runner, variables, callback, immediate, data, target }) {
+import { dictionaries } from "../composables/context-cache";
+export class Thenable {
+  constructor({
+    vm,
+    runner,
+    variables,
+    callback,
+    immediate,
+    data,
+    target,
+    cache,
+  }) {
+    if (Array.isArray(runner)) {
+      this.runner = runner[0];
+      this.variables = runner[1];
+      this.callback = runner[2];
+    } else {
+      this.runner = runner;
+      this.variables = variables;
+      this.callback = callback;
+    }
+    if (!this.callback) {
+      this.callback = (data) => data;
+    }
+    this.cache = cache;
     this._watchers = [];
     this.vm = vm;
-    this.runner = runner;
-    this.callback = callback;
-    this.immediate = immediate;
+    this.immediate = immediate || true;
     this.listeners(variables);
     this.target = target;
     this.init(data);
@@ -16,8 +37,10 @@ class Thenable {
     } else {
       this.result.loading = false;
     }
-    for (var key in this.variables) {
-      this.defineReactiveSetter(key, key, true);
+    if (this.vm) {
+      for (var key in this.variables) {
+        this.defineReactiveSetter(key, key, true);
+      }
     }
   }
   get loading() {
@@ -31,13 +54,11 @@ class Thenable {
     });
   }
   listeners(variables) {
-    this.variables = variables;
     if (typeof this.variables === "function") {
       this.variablesIsFunction = this.variables;
       this.variables = variables.call(this.vm);
     } else {
       this.variablesIsFunction = variables;
-      this.variables = variables;
     }
   }
   destroy() {
@@ -75,6 +96,15 @@ class Thenable {
     this.run(search);
   }
   run(search = {}) {
+    if (this.cache) {
+      if (!window.cache[this.cache]) {
+        window.cache[this.cache] = dictionaries(this.cache);
+      } else {
+        this.result.data = window.cache[this.cache]();
+        this.result.loading = false;
+        return;
+      }
+    }
     this.result.loading = true;
     let variables;
     if (typeof this.variablesIsFunction === "function") {
@@ -87,17 +117,25 @@ class Thenable {
       ...variables,
       ...search,
     })
-      .then((res) => this.callback.call(this.vm, res.data))
+      .then((res) =>
+        this.vm
+          ? this.callback.call(this.vm, res.data)
+          : this.callback(res.data)
+      )
       .then((res) => {
-        // debugger
-        if (typeof res === "object" && !Array.isArray(res)) {
-          const t = _.get(this.vm, this.target);
-          Object.keys(res).forEach((key) => {
-            t[key] = res[key];
-          });
-          _.set(this.vm, this.target, t);
-        } else {
-          _.set(this.vm, this.target, res);
+        if (this.target) {
+          if (typeof res === "object" && !Array.isArray(res)) {
+            const t = _.get(this.vm, this.target);
+            Object.keys(res).forEach((key) => {
+              t[key] = res[key];
+            });
+            _.set(this.vm, this.target, t);
+          } else {
+            _.set(this.vm, this.target, res);
+          }
+        }
+        if (this.cache) {
+          window.cache[this.cache](() => res);
         }
         this.result.data = res;
         this.result.loading = false;

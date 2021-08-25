@@ -3,7 +3,7 @@ import multipleSelect from "./multipleSelect";
 export default {
   name: "DataTable",
   componentName: "DataTable",
-  props: ["column", "data", "total", "idKey", "selectData"],
+  props: ["column", "data", "total", "idKey", "selectData", "collector"],
   mixins: [multipleSelect],
   data: () => ({
     table: {},
