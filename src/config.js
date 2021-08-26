@@ -3,8 +3,17 @@ const runner = () =>
     console.log("开始请求拉");
     setTimeout(() => {
       console.log("请求结束");
-      resolve([]);
-    }, 3000);
+      resolve({
+        data: [
+          {
+            label: "1",
+            showLabel: "2",
+            name: "3",
+            value: "4",
+          },
+        ],
+      });
+    }, 1000);
   });
 export default {
   schema: [
@@ -31,7 +40,6 @@ export default {
       "collapse-tags": true,
       options: () => {
         return {
-          cache: "node_name",
           runner: runner,
         };
       },
@@ -40,7 +48,9 @@ export default {
         label: "name",
         checkStrictly: false,
       },
-      searcher: {},
+      searcher: {
+        default: 51,
+      },
       forms: {
         default: function () {
           return this.template.currentState.dataSearchForm.node_name;
@@ -61,11 +71,12 @@ export default {
       forms: {
         use: "radio-group",
         class: "radio-border-group",
-        children: () => {
+        children: function () {
           return {
-            use: "radio",
-            cache: "r_name",
-            options: () => [],
+            use: "base-radio",
+            options: {
+              runner: runner,
+            },
           };
         },
       },
@@ -183,6 +194,7 @@ export default {
         order: 2,
         use: "search",
         size: "small",
+        isReal: true,
       },
     ],
     filter: false,

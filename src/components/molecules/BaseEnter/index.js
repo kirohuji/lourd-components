@@ -44,6 +44,12 @@ export default {
     };
   },
   methods: {
+    checkRunner(target) {
+      if (isObject(target.options) && target.options.runner) {
+        return true;
+      }
+      return false;
+    },
     checkCached(target) {
       if (isObject(target) && target.cache && !target.runner) {
         if (!this.$cache[target.cache]) {
@@ -84,14 +90,40 @@ export default {
         scopedSlots: this.$attrs.children
           ? {
               [this.$attrs.children.slot || "default"]: () =>
-                this.$attrs.children.options?.map((item, index) =>
-                  h(
-                    this.components[this.$attrs.children.use],
-                    {
-                      props: item,
-                      key: index + new Date(),
-                    },
-                    item.label
+                this.checkRunner(this.$attrs.children) ? (
+                  <Thenable
+                    {...{
+                      props: this.$attrs.children.options,
+                      scopedSlots: {
+                        default: ({ result }) => (
+                          <div>
+                            {!result.loading
+                              ? result.data.map((item, index) =>
+                                  h(
+                                    this.components[this.$attrs.children.use],
+                                    {
+                                      props: item,
+                                      key: index + new Date(),
+                                    },
+                                    item.label
+                                  )
+                                )
+                              : ""}
+                          </div>
+                        ),
+                      },
+                    }}
+                  />
+                ) : (
+                  this.$attrs.children.options?.map((item, index) =>
+                    h(
+                      this.components[this.$attrs.children.use],
+                      {
+                        props: item,
+                        key: index + new Date(),
+                      },
+                      item.label
+                    )
                   )
                 ),
             }

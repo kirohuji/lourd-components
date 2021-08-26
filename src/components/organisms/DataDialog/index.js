@@ -2,6 +2,8 @@ import BaseDialog from "../../molecules/BaseDialog";
 import DataForm from "../DataForm";
 import "./index.scss";
 export default {
+  name: "DataDialog",
+  componentName: "DataDialog",
   components: {
     BaseDialog,
   },
@@ -33,6 +35,9 @@ export default {
     close() {
       this.visible = false;
     },
+    innerDialogClose() {
+      this.$refs.dialog.close();
+    },
   },
   render() {
     // debugger
@@ -52,6 +57,7 @@ export default {
       >
         {this.visible && (
           <DataForm
+            ref="dataForm"
             {...{
               props: {
                 collector: "dialogForm",
@@ -67,7 +73,17 @@ export default {
           }}
         >
           <ElButton onClick={() => this.$refs.dialog.close()}>取消</ElButton>
-          <ElButton type="primary">确定</ElButton>
+          <ElButton
+            type="primary"
+            onClick={() =>
+              this.$emit("submit", {
+                data: this.$refs.dataForm.currentData(),
+                mode: this.mode,
+              })
+            }
+          >
+            确定
+          </ElButton>
         </div>
       </BaseDialog>
     );

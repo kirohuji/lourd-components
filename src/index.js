@@ -5,13 +5,15 @@ import BaseEnter from "./components/molecules/BaseEnter";
 import BaseDialog from "./components/molecules/BaseDialog";
 import BaseEchart from "./components/molecules/BaseEchart";
 import BaseFormItem from "./components/molecules/BaseFormItem";
+import BaseSearch from "./components/molecules/BaseSearch";
+import BaseRadio from "./components/molecules/BaseRadio";
 import DataCacheSearchForm from "./components/organisms/DataCacheSearchForm";
 import DataForm from "./components/organisms/DataForm";
 import DataSearchForm from "./components/organisms/DataSearchForm";
 import DataTable from "./components/organisms/DataTable";
+import DataDialog from "./components/organisms/DataDialog/index.js";
 import ManagerTable from "./components/template/ManagerTable";
 import EditTable from "./components/template/EditTable/index.js";
-import BaseSearch from "./components/molecules/BaseSearch";
 import {
   Input,
   Cascader,
@@ -35,6 +37,7 @@ export const components = {
   option: Option,
   "radio-group": RadioGroup,
   radio: Radio,
+  "base-radio": BaseRadio,
   inline: Inline,
   "row-grid": RowGrid,
   search: BaseSearch,
@@ -50,8 +53,10 @@ const installComponents = [
   DataForm,
   DataSearchForm,
   DataTable,
+  DataDialog,
   ManagerTable,
   EditTable,
+  BaseRadio
 ];
 const install = function (Vue, opts) {
   installComponents.forEach((component) => {

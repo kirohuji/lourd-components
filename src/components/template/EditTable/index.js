@@ -33,6 +33,16 @@ export default {
     };
   },
   methods: {
+    dialogClose() {
+      this.$refs.dialog.close();
+    },
+    handleSubmit(payload) {
+      this.$emit("events", {
+        name: "submit",
+        componentName: "DataDialog",
+        data: payload,
+      });
+    },
     handleDataTableChange(payload) {
       this.$emit("events", {
         name: "change",
@@ -77,7 +87,10 @@ export default {
   render() {
     return (
       <div style="background: rgb(255, 255, 255);padding: 0px 14px 14px;">
-        <DataDialog ref="dialog" />
+        <DataDialog
+          ref="dialog"
+          onSubmit={(payload) => this.handleSubmit(payload)}
+        />
         <Card style="padding: 14px;padding-bottom: 0">
           <DataSearchForm
             {...{
