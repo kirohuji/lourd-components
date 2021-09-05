@@ -1,6 +1,6 @@
 <template>
   <div>
-    <EditTable ref="editTable" :config="config" />
+    <EditTable ref="editTable" :config="config" @events="handleEvents" />
   </div>
 </template>
 
@@ -65,6 +65,15 @@ export default {
   computed: {
     type() {
       return this.$store.getters.selectedTab;
+    },
+  },
+  methods: {
+    handleEvents(payload) {
+      if (payload.data.validate) {
+        payload.data.validate().then((res) => {
+          console.log(res);
+        });
+      }
     },
   },
   // mounted() {

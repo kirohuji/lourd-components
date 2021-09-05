@@ -1,0 +1,17 @@
+.question {
+  .data-form {
+    .inline {
+      width: 100%;
+    }
+  }
+  .data-form .el-form-item__label {
+    width: 235px;
+  }
+  .data-form .el-form-item {
+    display: flex !important;
+    flex-direction: column;
+  }
+  .el-radio-group {
+    display: grid;
+  }
+}

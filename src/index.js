@@ -22,6 +22,8 @@ import {
   RadioGroup,
   Radio,
   Option,
+  CheckboxGroup,
+  Checkbox,
 } from "element-ui";
 import Inline from "./components/molecules/Layout/inline";
 import RowGrid from "./components/molecules/Layout/row-grid";
@@ -35,6 +37,8 @@ export const components = {
   "date-picker": DatePicker,
   select: Select,
   option: Option,
+  checkbox: Checkbox,
+  "checkbox-group": CheckboxGroup,
   "radio-group": RadioGroup,
   radio: Radio,
   "base-radio": BaseRadio,
@@ -56,7 +60,7 @@ const installComponents = [
   DataDialog,
   ManagerTable,
   EditTable,
-  BaseRadio
+  BaseRadio,
 ];
 const install = function (Vue, opts) {
   installComponents.forEach((component) => {

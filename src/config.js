@@ -26,6 +26,8 @@ export default {
         order: 2,
         placeholder: "请输入内容",
         use: "input",
+        required: true,
+        rules: [{ required: true, message: "请输入姓名", trigger: "blur" }],
       },
     },
     {
@@ -40,6 +42,7 @@ export default {
       "collapse-tags": true,
       options: () => {
         return {
+          cache: "node_name",
           runner: runner,
         };
       },
@@ -50,6 +53,7 @@ export default {
       },
       searcher: {
         default: 51,
+        loadingArea: "searcher",
       },
       forms: {
         default: function () {
@@ -195,6 +199,7 @@ export default {
         use: "search",
         size: "small",
         isReal: true,
+        default: () => 1000,
       },
     ],
     filter: false,

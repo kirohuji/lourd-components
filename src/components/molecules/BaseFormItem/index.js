@@ -9,9 +9,13 @@ export default {
       from: "model",
       default: {},
     },
+    form: {
+      from: "form",
+      default: {},
+    },
   },
   mixins: [emitter],
-  props: ["item", "value"],
+  props: ["item"],
   inheritAttrs: false,
   data() {
     return {
@@ -24,7 +28,7 @@ export default {
         this.dispatch("DataSearchForm", "search");
       }
     },
-    value(val) {
+    "$attrs.value"(val) {
       if (val) {
         this.initData(val);
       }
@@ -36,7 +40,7 @@ export default {
     },
   },
   created() {
-    this.initData(this.value);
+    this.initData(this.$attrs.value);
   },
   render() {
     return (
@@ -48,16 +52,28 @@ export default {
           },
         }}
       >
-        <BaseEnter
-          {...{
-            props: {
-              use: this.item?.use || this.$attrs.use,
-            },
-            attrs: this.item || this.$attrs,
-            on: this.$listeners,
-          }}
-          vModel={this.innerValue}
-        />
+        {this.form.question ? (
+          <BaseEnter
+            {...{
+              props: {
+                use: this.item?.use || this.$attrs.use,
+              },
+              attrs: this.item || this.$attrs,
+              on: this.$listeners,
+            }}
+          />
+        ) : (
+          <BaseEnter
+            {...{
+              props: {
+                use: this.item?.use || this.$attrs.use,
+              },
+              attrs: this.item || this.$attrs,
+              on: this.$listeners,
+            }}
+            vModel={this.innerValue}
+          />
+        )}
       </FormItem>
     );
   },

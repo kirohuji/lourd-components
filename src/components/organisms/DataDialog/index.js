@@ -77,6 +77,8 @@ export default {
             type="primary"
             onClick={() =>
               this.$emit("submit", {
+                ref: this.$refs.dataForm.refs(),
+                validate: this.$refs.dataForm.refs().validate,
                 data: this.$refs.dataForm.currentData(),
                 mode: this.mode,
               })

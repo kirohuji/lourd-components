@@ -32,12 +32,16 @@ export default {
       type: Object,
       required: false,
     },
+    question: {
+      type: Boolean,
+      required: false,
+    },
     collector: {
       type: String,
       required: false,
     },
   },
-  provider() {
+  provide() {
     return {
       organisms: this,
       form: this,
@@ -114,7 +118,7 @@ export default {
             ref={`baseFormItem-${rowIndex}`}
             key={index}
             item={rowItem}
-            value={this.model[rowItem.prop]}
+            vModel={this.model[rowItem.prop]}
             {...{
               on: this.$listeners,
             }}
@@ -125,9 +129,11 @@ export default {
           key={index}
           ref={`baseFormItem-${index}`}
           item={item}
-          value={this.model[item.prop]}
+          vModel={this.model[item.prop]}
           {...{
-            on: this.$listeners,
+            on: {
+              ...this.$listeners,
+            },
           }}
         />
       )

@@ -41,8 +41,10 @@ export default {
         }}
         visible={this.visible}
         scopedSlots={{
-          title: (props) => this.$scopedSlots?.title(props),
-          footer: (props) => this.$scopedSlots?.footer(props),
+          title: (props) =>
+            this.$scopedSlots.title && this.$scopedSlots.title(props),
+          footer: (props) =>
+            this.$scopedSlots.footer && this.$scopedSlots.footer(props),
         }}
       >
         <div

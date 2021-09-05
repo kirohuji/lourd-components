@@ -42,6 +42,7 @@
       <!-- <slot></slot>
       <template v-if="!$slots.default">made</template> -->
     </span>
+    <el-input />
   </label>
 </template>
 <script>

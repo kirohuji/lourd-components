@@ -1,0 +1,30 @@
+.question-editor {
+  .question-layout {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    background: white;
+  }
+  .question-layout-border {
+    // height: 300px;
+    border: 1px solid #ebeef5;
+  }
+  .question-layout-left {
+    flex-grow: 1;
+    width: 50%;
+    color: #333333;
+    height: 500px;
+    .el-textarea__inner {
+      height: 300px;
+      border: 1px solid #ebeef5;
+      border-radius: 0px;
+    }
+  }
+  .question-layout-right {
+    margin-left: 16px;
+    flex-grow: 1;
+    width: 50%;
+  }
+}

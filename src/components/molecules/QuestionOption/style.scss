@@ -1,0 +1,36 @@
+.question-option {
+  &:hover {
+    background-color: #f5f7fa;
+  }
+  .question-option-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .question-option-input {
+      width: 77px;
+      .el-input__inner {
+        height: 22px;
+        width: 77px !important;
+        line-height: 22px;
+      }
+    }
+    .question-option-config {
+      font-size: 12px;
+      margin-left: 14px;
+      color: #008dff;
+    }
+  }
+  .question-option-description {
+    font-size: 14px;
+    font-size: 14px;
+    margin-left: 43px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    color: #333333;
+    .value {
+      color: #008dff;
+      font-size: 14px;
+      margin-left: 8px;
+    }
+  }
+}

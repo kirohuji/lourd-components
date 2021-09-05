@@ -2,6 +2,7 @@ import { isFunction, isObject } from "lodash";
 import { components } from "../../../index";
 import Thenable from "@/components/atoms/Thenable";
 import { dictionaries } from "../../../composables/context-cache";
+import QuestionOption from "../QuestionOption";
 export default {
   name: "BaseEnter",
   components: {
@@ -20,10 +21,10 @@ export default {
     //   from: "model",
     //   default: {},
     // },
-    // form: {
-    //   from: "form",
-    //   default: [],
-    // },
+    form: {
+      from: "form",
+      default: [],
+    },
   },
   props: {
     /**
@@ -63,7 +64,7 @@ export default {
     Reflect.ownKeys(this.$attrs).forEach((key) => {
       if (isFunction(this.$attrs[key])) {
         this.$attrs[key] = this.$attrs[key].call(this);
-        if (this.$attrs[key].runner) {
+        if (isObject(this.$attrs[key]) && this.$attrs[key].runner) {
           this.isThenable = this.$attrs[key];
           this.thenableKey = key;
         }
@@ -98,16 +99,22 @@ export default {
                         default: ({ result }) => (
                           <div>
                             {!result.loading
-                              ? result.data.map((item, index) =>
-                                  h(
-                                    this.components[this.$attrs.children.use],
-                                    {
-                                      props: item,
-                                      key: index + new Date(),
-                                    },
-                                    item.label
-                                  )
-                                )
+                              ? result.data.map((item, index) => (
+                                  <QuestionOption
+                                    config={
+                                      this.$attrs.question && this.form.question
+                                    }
+                                  >
+                                    {h(
+                                      this.components[this.$attrs.children.use],
+                                      {
+                                        props: item,
+                                        key: index + new Date(),
+                                      },
+                                      item.label
+                                    )}
+                                  </QuestionOption>
+                                ))
                               : ""}
                           </div>
                         ),
@@ -115,16 +122,20 @@ export default {
                     }}
                   />
                 ) : (
-                  this.$attrs.children.options?.map((item, index) =>
-                    h(
-                      this.components[this.$attrs.children.use],
-                      {
-                        props: item,
-                        key: index + new Date(),
-                      },
-                      item.label
-                    )
-                  )
+                  this.$attrs.children.options?.map((item, index) => (
+                    <QuestionOption
+                      config={this.$attrs.question && this.form.question}
+                    >
+                      {h(
+                        this.components[this.$attrs.children.use],
+                        {
+                          props: item,
+                          key: index + new Date(),
+                        },
+                        item.label
+                      )}
+                    </QuestionOption>
+                  ))
                 ),
             }
           : this.$scopedSlots,

@@ -1,0 +1,15 @@
+.el-tabs__nav-wrap.tab-step {
+  display: none;
+}
+.el-step {
+  margin: 0px 8px;
+}
+.el-step__main {
+  position: absolute;
+  top: -7px;
+  left: 24px;
+  z-index: 10;
+  background: white;
+  width: 80px;
+  text-align: center;
+}

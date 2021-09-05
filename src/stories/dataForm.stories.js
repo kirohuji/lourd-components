@@ -13,6 +13,7 @@ const forms = [
     use: "label",
     row: 1,
     span: 8,
+    question: true,
   },
   {
     label: "年龄",
@@ -60,6 +61,7 @@ export const withAttrs = () => ({
       <DataForm
         {...{
           props: {
+            question: true,
             forms,
             data: {
               name: "zyd",
