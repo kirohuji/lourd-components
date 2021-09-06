@@ -110,6 +110,21 @@ export default {
             >
               新增
             </ElButton>
+            <ElButton
+              size="mini"
+              type="primary"
+              onClick={() =>
+                this.handleDialog({
+                  mode: "add",
+                  form: {
+                    ...this.store.forms,
+                    data: {},
+                  },
+                })
+              }
+            >
+              批量导入
+            </ElButton>
             {this.currentRecord && this.currentRecord.length > 1 ? (
               <ElButton size="mini" type="danger" style="margin-left: 8px">
                 批量删除
