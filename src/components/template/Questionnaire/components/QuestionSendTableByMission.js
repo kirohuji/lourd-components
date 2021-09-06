@@ -1,27 +1,31 @@
 import DataTable from "../../../organisms/DataTable";
 import DataSearchForm from "../../../organisms/DataSearchForm";
-const data = [
-  {
-    name: "郑勇达",
-    type: "开发者",
-  },
-];
 const column = [
+  {
+    type: "selection",
+    width: "55",
+  },
   {
     prop: "index",
     label: "序号",
     type: "index",
   },
   {
-    prop: "name",
+    prop: "title",
     label: "宣教名称",
   },
   {
-    prop: "type",
+    prop: "c_name",
     label: "问题类型",
   },
 ];
 export default {
+  props: {
+    data: {
+      type: Array,
+      default: () => [],
+    },
+  },
   render() {
     return (
       <div>
@@ -55,7 +59,7 @@ export default {
             on: this.$listeners,
           }}
         ></DataSearchForm>
-        <DataTable column={column} data={data} />
+        <DataTable column={column} data={this.data} />
       </div>
     );
   },

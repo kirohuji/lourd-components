@@ -32,7 +32,7 @@
           <p>
             请您根据实际情况填写，您的信息我们会保证做到保密不泄露，这些信息会用于医生为你提供治疗方案
           </p>
-          <QuestionPreview :value="$refs.editor.preview" />
+          <QuestionPreview :value="$refs.editor.preview" :config="true" />
         </div>
         <ElButton style="margin-top: 12px" @click="() => $refs.stepTabs.prev()"
           >上一步</ElButton
@@ -50,8 +50,8 @@
 import DataForm from "../../organisms/DataForm";
 import StepTabs from "../../organisms/StepTabs";
 import { informationConfig } from "./config";
-import QuestionEditor from "../../organisms/QuestionEditor";
-import QuestionPreview from "../../organisms/QuestionPreview";
+import QuestionEditor from "./components/QuestionEditor";
+import QuestionPreview from "./components/QuestionPreview";
 import "./index.scss";
 export default {
   components: {

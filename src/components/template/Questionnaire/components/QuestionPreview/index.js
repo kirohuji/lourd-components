@@ -1,16 +1,17 @@
-import Stack from "../../../utils/Stack";
+import Stack from "../../../../../utils/Stack";
 import { drop } from "lodash";
-import DataForm from "../DataForm";
+import DataForm from "../../../../organisms/DataForm";
 import "./style.scss";
 class Question {
   constructor(title, answers) {
     this.type = this.parseType(title);
-    this.title = title;
+    this.title = title.split("】")[1];
     this.label = title;
     this.value = "";
     this.index = this.setIndex(title);
     this.row = this.index;
     this.question = true;
+    this.show = 1;
     this.answers = this.addAnswers(answers);
   }
   parseType(type) {
@@ -87,6 +88,7 @@ class QuestionList {
       let question = this.temp.clear().reverse();
       this.questions.set(question[0], new Question(question[0], question));
     }
+    this.list = Array.from(this.questions).map((item) => item[1]);
   }
 }
 export default {
@@ -108,10 +110,15 @@ export default {
     },
   },
   methods: {
+    toTableData() {
+      return this.questionList.list;
+    },
     generate(questionsText) {
       this.questionList = new QuestionList();
       this.questionList.parse(questionsText);
-      console.log(this.questionList.questions);
+      console.log(
+        Array.from(this.questionList.questions).map((item) => item[1])
+      );
     },
   },
   render() {

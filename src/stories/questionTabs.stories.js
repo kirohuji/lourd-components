@@ -1,6 +1,6 @@
-import QuestionTabs from "../components/molecules/QuestionTabs";
+import QuestionTabs from "../components/template/Questionnaire/components/QuestionTabs";
 export default {
-  title: "Design System/Molecules/QuestionTabs",
+  title: "Design System/Template/Questionnaire/QuestionTabs",
 };
 export const withBasic = () => ({
   render() {

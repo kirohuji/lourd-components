@@ -1,12 +1,10 @@
 import DataTable from "../../../organisms/DataTable";
 import DataSearchForm from "../../../organisms/DataSearchForm";
-const data = [
-  {
-    name: "郑勇达",
-    type: "开发者",
-  },
-];
 const column = [
+  {
+    type: "selection",
+    width: "55",
+  },
   {
     prop: "index",
     label: "序号",
@@ -14,14 +12,20 @@ const column = [
   },
   {
     prop: "name",
-    label: "问题名称",
+    label: "量表名称",
   },
   {
-    prop: "type",
+    prop: "c_name",
     label: "问题类型",
   },
 ];
 export default {
+  props: {
+    data: {
+      type: Array,
+      default: () => [],
+    },
+  },
   render() {
     return (
       <div>
@@ -31,10 +35,16 @@ export default {
               forms: [
                 {
                   prop: "title",
-                  order: 2,
+                  order: 1,
                   use: "search",
                   size: "small",
                   placeholder: "检索问题名称关键词",
+                },
+                {
+                  prop: "type",
+                  order: 2,
+                  use: "select",
+                  size: "small",
                 },
               ],
               filter: false,
@@ -47,16 +57,9 @@ export default {
               },
             },
             on: this.$listeners,
-            scopedSlots: {
-              right: () => (
-                <el-button type="primary" size="small">
-                  新建问题
-                </el-button>
-              ),
-            },
           }}
         ></DataSearchForm>
-        <DataTable column={column} data={data} />
+        <DataTable column={column} data={this.data} />
       </div>
     );
   },

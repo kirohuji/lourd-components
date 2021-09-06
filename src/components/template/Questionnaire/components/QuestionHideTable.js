@@ -1,11 +1,5 @@
 import DataTable from "../../../organisms/DataTable";
 import { Radio, RadioGroup } from "element-ui";
-const data = [
-  {
-    name: "郑勇达",
-    type: "开发者",
-  },
-];
 const column = [
   {
     prop: "index",
@@ -13,7 +7,7 @@ const column = [
     type: "index",
   },
   {
-    prop: "name",
+    prop: "title",
     label: "问题名称",
   },
   {
@@ -22,17 +16,23 @@ const column = [
   },
 ];
 export default {
+  props: {
+    data: {
+      type: Array,
+      default: () => [],
+    },
+  },
   render() {
     return (
       <DataTable
         column={column}
-        data={data}
+        data={this.data}
         {...{
           scopedSlots: {
-            operation: () => (
-              <RadioGroup>
-                <Radio label="1">显示</Radio>
-                <Radio label="2">不显示</Radio>
+            operation: ({ row }) => (
+              <RadioGroup vModel={row.show}>
+                <Radio label={1}>显示</Radio>
+                <Radio label={2}>不显示</Radio>
               </RadioGroup>
             ),
           },

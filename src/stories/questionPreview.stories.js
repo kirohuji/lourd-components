@@ -1,6 +1,7 @@
-import QuestionPreview from "../components/organisms/QuestionPreview";
+import QuestionPreview from "../components/template/Questionnaire/components/QuestionPreview";
+import QuestionHideTable from "../components/template/Questionnaire/components/QuestionHideTable";
 export default {
-  title: "Design System/Organisms/QuestionPreview",
+  title: "Design System/Template/Questionnaire/QuestionPreview",
 };
 const text = `
 1、【单选题】当前生存情况
@@ -16,5 +17,25 @@ const text = `
 export const withBasic = () => ({
   render() {
     return <QuestionPreview value={text} />;
+  },
+});
+export const withTable = () => ({
+  data() {
+    return {
+      data: [],
+    };
+  },
+  render() {
+    return (
+      <div>
+        <QuestionPreview value={text} ref="preview" />
+        <ElButton
+          onClick={() => (this.data = this.$refs.preview.toTableData())}
+        >
+          查看列表
+        </ElButton>
+        <QuestionHideTable data={this.data} />
+      </div>
+    );
   },
 });

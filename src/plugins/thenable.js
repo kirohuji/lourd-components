@@ -140,7 +140,8 @@ export class Thenable {
         this.result.data = res;
         this.result.loading = false;
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e);
         this.result.loading = false;
       });
   }

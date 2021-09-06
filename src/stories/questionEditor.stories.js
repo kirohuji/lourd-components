@@ -1,7 +1,7 @@
-import QuestionEditor from "../components/organisms/QuestionEditor";
-import "../components/organisms/QuestionEditor/index.scss";
+import QuestionEditor from "../components/template/Questionnaire/components/QuestionEditor";
+import "../components/template/Questionnaire/components/QuestionEditor/index.scss";
 export default {
-  title: "Design System/Organisms/QuestionEditor",
+  title: "Design System/Template/Questionnaire/QuestionEditor",
 };
 
 const Template = (args, { argTypes }) => ({

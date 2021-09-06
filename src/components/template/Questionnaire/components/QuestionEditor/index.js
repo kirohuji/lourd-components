@@ -1,5 +1,5 @@
 import "./index.scss";
-import BaseMonacoEditor from "../../molecules/BaseMonacoEditor";
+import BaseMonacoEditor from "../../../../molecules/BaseMonacoEditor";
 import QuestionPreview from "../QuestionPreview";
 export default {
   props: ["config"],

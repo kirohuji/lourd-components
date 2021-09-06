@@ -1,6 +1,6 @@
 import { Button } from "element-ui";
 import BaseDialog from "../BaseDialog";
-import QuestionTabs from "../QuestionTabs";
+import QuestionTabs from "../../template/Questionnaire/components/QuestionTabs";
 export default {
   data() {
     return {

@@ -1,8 +1,8 @@
 import { Tabs, TabPane } from "element-ui";
-import QuestionHideTable from "./components/QuestionHideTable";
-import QuestionShowTable from "./components/QuestionShowTable";
-import QuestionSendTableByQuantity from "./components/QuestionSendTableByQuantity";
-import QuestionSendTableByMission from "./components/QuestionSendTableByMission";
+import QuestionHideTable from "../QuestionHideTable";
+import QuestionShowTable from "../QuestionShowTable";
+import QuestionSendTableByQuantity from "../QuestionSendTableByQuantity";
+import QuestionSendTableByMission from "../QuestionSendTableByMission";
 export default {
   data() {
     return {

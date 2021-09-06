@@ -1,6 +1,6 @@
-import QuestionHideTable from "../components/molecules/QuestionTabs/components/QuestionHideTable";
+import QuestionHideTable from "../components/template/Questionnaire/components/QuestionHideTable";
 export default {
-  title: "Design System/Molecules/QuestionTabs/QuestionHideTable",
+  title: "Design System/Template/Questionnaire/QuestionHideTable",
 };
 export const withBasic = () => ({
   render() {
