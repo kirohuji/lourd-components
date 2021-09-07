@@ -1,5 +1,7 @@
 import MonacoEditor from "../../MonacoEditor";
 export default {
+  name: "BaseMonacoEditor",
+  componentName: "BaseMonacoEditor",
   data() {
     return {
       language: "markdown",

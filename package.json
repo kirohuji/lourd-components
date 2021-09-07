@@ -1,14 +1,11 @@
 {
   "name": "lourd-components",
-  "version": "0.1.45",
+  "version": "0.1.9",
   "description": "よく使われるコンポーネント",
-  "main": "lib/index/index.js",
+  "main": "lib/lourd-components.umd.min.js",
   "author": "lourd70330729",
   "private": false,
   "license": "MIT",
-  "files": [
-    "lib"
-  ],
   "scripts": {
     "build2": "vue-cli-service build --target lib --name lourd-components --dest lib bild/index.js",
     "lib": "vue-cli-service build --target lib --name lourd-components --dest lib src/index.js",
@@ -25,7 +22,7 @@
     "core-js": "^3.6.5",
     "element-ui": "^2.4.5",
     "monaco-markdown": "0.0.11",
-    "vue": "^2.6.12"
+    "vue": "^2.6.10"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.3.6",

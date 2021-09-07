@@ -17,6 +17,7 @@ import EditTable from "./components/template/EditTable/index.js";
 import StepTabs from "./components/organisms/StepTabs/index.js";
 import QuestionDialog from "./components/molecules/QuestionDialog/index.js";
 import QuestionOption from "./components/molecules/QuestionOption/index.js";
+import BaseMonacoEditor from "./components/molecules/BaseMonacoEditor/index.js";
 import {
   Input,
   Cascader,
@@ -56,6 +57,7 @@ const installComponents = [
   BaseDialog,
   BaseEchart,
   BaseFormItem,
+  BaseMonacoEditor,
   DataCacheSearchForm,
   DataForm,
   DataSearchForm,
@@ -81,5 +83,21 @@ if (typeof window !== "undefined" && window.Vue) {
 
 export default {
   install,
-  ...installComponents,
+  NoContnetShow,
+  Card,
+  BaseEnter,
+  BaseDialog,
+  BaseEchart,
+  BaseFormItem,
+  DataCacheSearchForm,
+  DataForm,
+  DataSearchForm,
+  DataTable,
+  DataDialog,
+  ManagerTable,
+  EditTable,
+  BaseRadio,
+  StepTabs,
+  QuestionDialog,
+  QuestionOption,
 };
