@@ -22,6 +22,6 @@ export class QuestionService {
   }
   // 宣教列表
   findForInformation(target) {
-    return this.api.post(`${this.module}/getInformationList`, target)
+    return this.api.post(`${this.module}/getInformationList`, target);
   }
 }

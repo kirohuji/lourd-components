@@ -3,21 +3,21 @@ import "./index.scss";
 const Layout = {
   render() {
     return (
-      <div className="stepTabs">
-        <div className="stepTabs-header">
+      <div class="stepTabs">
+        <div class="stepTabs-header">
           {this.$scopedSlots.header && this.$scopedSlots.header()}
         </div>
-        <div className="stepTabs-body">
+        <div class="stepTabs-body">
           {this.$scopedSlots.default && this.$scopedSlots.default()}
         </div>
-        <div className="stepTabs-footer">
+        <div class="stepTabs-footer">
           {this.$scopedSlots.footer && this.$scopedSlots.footer()}
         </div>
       </div>
     );
   },
 };
-export default {
+const StepTabs = {
   name: "StepTabs",
   componentName: "StepTabs",
   props: {
@@ -98,3 +98,4 @@ export default {
     );
   },
 };
+export default StepTabs;

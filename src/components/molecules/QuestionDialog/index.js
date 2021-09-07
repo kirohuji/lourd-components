@@ -2,6 +2,7 @@ import { Button } from "element-ui";
 import BaseDialog from "../BaseDialog";
 import QuestionTabs from "../../template/Questionnaire/components/QuestionTabs";
 export default {
+  name: "QuestionDialog",
   data() {
     return {
       activeName: "second",

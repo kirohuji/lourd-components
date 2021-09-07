@@ -2,6 +2,7 @@ import { Input } from "element-ui";
 import QuestionDialog from "../QuestionDialog";
 import "./style.scss";
 export default {
+  name: "QuestionOption",
   props: ["config"],
   data() {
     return {

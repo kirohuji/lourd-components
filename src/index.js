@@ -14,6 +14,9 @@ import DataTable from "./components/organisms/DataTable";
 import DataDialog from "./components/organisms/DataDialog/index.js";
 import ManagerTable from "./components/template/ManagerTable";
 import EditTable from "./components/template/EditTable/index.js";
+import StepTabs from "./components/organisms/StepTabs/index.js";
+import QuestionDialog from "./components/molecules/QuestionDialog/index.js";
+import QuestionOption from "./components/molecules/QuestionOption/index.js";
 import {
   Input,
   Cascader,
@@ -61,6 +64,9 @@ const installComponents = [
   ManagerTable,
   EditTable,
   BaseRadio,
+  StepTabs,
+  QuestionDialog,
+  QuestionOption,
 ];
 const install = function (Vue, opts) {
   installComponents.forEach((component) => {
