@@ -4,6 +4,13 @@ import QuestionShowTable from "../QuestionShowTable";
 import QuestionSendTableByQuantity from "../QuestionSendTableByQuantity";
 import QuestionSendTableByMission from "../QuestionSendTableByMission";
 export default {
+  props: {
+    preview: {},
+    questions: {
+      type: Array,
+      default: () => [],
+    },
+  },
   data() {
     return {
       active: "first",
@@ -11,7 +18,7 @@ export default {
         {
           label: "后续问题不显示",
           name: "first",
-          scopedSlots: () => <QuestionHideTable />,
+          scopedSlots: () => <QuestionHideTable data={this.questions} />,
         },
         {
           label: "增加显示问题",

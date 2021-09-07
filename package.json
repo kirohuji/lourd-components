@@ -1,6 +1,6 @@
 {
   "name": "lourd_components",
-  "version": "0.1.40",
+  "version": "0.1.41",
   "description": "よく使われるコンポーネント",
   "main": "lib/lourd-components.umd.min.js",
   "author": "lourd70330729",
@@ -21,7 +21,7 @@
     "core-js": "^3.6.5",
     "element-ui": "^2.4.5",
     "monaco-markdown": "0.0.11",
-    "vue": "^2.6.11"
+    "vue": "^2.6.12"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.3.6",
