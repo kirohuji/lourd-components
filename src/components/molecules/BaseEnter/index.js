@@ -40,8 +40,8 @@ export default {
   data() {
     return {
       thenableKey: "",
-      isThenable: false,
-      components: this.$baseComponents || components,
+      isThenable: false
+      // components: this.$baseComponents || components,
     };
   },
   methods: {
@@ -72,7 +72,7 @@ export default {
       this.checkCached(this.$attrs[key]);
     });
     const render = ({ data, loading }) =>
-      h(this.components[this.use], {
+      h(components[this.use], {
         directives: [
           {
             name: "loading",
@@ -106,7 +106,7 @@ export default {
                                     }
                                   >
                                     {h(
-                                      this.components[this.$attrs.children.use],
+                                     components[this.$attrs.children.use],
                                       {
                                         props: item,
                                         key: index + new Date(),
@@ -127,7 +127,7 @@ export default {
                       config={this.$attrs.question && this.form.question}
                     >
                       {h(
-                        this.components[this.$attrs.children.use],
+                        components[this.$attrs.children.use],
                         {
                           props: item,
                           key: index + new Date(),
