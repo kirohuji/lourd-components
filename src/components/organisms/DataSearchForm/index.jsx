@@ -9,11 +9,14 @@ export default {
   mixins: [emitter],
   methods: {
     search() {
-      // this.$emit("search", this.$refs.dataForm.currentData());
+      let data = this.$refs.dataForm.currentData();
+      this.data = {
+        ...data,
+      };
       this.$emit("events", {
         name: "search",
         componentName: "DataSearchForm",
-        data: this.$refs.dataForm.currentData(),
+        data: data,
       });
     },
     submit(payload) {
