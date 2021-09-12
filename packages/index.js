@@ -7,7 +7,7 @@ import Thenable from "./Thenable";
 import BaseDialog from "./BaseDialog";
 import BaseEnter from "./BaseEnter";
 import DataCacheSearchForm from "./DataCacheSearchForm";
-import DataDialog from "./DataCacheSearchForm";
+import DataDialog from "./DataDialog";
 import EditTable from "./EditTable";
 const installComponents = [
   BaseMonacoEditor,

@@ -28,6 +28,14 @@ class MeteorBackend {
   static _instance = new Map();
   constructor(config) {
     this.config = config;
+    if (config.override) {
+      for (const name in config.override) {
+        // eslint-disable-next-line no-prototype-builtins
+        if (config.override.hasOwnProperty(name)) {
+          this[name] = config.override[name];
+        }
+      }
+    }
     this.init();
   }
   static getInstance(config) {
@@ -155,9 +163,10 @@ class MeteorBackend {
     });
   }
 }
-export default function (name, scope) {
+export default function (name, scope, override = {}) {
   return MeteorBackend.getInstance({
     name: `${name}`,
     scope: scope,
+    override: override,
   });
 }
