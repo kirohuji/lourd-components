@@ -3,15 +3,24 @@ import multipleSelect from "./multipleSelect";
 export default {
   name: "DataTable",
   componentName: "DataTable",
-  props: ["column", "data", "total", "idKey", "selectData", "collector"],
+  props: [
+    "column",
+    "total",
+    "data",
+    "idKey",
+    "selectData",
+    "collector",
+    "page",
+  ],
   mixins: [multipleSelect],
   data: () => ({
     table: {},
-    page: {
+    innerPage: {
       layout: `total, sizes, prev, pager, next, jumper`,
       total: 0,
+      currentPage: 1,
       "page-sizes": [10, 15, 30, 100],
-      "page-size": 10,
+      pageSize: 10,
       background: false,
     },
   }),
@@ -20,20 +29,23 @@ export default {
       return {
         limit: this.$refs.pagination?.internalPageSize,
         page: this.$refs.pagination?.internalCurrentPage,
-        total: this.page.total,
+        total: this.total,
       };
     },
   },
-  watch: {
-    data: {
-      handler() {
-        this.page.total = this.total || this.data.length;
-      },
-      immediate: true,
-      deep: true,
-    },
-  },
+  // watch: {
+  //   data: {
+  //     handler() {
+  //       this.page.total = this.total || this.data.length;
+  //     },
+  //     immediate: true,
+  //     deep: true,
+  //   },
+  // },
   methods: {
+    update(val) {
+      console.log(val);
+    },
     handleSizeChange() {
       this.$emit("change", this.pagination);
     },
@@ -91,10 +103,15 @@ export default {
             class="pagination"
             ref="pagination"
             {...{
-              props: this.page,
+              props: {
+                ...this.page,
+                total: this.total,
+              },
               on: {
                 "size-change": this.handleSizeChange,
                 "current-change": this.handleCurrentChange,
+                "update:currentPage": (val) => (this.page.currentPage = val),
+                "update:pageSize": (val) => (this.page.pageSize = val),
                 ...this.$listeners,
               },
             }}

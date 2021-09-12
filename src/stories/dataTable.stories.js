@@ -31,6 +31,34 @@ const data = [
     name: "lourd1",
     type: "开发者",
   },
+  {
+    name: "郑勇达",
+    type: "开发者",
+  },
+  {
+    name: "zyd",
+    type: "开发者",
+  },
+  {
+    name: "lourd",
+    type: "开发者",
+  },
+  {
+    name: "hjkl",
+    type: "开发者",
+  },
+  {
+    name: "郑勇达1",
+    type: "开发者",
+  },
+  {
+    name: "zyd1",
+    type: "开发者",
+  },
+  {
+    name: "lourd1",
+    type: "开发者",
+  },
 ];
 export default {
   title: "Design System/Organisms/DataTable",
@@ -100,4 +128,12 @@ export const withDataTable = Template.bind({});
 withDataTable.args = {
   ...TableStories.withTable.args,
   noPage: false,
+  page: {
+    layout: `total, sizes, prev, pager, next, jumper`,
+    total: 100,
+    "page-sizes": [10, 15, 30, 100],
+    pageSize: 10,
+    "current-page": 1,
+    background: false,
+  },
 };

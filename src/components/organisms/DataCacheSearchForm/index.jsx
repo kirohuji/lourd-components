@@ -37,6 +37,7 @@ export default {
       type: Boolean,
       default: true,
     },
+    request: Object,
     forms: Array,
     layout: Object,
     data: Object,
@@ -45,7 +46,7 @@ export default {
   computed: {
     filters() {
       if (this.store?.records) {
-        return this.store.findAll();
+        return this.store.records;
       } else {
         return [];
       }
@@ -90,7 +91,7 @@ export default {
       this.store.fetchCurrent(this.fetchCurrent);
       this.refresh();
     }
-    this.store = Store(this.author || "lourd", this.id);
+    this.store = Store(this.author || "lourd", this.id, this.request);
     // debugger;
   },
   methods: {
@@ -138,7 +139,7 @@ export default {
     handleSubmit(payload) {
       switch (payload.mode) {
         case "saveAndSearch":
-          if (this.filters.length < 100) {
+          if (this.store.records.length < 100) {
             this.$prompt("", "搜索器名称", {
               confirmButtonText: "确定",
               cancelButtonText: "取消",
@@ -147,8 +148,8 @@ export default {
                   return "搜索器名称不能为空";
                 } else if (reg.test(value)) {
                   if (
-                    this.filters.filter((item) => item.name === value).length >
-                    0
+                    this.store.records.filter((item) => item.name === value)
+                      .length > 0
                   ) {
                     return "搜索器名称重复";
                   }
@@ -234,11 +235,11 @@ export default {
             />
           )}
         </MainLayout>
-        {this.filter ? (
+        {this.filter && this.store ? (
           <BottomLayout>
             <SearchFilter
               ref="searchFilter"
-              list={this.filters}
+              list={this.store.records}
               onDelete={(payload) => this.handleDelSearcher(payload)}
               onChangeCurrent={(payload) => this.handleChangeCurrent(payload)}
             />
