@@ -10,9 +10,10 @@ export default {
   methods: {
     search() {
       let data = this.$refs.dataForm.currentData();
-      this.data = {
-        ...data,
-      };
+      // this.data = {
+      //   ...data,
+      // };
+      this.$emit("update:data", data);
       this.$emit("events", {
         name: "search",
         componentName: "DataSearchForm",

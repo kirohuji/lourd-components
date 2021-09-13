@@ -269,21 +269,29 @@ const searchForm = [
   },
 ];
 export const withSearch = () => ({
+  data() {
+    return {
+      data: {
+        name: "zyd",
+        title: 1,
+        age: 30,
+        sex: "男",
+      },
+    };
+  },
   render() {
     return (
       <DataSearchForm
         {...{
           props: {
             forms: searchForm,
-            data: {
-              name: "zyd",
-              title: 1,
-              age: 30,
-              sex: "男",
-            },
+            data: this.data,
             layout: {
               use: "inline",
             },
+          },
+          on: {
+            "update:data": (data) => (this.data = data),
           },
         }}
       />
@@ -291,21 +299,29 @@ export const withSearch = () => ({
   },
 });
 export const withCacheSearchForm = () => ({
+  data() {
+    return {
+      data: {
+        name: "zyd",
+        title: 1,
+        age: 30,
+        sex: "男",
+      },
+    };
+  },
   render() {
     return (
       <DataCacheSearchForm
         {...{
           props: {
             forms: searchForm,
-            data: {
-              name: "zyd",
-              title: 1,
-              age: 30,
-              sex: "男",
-            },
+            data: this.data,
             layout: {
               use: "inline",
             },
+          },
+          on: {
+            "update:data": (data) => (this.data = data),
           },
         }}
       />
