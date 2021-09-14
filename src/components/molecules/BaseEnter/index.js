@@ -1,26 +1,17 @@
 import { isFunction, isObject } from "lodash";
-import { components } from "../../../index";
+// import { components } from "../../../index";
 import Thenable from "@/components/atoms/Thenable";
 import { dictionaries } from "../../../composables/context-cache";
-import QuestionOption from "../QuestionOption";
 export default {
   name: "BaseEnter",
   components: {
     Thenable,
   },
   inject: {
-    // organisms: {
-    //   from: "organisms",
-    //   default: {},
-    // },
     template: {
       from: "template",
       default: {},
     },
-    // model: {
-    //   from: "model",
-    //   default: {},
-    // },
     form: {
       from: "form",
       default: [],
@@ -40,17 +31,15 @@ export default {
   data() {
     return {
       thenableKey: "",
-      isThenable: false
-      // components: this.$baseComponents || components,
+      isThenable: false,
     };
   },
   methods: {
+    /** 判断是否是有runner作为Thenable的运行参数 */
     checkRunner(target) {
-      if (isObject(target.options) && target.options.runner) {
-        return true;
-      }
-      return false;
+      return isObject(target.options) && target.options.runner;
     },
+    /** 判断是否需要进行缓存 */
     checkCached(target) {
       if (isObject(target) && target.cache && !target.runner) {
         if (!this.$cache[target.cache]) {
@@ -58,6 +47,46 @@ export default {
         }
         target.options = this.$cache[target.cache](target.options);
       }
+    },
+    renderChildrenComponent(use, item, index, h) {
+      return h(
+        this.$baseComponents[use],
+        {
+          props: item,
+          key: index + new Date(),
+        },
+        item.label
+      );
+    },
+    renderChildren(children, innerH) {
+      // debugger;
+      return this.checkRunner(children) ? (
+        <Thenable
+          {...{
+            props: children.options,
+            scopedSlots: {
+              default: ({ result }) => (
+                <div>
+                  {!result.loading
+                    ? result.data.map((item, index) =>
+                        this.renderChildrenComponent(
+                          children.use,
+                          item,
+                          index,
+                          innerH
+                        )
+                      )
+                    : ""}
+                </div>
+              ),
+            },
+          }}
+        />
+      ) : (
+        children.options?.map((item, index) =>
+          this.renderChildrenComponent(children.use, item, index, innerH)
+        )
+      );
     },
   },
   render(h) {
@@ -72,7 +101,7 @@ export default {
       this.checkCached(this.$attrs[key]);
     });
     const render = ({ data, loading }) =>
-      h(components[this.use], {
+      h(this.$baseComponents[this.use], {
         directives: [
           {
             name: "loading",
@@ -88,55 +117,11 @@ export default {
           [this.thenableKey]: data,
         },
         on: this.$listeners,
+        // 判断子节点
         scopedSlots: this.$attrs.children
           ? {
               [this.$attrs.children.slot || "default"]: () =>
-                this.checkRunner(this.$attrs.children) ? (
-                  <Thenable
-                    {...{
-                      props: this.$attrs.children.options,
-                      scopedSlots: {
-                        default: ({ result }) => (
-                          <div>
-                            {!result.loading
-                              ? result.data.map((item, index) => (
-                                  <QuestionOption
-                                    config={
-                                      this.$attrs.question && this.form.question
-                                    }
-                                  >
-                                    {h(
-                                     components[this.$attrs.children.use],
-                                      {
-                                        props: item,
-                                        key: index + new Date(),
-                                      },
-                                      item.label
-                                    )}
-                                  </QuestionOption>
-                                ))
-                              : ""}
-                          </div>
-                        ),
-                      },
-                    }}
-                  />
-                ) : (
-                  this.$attrs.children.options?.map((item, index) => (
-                    <QuestionOption
-                      config={this.$attrs.question && this.form.question}
-                    >
-                      {h(
-                        components[this.$attrs.children.use],
-                        {
-                          props: item,
-                          key: index + new Date(),
-                        },
-                        item.label
-                      )}
-                    </QuestionOption>
-                  ))
-                ),
+                this.renderChildren(this.$attrs.children, h),
             }
           : this.$scopedSlots,
       });
