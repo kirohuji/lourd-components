@@ -1,5 +1,5 @@
 import BaseEnter from "../components/molecules/BaseEnter";
-import { components } from "../index";
+import { components } from "../plugins/baseEnter";
 const common = {
   disabled: false,
   readonly: false,
@@ -42,6 +42,7 @@ const cascaderOptions = [
   },
 ];
 export default {
+  component: BaseEnter,
   title: "Design System/Molecules/BaseEnter",
   argTypes: {
     use: {

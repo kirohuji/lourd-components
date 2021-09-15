@@ -1,4 +1,3 @@
-import Vue from "vue";
 import {
   Input,
   Cascader,
@@ -33,5 +32,9 @@ export const components = {
   "row-grid": RowGrid,
   search: BaseSearch,
 };
-
-Vue.prototype.$baseComponents = components;
+const BaseEnterProvider = {};
+function install(Vue) {
+  Vue.prototype.$baseComponents = components;
+}
+BaseEnterProvider.install = install;
+export default BaseEnterProvider;
