@@ -1,0 +1,25 @@
+.manager-table {
+  .main-content-header,
+  .main-content-body {
+    padding: 14px;
+  }
+  .main-content-header {
+    padding-bottom: 0;
+  }
+  .main-content-body {
+    padding-top: 0;
+  }
+  .operation-header {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin-top: 1px;
+    // width: 220px;
+    .el-input {
+      width: 220px ;
+    }
+    .el-select > .el-input {
+      width: 90px;
+    }
+  }
+}

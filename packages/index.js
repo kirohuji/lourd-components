@@ -9,6 +9,8 @@ import BaseEnter from "./BaseEnter";
 import DataCacheSearchForm from "./DataCacheSearchForm";
 import DataDialog from "./DataDialog";
 import EditTable from "./EditTable";
+import BaseEnterProvider from "../src/plugins/baseEnter";
+import ThenableProvider from "../src/plugins/thenable";
 const installComponents = [
   BaseMonacoEditor,
   BaseDialog,
@@ -33,6 +35,8 @@ if (typeof window !== "undefined" && window.Vue) {
 }
 export default {
   install,
+  BaseEnterProvider,
+  ThenableProvider,
   BaseMonacoEditor,
   BaseDialog,
   BaseEnter,

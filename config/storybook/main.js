@@ -1,3 +1,4 @@
+const path = require('path');
 const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 module.exports = {
   stories: ["../../src/**/*.stories.@(js|jsx|ts|tsx|mdx)"],
@@ -5,6 +6,16 @@ module.exports = {
     "@storybook/addon-essentials",
     "@storybook/addon-links",
     "@storybook/addon-actions",
+    {
+      name: "@storybook/addon-docs",
+      options: {
+        vueDocgenOptions: {
+          alias: {
+            "@": path.resolve(__dirname, "../"),
+          },
+        },
+      },
+    },
     "@storybook/addon-storysource",
   ],
   webpackFinal: (config) => {

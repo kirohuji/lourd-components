@@ -21,9 +21,13 @@ const StepTabs = {
   name: "StepTabs",
   componentName: "StepTabs",
   props: {
+    /**
+     * ボタン内に表示するテキスト
+     */
     steps: {
       type: Array,
       default: () => [],
+      required: true,
     },
     space: Number,
   },
