@@ -2,6 +2,8 @@ import "@/plugins/element";
 import "@/plugins/echarts";
 import "@/plugins/thenable";
 import "@/plugins/baseEnter";
+// import { addParameters } from "@storybook/vue";
+
 export const parameters = {
   controls: { expanded: true },
   backgrounds: {

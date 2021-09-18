@@ -1,13 +1,17 @@
-import StepTabs from "../components/organisms/StepTabs";
+import StepTabs from "../components/organisms/StepTabs/index.vue";
 export default {
+  id: "StepTabs",
+  storyById: "StepTabs",
   title: "Design System/Organisms/StepTabs",
+  components: StepTabs,
 };
 const data = [
   { title: "问卷说明", label: "information" },
   { title: "设置问题", label: "requests" },
   { title: "配置选项", label: "options" },
 ];
-export const withBasic = () => ({
+const Template = (args, { argTypes }) => ({
+  props: Object.keys(argTypes),
   render() {
     return (
       <div>
@@ -73,3 +77,5 @@ export const withBasic = () => ({
     );
   },
 });
+export const withBasic = Template.bind({});
+withBasic.storyById = "withBasic";

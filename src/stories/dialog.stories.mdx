@@ -1,0 +1,29 @@
+import { Meta, ArgsTable, Story, Canvas } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
+import { linkTo } from "@storybook/addon-links";
+import { Dialog } from "element-ui";
+import DialogStories from "./dialog.stories.js";
+
+<Meta
+  title="Element UI/Dialog.MDX"
+  component={Dialog}
+  argTypes={DialogStories.argTypes}
+/>
+
+# Dialog
+
+在保留当前页面状态的情况下，告知用户并承载相关操作。
+
+<ArgsTable of={Dialog} />
+
+> `visible` 是.sync 的 props
+
+> 应该通过添加 `custom-class` 进行`Dialog`的样式修改
+
+> 比起使用 v-if 进行销毁，可以添加`destroy-on-close`进行销毁
+
+## 基本用法
+
+Dialog 弹出一个对话框，适合需要定制性更大的场景。
+
+<Story id="element-ui-dialog--with-example-one" name="ExampleOne" />
