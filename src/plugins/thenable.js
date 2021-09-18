@@ -1,5 +1,7 @@
 import _ from "lodash";
 import Vue from "vue";
+Vue.prototype.$cache = {};
+window.cache = Vue.prototype.$cache;
 import { dictionaries } from "../composables/context-cache";
 export class Thenable {
   constructor({

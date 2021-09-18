@@ -1,6 +1,7 @@
 import "@/plugins/element";
 import "@/plugins/echarts";
 import "@/plugins/thenable";
+import "@/plugins/baseEnter";
 export const parameters = {
   controls: { expanded: true },
   backgrounds: {
