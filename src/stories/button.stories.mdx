@@ -1,0 +1,19 @@
+import { Meta, ArgsTable, Story, Canvas } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
+import { linkTo } from "@storybook/addon-links";
+import { Dialog } from "element-ui";
+import ButtonStories from "./button.stories.js";
+
+<Meta
+  title="Button.MDX"
+  component={Button}
+  argTypes={ButtonStories.argTypes}
+/>
+
+# Button 按钮
+
+常用的操作按钮。
+
+<ArgsTable of={Button} />
+
+<Story id="Button-按钮--with-basic" name="ExampleTwo" />

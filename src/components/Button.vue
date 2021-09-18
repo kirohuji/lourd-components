@@ -6,7 +6,7 @@
 export default {
   props: {
     /**
-     * ボタン内に表示するテキスト
+     * 修改
      */
     text: {
       type: String,

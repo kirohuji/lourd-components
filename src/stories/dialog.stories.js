@@ -162,8 +162,8 @@ export const withExampleOne = () => ({
               ...handler,
               "update:visible": () => (this.dialogVisible = false),
             },
-            scopeSlots: {
-              footer: () => (
+            scopedSlots: {
+              default: () => (
                 <span class="dialog-footer">
                   <Button onClick={() => (this.dialogVisible = false)}>
                     确定
@@ -180,15 +180,138 @@ export const withExampleOne = () => ({
   },
 });
 withExampleOne.storyName = "基本用法";
-// withExampleOne.args = {
-//   visible: false,
-//   title: "Hello World",
-//   width: "50%",
-//   fullscreen: false,
-//   top: "15vh",
-//   modal: true,
-//   "show-close": true,
-//   "before-close": (done) => {
-//     done();
-//   },
-// };
+
+export const withExampleTwo = () => ({
+  data() {
+    return {
+      dialogVisible: false,
+      gridData: [
+        {
+          date: "2016-05-02",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄",
+        },
+        {
+          date: "2016-05-04",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄",
+        },
+        {
+          date: "2016-05-01",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄",
+        },
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄",
+        },
+      ],
+    };
+  },
+  render() {
+    let handler = {};
+    events.forEach((item) => (handler[item] = (...args) => action(item)(args)));
+    return (
+      <div>
+        <Button type="text" onClick={() => (this.dialogVisible = true)}>
+          打开嵌套表格的 Dialog
+        </Button>
+        <Dialog
+          title="收获地址"
+          visible={this.dialogVisible}
+          {...{
+            on: {
+              ...handler,
+              "update:visible": () => (this.dialogVisible = false),
+            },
+          }}
+        >
+          <ElTable data={this.gridData}>
+            <ElTableColumn
+              property="date"
+              label="日期"
+              width="150"
+            ></ElTableColumn>
+            <ElTableColumn
+              property="name"
+              label="姓名"
+              width="200"
+            ></ElTableColumn>
+            <ElTableColumn property="address" label="地址"></ElTableColumn>
+          </ElTable>
+        </Dialog>
+      </div>
+    );
+  },
+});
+withExampleTwo.storyName = "自定义内容（打开嵌套的对话框）";
+
+export const withExampleThree = () => ({
+  data() {
+    return {
+      dialogVisible: false,
+      dialogInnerVisible: false,
+    };
+  },
+  methods: {
+    handleClose(done) {
+      this.$confirm("确认关闭？")
+        // eslint-disable-next-line no-unused-vars
+        .then((_) => {
+          done();
+        })
+        // eslint-disable-next-line no-unused-vars
+        .catch((_) => {});
+    },
+  },
+  render() {
+    let handler = {};
+    events.forEach((item) => (handler[item] = (...args) => action(item)(args)));
+    return (
+      <div>
+        <Button type="text" onClick={() => (this.dialogVisible = true)}>
+          点击打开外层 Dialog
+        </Button>
+        <Dialog
+          title="外层 Dialog"
+          visible={this.dialogVisible}
+          {...{
+            on: {
+              ...handler,
+              "update:visible": () => (this.dialogVisible = false),
+            },
+            scopedSlots: {
+              footer: () => (
+                <span class="dialog-footer">
+                  <Button onClick={() => (this.dialogVisible = false)}>
+                    取消
+                  </Button>
+                  <Button
+                    type="primary"
+                    onClick={() => (this.dialogInnerVisible = false)}
+                  >
+                    打开内层 Dialog
+                  </Button>
+                </span>
+              ),
+            },
+          }}
+        >
+          <Dialog
+            width="30%"
+            title="内层 Dialog"
+            visible={this.dialogInnerVisible}
+            append-to-body
+            {...{
+              on: {
+                ...handler,
+                "update:visible": () => (this.dialogInnerVisible = false),
+              },
+            }}
+          />
+        </Dialog>
+      </div>
+    );
+  },
+});
