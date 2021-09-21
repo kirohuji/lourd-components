@@ -1,4 +1,4 @@
-import TreeTable from "../components/template/TreeTable";
+import TreeTable, { Store } from "../components/template/TreeTable";
 export default {
   title: "Design System/Template/TreeTable",
 };
@@ -6,7 +6,7 @@ export default {
 const searchForm = [
   {
     label: "名称",
-    prop: "name",
+    prop: "label",
     use: "input",
     size: "mini",
   },
@@ -31,28 +31,52 @@ const searchForm = [
 ];
 const tableData = [
   {
-    name: 1,
+    key: 1,
+    label: 1,
     type: 1,
     age: 64,
     sex: 1,
     title: "test",
+    children: [
+      {
+        label: "child 1",
+        type: 1,
+        age: 64,
+        sex: 2,
+        title: "test",
+      },
+      {
+        label: "child 2",
+        type: 1,
+        age: 64,
+        sex: 2,
+        title: "test",
+      },
+      {
+        label: 2,
+        type: 1,
+        age: 64,
+        sex: 2,
+        title: "test",
+      },
+    ],
   },
   {
-    name: 2,
+    label: 2,
     type: 1,
     age: 64,
     sex: 2,
     title: "test",
   },
   {
-    name: 2,
+    label: 2,
     type: 1,
     age: 64,
     sex: 2,
     title: "test",
   },
   {
-    name: 2,
+    label: 2,
     type: 1,
     age: 64,
     sex: 2,
@@ -69,7 +93,7 @@ const column = [
     type: "index",
   },
   {
-    prop: "name",
+    prop: "label",
     label: "名称",
   },
   {
@@ -94,7 +118,7 @@ const data = {
   searcher: {
     forms: searchForm,
     data: {
-      name: "zyd",
+      label: "zyd",
       title: 1,
       age: 30,
       sex: "男",
@@ -116,11 +140,17 @@ const schema = {
       width: "55",
     },
     {
+      type: "expand",
+      width: "55",
+      prop: "expand",
+      scopedSlots: true,
+    },
+    {
       label: "序号",
       type: "index",
     },
     {
-      prop: "name",
+      prop: "label",
       label: "名称",
       searcher: {
         use: "input",
@@ -195,7 +225,16 @@ const schema = {
     },
   ],
   table: {
-    data: tableData,
+    data: [],
+    total: 0,
+    "highlight-current-row": true,
+    page: {
+      layout: `total, sizes, prev, pager, next, jumper`,
+      currentPage: 1,
+      pageSizes: [10, 15, 30, 100],
+      pageSize: 10,
+      background: false,
+    },
   },
   dialog: {
     layout: {
@@ -214,7 +253,7 @@ const schema = {
     filter: true,
     searcher: true,
     data: {
-      name: "zyd",
+      label: "zyd",
       title: 1,
       age: 30,
       sex: 2,
@@ -245,15 +284,38 @@ const events = [
   "expand-change",
 ];
 export const withSchema = () => ({
+  data() {
+    schema.table.data = tableData;
+    schema.table.total = tableData.length;
+    const store = new Store(schema);
+    return {
+      store,
+    };
+  },
+  methods: {
+    handleRowClick(row) {
+      console.log(row);
+      if (row.children) {
+        this.store.breadcrumb.push(row);
+        this.store.table.data = row.children;
+        this.store.table.total = row.children.length;
+      }
+    },
+  },
   render() {
-    // let handler = {};
-    // events.forEach((item) => (handler[item] = (...args) => action(item)(args)));
     return (
       <TreeTable
-        config={schema}
-        // {...{
-        //   on: handler,
-        // }}
+        store={this.store}
+        {...{
+          on: {
+            "row-click": this.handleRowClick,
+            "breadcrumb-click": () => {
+              console.log("更新");
+              this.store.table.data = tableData;
+              this.store.table.total = tableData.length;
+            },
+          },
+        }}
       />
     );
   },

@@ -1,9 +1,11 @@
+import Vue from "vue";
 import "@/plugins/element";
 import "@/plugins/echarts";
-import "@/plugins/thenable";
-import "@/plugins/baseEnter";
+import ThenableProvider from "@/plugins/thenable";
+import BaseEnterProvider from "@/plugins/baseEnter";
 // import { addParameters } from "@storybook/vue";
-
+Vue.use(ThenableProvider);
+Vue.use(BaseEnterProvider);
 export const parameters = {
   controls: { expanded: true },
   backgrounds: {

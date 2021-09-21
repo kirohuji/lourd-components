@@ -32,5 +32,10 @@ export default class Store {
     if (this.table && !this.table.column) {
       this.table.column = options.schema;
     }
+    this.breadcrumb = [
+      {
+        label: "根节点",
+      },
+    ];
   }
 }

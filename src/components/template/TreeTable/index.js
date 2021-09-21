@@ -6,39 +6,31 @@ import emitter from "element-ui/src/mixins/emitter";
 import { find } from "lodash";
 import BaseEnter from "../../molecules/BaseEnter";
 import DataDialog from "../../organisms/DataDialog";
-// import _ from "lodash";
-// import BaseDialog from "../../molecules/BaseDialog";
-// import DataForm from "../../organisms/DataForm";
 import "./index.scss";
-// const OperationHeader = {
-//   render() {},
-// };
+import {
+  Divider,
+  Breadcrumb,
+  BreadcrumbItem,
+  Descriptions,
+  DescriptionsItem,
+} from "element-ui";
+export { Store };
 export default {
-  name: "ManagerTable",
-  props: ["config"],
+  name: "TreeTable",
+  props: ["store"],
   components: {
     DataCacheSearchForm,
     DataTable,
     BaseEnter,
     DataDialog,
+    Descriptions,
+    DescriptionsItem,
+    Breadcrumb,
+    BreadcrumbItem,
   },
-  // watch: {
-  //   "operationHeader.select": {
-  //     handler(val) {
-  //       this.operationHeader.current = _.find(
-  //         this.store.searcher.forms,
-  //         "prop",
-  //         val
-  //       );
-  //       console.log(this.operationHeader.current);
-  //     },
-  //   },
-  // },
   data() {
-    const store = new Store(this.config);
     return {
       hasOperation: true,
-      store: store,
       currentRecord: null,
       operationHeader: {
         prop: "operation",
@@ -49,52 +41,6 @@ export default {
         current: null,
         renderHeader: () => (
           <div class="operation-header">
-            {/* <BaseEnter
-              use="select"
-              size="mini"
-              vModel={this.operationHeader.select}
-              children={{
-                use: "option",
-                options: _.compact(
-                  store.table.column.map((item) => {
-                    return (
-                      item.label && {
-                        label: item.label,
-                        value: item.prop,
-                      }
-                    );
-                  })
-                ),
-              }}
-            />
-            {this.operationHeader.current && (
-              <BaseEnter
-                use={this.operationHeader.current.formUse}
-                vModel={this.operationHeader.value}
-                size="mini"
-                style="width: 120px;margin-left: 8px"
-                items={this.operationHeader.current}
-              />
-            )} */}
-            {/* <ElInput
-              placeholder="请输入内容"
-              size="mini"
-              vModel={this.operationHeader.input}
-            >
-              <ElSelect
-                slot="prepend"
-                placeholder="请选择"
-                default-first-option
-                vModel={this.operationHeader.select}
-              >
-                {store.table.column.map(
-                  (item) =>
-                    item.label && (
-                      <ElOption label={item.label} value={item.prop} />
-                    )
-                )}
-              </ElSelect>
-            </ElInput> */}
             <ElButton
               size="mini"
               type="primary"
@@ -132,13 +78,6 @@ export default {
             ) : (
               ""
             )}
-            {/* {this.currentRecord && this.currentRecord.length > 1 ? (
-              <ElButton size="mini" style="margin-left: 8px">
-                批量复制
-              </ElButton>
-            ) : (
-              ""
-            )} */}
           </div>
         ),
       },
@@ -152,6 +91,9 @@ export default {
     }
   },
   methods: {
+    handleBreadcrumbClick(row) {
+      this.$emit("breadcrumb-click", row);
+    },
     handleDialog(opt) {
       this.$nextTick(() => {
         console.log(opt);
@@ -181,16 +123,60 @@ export default {
             }}
           />
         </Card>
+        <Divider />
         <Card class="main-content-body">
+          <Breadcrumb separator-class="el-icon-arrow-right">
+            {this.store.breadcrumb.map((item) => (
+              <BreadcrumbItem
+                {...{
+                  props: {
+                    to: {
+                      path: item.label,
+                    },
+                  },
+                  nativeOn: {
+                    click: () => this.handleBreadcrumbClick(item),
+                  },
+                }}
+              >
+                {item.label}
+              </BreadcrumbItem>
+            ))}
+          </Breadcrumb>
           <DataTable
             {...{
               props: this.store.table,
+              attrs: this.store.table,
               on: {
-                ...this.$listeners,
                 select: this.handleSelect,
                 "select-all": this.handleSelect,
+                ...this.$listeners,
               },
               scopedSlots: {
+                expand: ({ row }) => (
+                  <div class="description">
+                    <Descriptions column={5} direction="vertical">
+                      {Object.entries(row).map(([key, val]) => {
+                        let props = find(this.store.table.column, [
+                          "prop",
+                          key,
+                        ]);
+                        return (
+                          props && (
+                            <DescriptionsItem
+                              {...{
+                                props: props,
+                                on: this.$listeners,
+                              }}
+                            >
+                              {val}
+                            </DescriptionsItem>
+                          )
+                        );
+                      })}
+                    </Descriptions>
+                  </div>
+                ),
                 operation: ({ row }) =>
                   this.hasOperation && (
                     <div class="manager-table-operation">
