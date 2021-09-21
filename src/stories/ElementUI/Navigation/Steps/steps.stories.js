@@ -1,6 +1,6 @@
 import { Steps, Step } from "element-ui";
 export default {
-  title: "Element UI/Steps",
+  title: "Element UI/组件/Navigation/Steps/步骤条 Steps",
   argTypes: {
     direction: {
       options: ["vertical", "horizontal"],

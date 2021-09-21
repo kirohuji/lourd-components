@@ -9,7 +9,7 @@ import { action } from "@storybook/addon-actions";
 
 export default {
   component: Dialog,
-  title: "Element UI/Dialog",
+  title: "Element UI/组件/Others/Dialog/对话框 Dialog",
   argTypes: {
     visible: {
       description: "是否显示 Dialog，支持 .sync 修饰符",

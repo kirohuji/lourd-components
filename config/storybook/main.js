@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require("path");
 const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 module.exports = {
   stories: ["../../src/**/*.stories.@(js|jsx|ts|tsx|mdx)"],
@@ -16,7 +16,14 @@ module.exports = {
         },
       },
     },
-    "@storybook/addon-storysource",
+    {
+      name: "@storybook/addon-storysource",
+      options: {
+        loaderOptions: {
+          injectStoryParameters: false,
+        },
+      },
+    },
   ],
   webpackFinal: (config) => {
     config.plugins.push(
@@ -25,6 +32,14 @@ module.exports = {
         languages: ["javascript", "sql"],
       })
     );
+    config.module.rules.push({
+      resourceQuery: /blockType=docs/,
+      use: [
+        "storybook-readme/vue/docs-loader",
+        "html-loader",
+        "markdown-loader",
+      ],
+    });
     return config;
   },
 };

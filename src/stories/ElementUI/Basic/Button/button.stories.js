@@ -1,7 +1,7 @@
 import Button from "@/components/Button.vue";
 export default {
   component: Button,
-  title: "Element UI/组件/Basic/Button 按钮",
+  title: "Element UI/组件/Basic/Button/按钮 Button",
   decorators: [
     () => ({ template: '<div style="margin: 3em;"><story/></div>' }),
   ],

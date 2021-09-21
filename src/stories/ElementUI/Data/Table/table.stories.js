@@ -44,7 +44,7 @@ const tableData = [
   },
 ];
 export default {
-  title: "Element UI/Table",
+  title: "Element UI/组件/Data/Table/表格 Table",
   actions: { argTypesRegex: "^on[A-Z].*" },
   argTypes: {
     currentRowKey: {

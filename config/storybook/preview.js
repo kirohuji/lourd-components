@@ -3,7 +3,7 @@ import "@/plugins/element";
 import "@/plugins/echarts";
 import ThenableProvider from "@/plugins/thenable";
 import BaseEnterProvider from "@/plugins/baseEnter";
-// import { addParameters } from "@storybook/vue";
+import { addParameters } from "@storybook/vue";
 Vue.use(ThenableProvider);
 Vue.use(BaseEnterProvider);
 export const parameters = {
@@ -14,4 +14,13 @@ export const parameters = {
       { name: "green", value: "#0f0" },
     ],
   },
+  options: {
+    storySort: { order: ["概述(Introduction)", "基本布局"] },
+  },
 };
+
+addParameters({
+  docs: {
+    inlineStories: true,
+  },
+});

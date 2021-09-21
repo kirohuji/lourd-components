@@ -1,5 +1,5 @@
 import DataTable from "../components/organisms/DataTable";
-import * as TableStories from "./table.stories";
+import * as TableStories from "./ElementUI/Data/Table/table.stories";
 import * as events from "./events";
 import { action } from "@storybook/addon-actions";
 const data = [

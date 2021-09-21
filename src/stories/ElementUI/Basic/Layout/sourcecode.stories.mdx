@@ -1,0 +1,83 @@
+import { Meta, Story, Canvas, Source } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
+import { linkTo } from "@storybook/addon-links";
+import { Row, Col } from "element-ui";
+
+<Meta title="Element UI/组件/Basic/Layout/源码(Sourcecode)" component={Row} subcomponents={Col}/>
+
+# Layout 布局
+
+由 `Rol` & `Col` 两个组件进行组合
+
+布局主要还是由CSS来控制最重要的展示效果:
+1. `Rol`代表一行
+2. `Col`代表一行内的占比
+   * **24**(100%)
+   * **16**(66.66667%)
+   * **8**(33.33333%)
+   * **6**(25%)
+   * **4(**16.66667%)
+   * **2**(8.33333%)
+## Rol 的核心代码
+
+```javascript
+  render(h) {
+    return h(this.tag, {
+      class: [
+        'el-row',
+        this.justify !== 'start' ? `is-justify-${this.justify}` : '',
+        this.align ? `is-align-${this.align}` : '',
+        { 'el-row--flex': this.type === 'flex' }
+      ],
+      style: this.style
+    }, this.$slots.default);
+  }
+
+```
+
+## Col 的核心代码
+
+```javascript
+
+  render(h) {
+    let classList = [];
+    let style = {};
+
+    if (this.gutter) {
+      style.paddingLeft = this.gutter / 2 + 'px';
+      style.paddingRight = style.paddingLeft;
+    }
+
+    // 不错的props to classList的生成方法
+    ['span', 'offset', 'pull', 'push'].forEach(prop => {
+      if (this[prop] || this[prop] === 0) {
+        classList.push(
+          prop !== 'span'
+            ? `el-col-${prop}-${this[prop]}`
+            : `el-col-${this[prop]}`
+        );
+      }
+    });
+
+    ['xs', 'sm', 'md', 'lg', 'xl'].forEach(size => {
+      if (typeof this[size] === 'number') {
+        classList.push(`el-col-${size}-${this[size]}`);
+      } else if (typeof this[size] === 'object') {
+        let props = this[size];
+        Object.keys(props).forEach(prop => {
+          classList.push(
+            prop !== 'span'
+              ? `el-col-${size}-${prop}-${props[prop]}`
+              : `el-col-${size}-${props[prop]}`
+          );
+        });
+      }
+    });
+
+    return h(this.tag, {
+      class: ['el-col', classList],
+      style
+    }, this.$slots.default);
+  }
+
+```

@@ -1,0 +1,45 @@
+import { Meta, Story, Canvas, Source } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
+import { linkTo } from "@storybook/addon-links";
+import argTypes, { rows } from "./argTypes.js";
+import { Row, Col } from "element-ui";
+import { TabbedArgsTable, ArgsTable } from "@storybook/components";
+
+<Meta title="Element UI/组件/Basic/Layout/概述(Introduction)" component={Row} />
+　　　　　　　　　　　　　　　
+
+# Layout 布局
+
+> 通过基础的 24 分栏，迅速简便地创建布局。
+
+
+## 开发经验
+
+对于`Layout`的布局思路，其实和`Flex`的思路差不多，24分栏了以后，对于页面的整理排版更加清晰，尤其是可以配合响应式进行显示和隐藏的配合
+
+## 基于断点的隐藏类
+
+Element 额外提供了一系列类名，用于在某些条件下隐藏元素。这些类名可以添加在任何 DOM 元素或自定义组件上。如果需要，请自行引入以下文件：
+
+```javascript
+import 'element-ui/lib/theme-chalk/display.css';
+```
+包含的类名及其含义为：
+* `hidden-xs-only` - 当视口在 xs 尺寸时隐藏
+* `hidden-sm-only` - 当视口在 sm 尺寸时隐藏
+* `hidden-sm-and-down` - 当视口在 sm 及以下尺寸时隐藏
+* `hidden-sm-and-up` - 当视口在 sm 及以上尺寸时隐藏
+* `hidden-md-only` - 当视口在 md 尺寸时隐藏
+* `hidden-md-and-down` - 当视口在 md 及以下尺寸时隐藏
+* `hidden-md-and-up` - 当视口在 md 及以上尺寸时隐藏
+* `hidden-lg-only` - 当视口在 lg 尺寸时隐藏
+* `hidden-lg-and-down` - 当视口在 lg 及以下尺寸时隐藏
+* `hidden-lg-and-up` - 当视口在 lg 及以上尺寸时隐藏
+* `hidden-xl-only` - 当视口在 xl 尺寸时隐藏
+
+## 参数表
+
+<TabbedArgsTable
+  tabs={argTypes}
+  updateArgs={function noRefCheck() {}}
+/>

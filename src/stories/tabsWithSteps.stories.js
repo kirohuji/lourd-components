@@ -1,7 +1,7 @@
 import { Tabs, TabPane, Step, Steps } from "element-ui";
 import "./tabsWithSteps.stories.scss";
 export default {
-  title: "Element UI/Steps和Tabs联动",
+  title: "Element UI/组件/Tests/Steps和Tabs联动",
   argTypes: {
     type: {
       options: ["card", "border-card"],

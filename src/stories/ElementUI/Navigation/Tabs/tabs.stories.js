@@ -1,7 +1,7 @@
 import { Tabs, TabPane } from "element-ui";
 
 export default {
-  title: "Element UI/Tabs 标签页",
+  title: "Element UI/组件/Navigation/Tabs/标签页 Tabs",
   argTypes: {
     type: {
       options: ["card", "border-card"],
