@@ -59,6 +59,8 @@ export default {
       if (val) {
         this.transform();
         this.initData(val);
+      } else {
+        this.model = {};
       }
     },
   },

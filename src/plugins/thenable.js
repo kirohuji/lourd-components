@@ -29,7 +29,7 @@ export class Thenable {
     this.cache = cache;
     this._watchers = [];
     this.vm = vm;
-    this.immediate = immediate || true;
+    this.immediate = immediate;
     this.listeners(variables);
     this.target = target;
     this.init(data);
