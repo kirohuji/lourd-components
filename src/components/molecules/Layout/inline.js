@@ -1,6 +1,7 @@
 export default {
   name: "Inline",
   props: ["length", "direction", "gutter", "wrap"],
+  inheritAttrs: false,
   computed: {
     style() {
       const ret = {};

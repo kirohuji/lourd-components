@@ -44,6 +44,20 @@ export default {
       }
     },
   },
+  methods: {
+    cancel() {
+      this.$refs.dataForm.refs().resetFields();
+      this.$emit("update:visible", false);
+    },
+    submit() {
+      this.$emit("submit", {
+        ref: this.$refs.dataForm.refs(),
+        validate: this.$refs.dataForm.refs().validate,
+        data: this.$refs.dataForm.currentData(),
+        mode: this.mode,
+      });
+    },
+  },
   render() {
     console.log(Dialog);
     return (
@@ -64,28 +78,33 @@ export default {
             attrs: this.form,
           }}
         />
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <ElButton onClick={() => this.$emit("update:visible", false)}>
-            取消
-          </ElButton>
-          <ElButton
-            type="primary"
-            onClick={() =>
-              this.$emit("submit", {
-                ref: this.$refs.dataForm.refs(),
-                validate: this.$refs.dataForm.refs().validate,
-                data: this.$refs.dataForm.currentData(),
-                mode: this.mode,
-              })
-            }
-          >
-            确定
-          </ElButton>
+        <div ref="footer">
+          {this.$scopedSlots.footer ? (
+            this.$scopedSlots.footer(
+              this.cancel.bind(this),
+              this.submit.bind(this)
+            )
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              {this.$scopedSlots.cancel ? (
+                this.$scopedSlots.cancel()
+              ) : (
+                <ElButton onClick={() => this.cancel()}>取消</ElButton>
+              )}
+              {this.$scopedSlots.submit ? (
+                this.$scopedSlots.submit()
+              ) : (
+                <ElButton type="primary" onClick={() => this.submit()}>
+                  确定
+                </ElButton>
+              )}
+            </div>
+          )}
         </div>
       </Dialog>
     );

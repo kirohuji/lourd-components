@@ -75,6 +75,14 @@ const Template = (args, { argTypes }) => ({
             submit: (val) => console.log(val),
             "update:visible": (val) => (this.innerVisible = val),
           },
+          scopedSlots: {
+            footer: (cancel, submit) => (
+              <div>
+                <button onClick={() => cancel()}>取消</button>
+                <button onClick={() => submit()}>提交</button>
+              </div>
+            ),
+          },
         }}
       />
     );
