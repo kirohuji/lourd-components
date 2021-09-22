@@ -232,8 +232,8 @@ export default {
           type: "text",
         },
         description: "<768px 响应式栅格数或者栅格属性对象	",
-        key: "tag",
-        name: "tag",
+        key: "xs",
+        name: "xs",
         table: {
           category: "responsive(响应式) ",
           defaultValue: {
