@@ -7,6 +7,12 @@ export default {
   components: {
     BaseDialog,
   },
+  props: {
+    title: String,
+    form: Object,
+    width: String | Number,
+    mode: String,
+  },
   data() {
     return {
       form: null,
@@ -60,7 +66,6 @@ export default {
             ref="dataForm"
             {...{
               props: {
-                collector: "dialogForm",
                 ...this.form,
               },
             }}
