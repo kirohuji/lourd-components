@@ -5,6 +5,7 @@ import DataTable from "./DataTable";
 import StepTabs from "./StepTabs";
 import Thenable from "./Thenable";
 import BaseDialog from "./BaseDialog";
+import BaseFormDialog from "./BaseFormDialog";
 import BaseEnter from "./BaseEnter";
 import DataCacheSearchForm from "./DataCacheSearchForm";
 import DataDialog from "./DataDialog";
@@ -24,6 +25,7 @@ const installComponents = [
   EditTable,
   Thenable,
   StepTabs,
+  BaseFormDialog,
 ];
 const install = function (Vue) {
   installComponents.forEach((component) => {
@@ -48,4 +50,5 @@ export default {
   DataTable,
   EditTable,
   StepTabs,
+  BaseFormDialog,
 };
