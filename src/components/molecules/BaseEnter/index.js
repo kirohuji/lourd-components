@@ -65,20 +65,29 @@ export default {
           {...{
             props: children.options,
             scopedSlots: {
-              default: ({ result }) => (
-                <div>
-                  {!result.loading
-                    ? result.data.map((item, index) =>
-                        this.renderChildrenComponent(
-                          children.use,
-                          item,
-                          index,
-                          innerH
+              default: ({ result }) => {
+                if (!result.loading) {
+                  result.initData &&
+                    this.$emit(
+                      "input",
+                      result.initData.call(this, result.data)
+                    );
+                }
+                return (
+                  <div>
+                    {!result.loading
+                      ? result.data.map((item, index) =>
+                          this.renderChildrenComponent(
+                            children.use,
+                            item,
+                            index,
+                            innerH
+                          )
                         )
-                      )
-                    : ""}
-                </div>
-              ),
+                      : ""}
+                  </div>
+                );
+              },
             },
           }}
         />
@@ -130,11 +139,15 @@ export default {
         {...{
           props: this.isThenable,
           scopedSlots: {
-            default: ({ result: { loading, data } }) =>
-              render({
+            default: ({ result: { loading, data, initData } }) => {
+              if (!loading) {
+                initData && this.$emit("input", initData.call(this, data));
+              }
+              return render({
                 data: data,
                 loading: loading,
-              }),
+              });
+            },
           },
         }}
       />

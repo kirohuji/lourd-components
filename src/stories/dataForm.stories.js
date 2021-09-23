@@ -248,6 +248,7 @@ const searchForm = [
     prop: "name",
     use: "input",
     size: "mini",
+    isReal: true,
   },
   {
     label: "年龄",

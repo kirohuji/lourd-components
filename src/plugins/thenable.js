@@ -13,6 +13,7 @@ export class Thenable {
     data,
     target,
     cache,
+    initData,
   }) {
     if (Array.isArray(runner)) {
       this.runner = runner[0];
@@ -27,6 +28,7 @@ export class Thenable {
       this.callback = (data) => data;
     }
     this.cache = cache;
+    this.initData = initData;
     this._watchers = [];
     this.vm = vm;
     this.immediate = immediate;
@@ -53,6 +55,7 @@ export class Thenable {
       loading: true,
       error: false,
       data: data,
+      initData: this.initData,
     });
   }
   listeners(variables) {

@@ -50,7 +50,7 @@ export default {
           {...{
             props: {
               collector: "dataSearchForm",
-              ...this._props,
+              ...this.$props,
             },
           }}
         />

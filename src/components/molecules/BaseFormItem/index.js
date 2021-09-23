@@ -69,9 +69,13 @@ export default {
                 use: this.item?.use || this.$attrs.use,
               },
               attrs: this.item || this.$attrs,
-              on: this.$listeners,
+              on: {
+                input: (val) => (this.innerValue = val),
+                ...this.$listeners,
+              },
             }}
-            vModel={this.innerValue}
+            value={this.innerValue}
+            // vModel={this.innerValue}
           />
         )}
       </FormItem>
