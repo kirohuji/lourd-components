@@ -246,9 +246,45 @@ const searchForm = [
   {
     label: "名称",
     prop: "name",
-    use: "input",
+    use: "select",
     size: "mini",
     isReal: true,
+    children: {
+      use: "option",
+      options: {
+        runner: () => {
+          return Promise.resolve({
+            data: [
+              {
+                node_id: 1,
+              },
+              {
+                node_id: 2,
+              },
+              {
+                node_id: 3,
+              },
+              {
+                node_id: 4,
+              },
+            ],
+          });
+        },
+        variables: {},
+        immediate: true,
+        initData: function (data) {
+          return data.length && [data[0].value];
+        },
+        callback: (data) => {
+          return data.map((item) => {
+            return {
+              label: item.node_id,
+              value: item.node_id,
+            };
+          });
+        },
+      },
+    },
   },
   {
     label: "年龄",

@@ -19,6 +19,7 @@ export default {
   inheritAttrs: false,
   data() {
     return {
+      hasUpdate: false,
       innerValue: undefined,
     };
   },
@@ -29,6 +30,7 @@ export default {
       }
     },
     "$attrs.value"(val) {
+      console.log("我更新了", val);
       if (val) {
         this.initData(val);
       }
@@ -36,11 +38,17 @@ export default {
   },
   methods: {
     initData(value) {
-      this.innerValue = _.cloneDeep(value);
+      if (!this.hasUpdate) {
+        this.innerValue = _.cloneDeep(value);
+        this.hasUpdate = true;
+      }
     },
   },
   created() {
     this.initData(this.$attrs.value);
+  },
+  mounted() {
+    console.log("重新加载");
   },
   render() {
     return (
@@ -70,12 +78,11 @@ export default {
               },
               attrs: this.item || this.$attrs,
               on: {
-                input: (val) => (this.innerValue = val),
                 ...this.$listeners,
+                input: (val) => (this.innerValue = val),
               },
             }}
             value={this.innerValue}
-            // vModel={this.innerValue}
           />
         )}
       </FormItem>

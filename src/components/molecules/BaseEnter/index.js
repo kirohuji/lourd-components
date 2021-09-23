@@ -30,6 +30,7 @@ export default {
   inheritAttrs: false,
   data() {
     return {
+      innerValue: undefined,
       thenableKey: "",
       isThenable: false,
     };
@@ -67,12 +68,14 @@ export default {
             scopedSlots: {
               default: ({ result }) => {
                 if (!result.loading) {
+                  console.log("修改");
                   result.initData &&
-                    this.$emit(
-                      "input",
-                      result.initData.call(this, result.data)
-                    );
+                    (this.$attrs.value = result.initData.call(
+                      this,
+                      result.data
+                    ));
                 }
+                console.log("重新渲染子节点");
                 return (
                   <div>
                     {!result.loading
@@ -119,13 +122,18 @@ export default {
         ],
         props: {
           ...this.$attrs,
+          value: (this.innerValue = this.$attrs.value),
           [this.thenableKey]: data,
         },
         attrs: {
           ...this.$attrs,
+          value: (this.innerValue = this.$attrs.value),
           [this.thenableKey]: data,
         },
-        on: this.$listeners,
+        on: {
+          ...this.$listeners,
+          // input: (val) => (this.innerValue = val),
+        },
         // 判断子节点
         scopedSlots: this.$attrs.children
           ? {
@@ -140,8 +148,9 @@ export default {
           props: this.isThenable,
           scopedSlots: {
             default: ({ result: { loading, data, initData } }) => {
+              console.log("加载");
               if (!loading) {
-                initData && this.$emit("input", initData.call(this, data));
+                initData && (this.$attrs.value = initData.call(this, data));
               }
               return render({
                 data: data,
