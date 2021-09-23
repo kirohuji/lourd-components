@@ -32,6 +32,11 @@ export default {
       default: false,
     },
   },
+  data() {
+    return {
+      dataFormKey: 0,
+    };
+  },
   watch: {
     visible(val) {
       if (val) {
@@ -41,10 +46,26 @@ export default {
             disabled: item[this.mode],
           };
         });
+        this.dataFormKey++;
       }
     },
   },
   methods: {
+    close() {
+      this.$emit("update:visible", false);
+    },
+    formRef() {
+      return this.$refs.dataForm.refs();
+    },
+    resetFields() {
+      this.$refs.dataForm.refs().resetFields();
+    },
+    validate(cb) {
+      return this.$refs.dataForm.refs().validate(cb);
+    },
+    clearValidate(prop) {
+      return this.$refs.dataForm.refs().clearValidate(prop);
+    },
     cancel() {
       this.$refs.dataForm.refs().resetFields();
       this.$emit("update:visible", false);
@@ -59,20 +80,26 @@ export default {
     },
   },
   render() {
-    console.log(Dialog);
     return (
       <Dialog
         ref="dialog"
         {...{
           props: this.$props,
+          scopedSlots: {
+            title: () => this.$scopedSlots.title && this.$scopedSlots.title(),
+          },
           on: {
-            closed: (val) => this.$emit("update:visible", val),
+            closed: (val) => {
+              this.cancel();
+              this.$emit("update:visible", val);
+            },
             "update:visible": (val) => this.$emit("update:visible", val),
           },
         }}
       >
         <DataForm
           ref="dataForm"
+          key={this.dataFormKey}
           {...{
             props: this.form,
             attrs: this.form,
@@ -82,7 +109,8 @@ export default {
           {this.$scopedSlots.footer ? (
             this.$scopedSlots.footer(
               this.cancel.bind(this),
-              this.submit.bind(this)
+              this.submit.bind(this),
+              this.$refs.dataForm?.refs()
             )
           ) : (
             <div

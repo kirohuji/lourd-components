@@ -6,7 +6,7 @@ const forms = [
   {
     label: "名称",
     prop: "name",
-    use: "label",
+    use: "input",
     row: 1,
     span: 8,
     question: true,
