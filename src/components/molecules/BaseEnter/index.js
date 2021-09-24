@@ -4,6 +4,7 @@ import Thenable from "@/components/atoms/Thenable";
 import { dictionaries } from "../../../composables/context-cache";
 export default {
   name: "BaseEnter",
+  componentName: "BaseEnter",
   components: {
     Thenable,
   },
@@ -75,7 +76,6 @@ export default {
                       result.data
                     ));
                 }
-                console.log("重新渲染子节点");
                 return (
                   <div>
                     {!result.loading

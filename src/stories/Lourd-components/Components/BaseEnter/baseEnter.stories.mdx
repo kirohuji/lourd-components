@@ -1,0 +1,116 @@
+import { Meta, ArgsTable, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+import { linkTo } from "@storybook/addon-links";
+import BaseEnter from "@/components/molecules/BaseEnter";
+
+<Meta
+  title="Lourd Components/Components/BaseEnter/概述(Introduction)"
+  component={BaseEnter}
+/>
+
+# BaseEnter
+
+<ArgsTable of={BaseEnter} />
+BaseEnter 是模板化系统中的最小单位，任何一个组件都可以进行注册到BaseEnter进行模板化
+
+BaseEnter 组件里有一个注册表，其中包含了所有注册的组件，默认已经有 10 来种组件了，之后也可以通过动态进行注册,
+
+---
+
+默认注册表的中组件已经组织到了`/plugins/baseEnter.js` 开发者如果要使用默认的组件
+
+```javascript
+import Vue from "vue";
+
+import { BaseEnterProvider } from "lourd-components/src/plugins/baseEnter";
+
+Vue.use(BaseEnterProvider);
+```
+
+---
+
+手动添加新的注册组件使用
+
+```javascript
+Vue.prototype.$baseComponents["component-name"] = Component;
+```
+
+即可将组件添加到组件库中
+
+目前已经注册的组件：
+
+```javascript
+import {
+  Input,
+  Cascader,
+  DatePicker,
+  Select,
+  RadioGroup,
+  Radio,
+  Option,
+  CheckboxGroup,
+  Checkbox,
+} from "element-ui";
+
+import Inline from "@/components/molecules/Layout/inline";
+import RowGrid from "@/components/molecules/Layout/row-grid";
+import BaseSearch from "@/components/molecules/BaseSearch";
+import BaseRadio from "@/components/molecules/BaseRadio";
+
+const Label = ({ props: { value } }) => <span>{value} </span>;
+const HtmlText = ({ props: { value } }) => <div domPropsInnerHTML={value} />;
+
+// 注册表
+export const components = {
+  input: Input,
+  cascader: Cascader,
+  label: Label,
+  html: HtmlText,
+  "date-picker": DatePicker,
+  select: Select,
+  option: Option,
+  checkbox: Checkbox,
+  "checkbox-group": CheckboxGroup,
+  "radio-group": RadioGroup,
+  radio: Radio,
+  "base-radio": BaseRadio,
+  inline: Inline,
+  "row-grid": RowGrid,
+  search: BaseSearch,
+};
+
+const BaseEnterProvider = {};
+
+function install(Vue) {
+  Vue.prototype.$baseComponents = components;
+}
+
+BaseEnterProvider.install = install;
+
+export default BaseEnterProvider;
+```
+
+使用方法如下：
+
+```html
+<BaseEnter use="component name" />
+```
+
+拿 Input 组件为例子
+
+关于组件的传参
+
+其中 `use` 参数是`BaseEnter`的 props，此为必选，其他参数就是原组件`(element ui组件)`的入参
+
+```html
+<BaseEnter
+  use="input"
+  placeholder="请输入内容"
+  size="mini"
+  :clearable="false"
+  :readonly="false"
+  :disabled="false"
+  type="text"
+  :showPassword="false"
+/>
+```
