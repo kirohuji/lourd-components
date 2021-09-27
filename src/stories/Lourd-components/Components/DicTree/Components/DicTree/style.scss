@@ -1,0 +1,18 @@
+.custom-tree-node {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  padding-right: 8px;
+}
+.el-row {
+  border: solid 1px #e6e6e6;
+  height: calc(100vh - 32px);
+}
+.el-menu {
+  border-right: none;
+}
+.el-divider {
+  margin-top: 0 !important;
+}

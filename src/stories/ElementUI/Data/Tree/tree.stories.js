@@ -130,6 +130,9 @@ export const withBasic = (args, { argTypes }) => ({
         >
           查看json
         </el-button>
+        <Divider style="margin-top: 0">
+          <i class="el-icon-edit"></i>
+        </Divider>
         <Tree
           ref="tree"
           data={this.data}
