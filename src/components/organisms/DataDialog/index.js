@@ -15,12 +15,12 @@ export default {
   },
   data() {
     return {
-      form: null,
+      // form: null,
       data: {},
-      mode: null,
+      // mode: null,
       visible: false,
-      width: null,
-      title: "",
+      // width: null,
+      // title: "",
     };
   },
   methods: {

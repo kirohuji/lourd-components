@@ -1,6 +1,12 @@
 import { Tree } from "element-ui";
 import { action } from "@storybook/addon-actions";
 import "./style.scss";
+import minimongo from "minimongo";
+import DataDialog from "../../../../components/organisms/DataDialog";
+let LocalDb = minimongo.IndexedDb;
+console.log(LocalDb);
+let db = new LocalDb({ namespace: "lourd" });
+db.addCollection("trees");
 export default {
   title: "Element UI/组件/Data/Tree/树 Tree",
 };
@@ -35,16 +41,58 @@ const data = [
   },
 ];
 let id = 1000;
+const forms = [
+  {
+    label: "数据项",
+    prop: "label",
+    use: "input",
+    row: 1,
+  },
+  {
+    label: "数据值",
+    prop: "value",
+    use: "input",
+    row: 2,
+  },
+];
 export const withBasic = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   data() {
     return {
       data: data,
+      form: {
+        forms,
+        data: {
+          name: "zyd",
+          title: 1,
+          age: 30,
+          sex: "男",
+          level: 10,
+          position: "测试部",
+        },
+        layout: {
+          use: "inline",
+          gutter: 20,
+          direction: "column",
+        },
+      },
     };
   },
+  mounted() {},
   methods: {
     toJson() {
-      console.log(JSON.stringify(this.$refs.tree.store.data));
+      db.trees.upsert(
+        {
+          _id: "exmaple-1",
+          data: this.$refs.tree.store.data,
+        },
+        {
+          _id: "exmaple-1",
+        },
+        () => {
+          console.log("来来来");
+        }
+      );
     },
     append(data) {
       // debugger;
@@ -66,6 +114,15 @@ export const withBasic = (args, { argTypes }) => ({
     events.forEach((item) => (handler[item] = (...args) => action(item)(args)));
     return (
       <div>
+        <DataDialog
+          {...{
+            props: {
+              title: "新增",
+              mode: "edit",
+              form: this.form,
+            },
+          }}
+        />
         <el-button
           size="mini"
           style="margin: 8px"
@@ -80,7 +137,7 @@ export const withBasic = (args, { argTypes }) => ({
             props: this.$props,
             // on: handler,
             scopedSlots: {
-              default: ({ node }) => {
+              default: ({ node, data }) => {
                 return (
                   <span class="custom-tree-node">
                     <span>{node.label}</span>
