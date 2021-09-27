@@ -15202,6 +15202,11 @@ vue-inbrowser-compiler-utils@^4.40.0:
   dependencies:
     camelcase "^5.3.1"
 
+vue-json-pretty@^1.8.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/vue-json-pretty/-/vue-json-pretty-1.8.1.tgz#538bb57fc718544152105aef659b4c88475365ee"
+  integrity sha512-GHi8q6QLx8fw8XDhAgztlC6emupptpmV5a+yd4UxteEoPqGHXwpgscTbTTxwH2GEdmYXHAt+GLg5tAsenLZKDA==
+
 "vue-loader-v16@npm:vue-loader@^16.1.0":
   version "16.4.1"
   resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-16.4.1.tgz#e09cfaa67b23a50021ecdb5c272203d2c87f161a"

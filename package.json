@@ -23,12 +23,14 @@
   },
   "dependencies": {
     "axios": "^0.21.3",
+    "clipboard": "^2.0.8",
     "core-js": "^3.6.5",
     "element-ui": "^2.15.6",
     "minimongo": "^6.9.0",
     "monaco-markdown": "0.0.11",
     "ts-dedent": "^2.2.0",
-    "vue": "^2.6.10"
+    "vue": "^2.6.10",
+    "vue-json-pretty": "^1.8.1"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.3.6",

@@ -176,6 +176,9 @@ export const withBasic = (args, { argTypes }) => ({
             },
           }}
         />
+        <Divider style="margin-top: 0">
+          <i class="el-icon-s-platform"></i>
+        </Divider>
       </div>
     );
   },

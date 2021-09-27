@@ -14,5 +14,12 @@
   border-right: none;
 }
 .el-divider {
-  margin-top: 0 !important;
+  margin: 8px 0px !important;
+}
+.el-divider--vertical {
+  height: 100%;
+}
+.el-link.el-link--primary:hover {
+  color: #339999 !important;
+  cursor: pointer !important;
 }
