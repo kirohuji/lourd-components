@@ -1,6 +1,6 @@
 {
   "name": "lourd-components",
-  "version": "0.1.44",
+  "version": "0.1.45",
   "description": "よく使われるコンポーネント",
   "main": "lib/index/index.js",
   "author": "lourd70330729",
