@@ -82,6 +82,7 @@ export default {
                 性别集
                 <div style="float: right;margin-right: 16px">
                   <i class="el-icon-edit-outline"></i>
+                  <i class="el-icon-document-copy"></i>
                   <i class="el-icon-delete"></i>
                   <i class="el-icon-plus"></i>
                 </div>
@@ -110,6 +111,15 @@ export default {
                 </MenuItem>
               </MenuItemGroup>
             </Submenu>
+            <MenuItem index="1-1">
+              性别集2
+              <div style="float: right">
+                <i class="el-icon-edit-outline"></i>
+                <i class="el-icon-document-copy"></i>
+                <i class="el-icon-delete"></i>
+                <i class="el-icon-plus"></i>
+              </div>
+            </MenuItem>
           </Menu>
         </Col>
         <Col span={18} style="border-left: solid 1px #e6e6e6;height: 100%;">
