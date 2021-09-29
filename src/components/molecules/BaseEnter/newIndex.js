@@ -39,7 +39,7 @@ export default {
             props: children.options,
             scopedSlots: {
               default: ({ result }) => {
-                console.log("加载2");
+                // console.log("加载2");
                 return (
                   <div>
                     {!result.loading &&
