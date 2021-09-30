@@ -7,16 +7,6 @@ module.exports = {
     "@storybook/addon-links",
     "@storybook/addon-actions",
     {
-      name: "@storybook/addon-docs",
-      options: {
-        vueDocgenOptions: {
-          alias: {
-            "@": path.resolve(__dirname, "../"),
-          },
-        },
-      },
-    },
-    {
       name: "@storybook/addon-storysource",
       options: {
         loaderOptions: {
