@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App with-router 1`] = `
+<div id="app">
+  <h1>Hello App!</h1>
+  <p>
+    <router-link-stub to="/foo" tag="a" ariacurrentvalue="page" event="click">Go to Foo</router-link-stub>
+    <router-link-stub to="/bar" tag="a" ariacurrentvalue="page" event="click">Go to Bar</router-link-stub>
+  </p>
+  <router-view-stub name="default"></router-view-stub>
+</div>
+`;

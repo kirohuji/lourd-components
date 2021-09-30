@@ -2,37 +2,48 @@
   "name": "lourd-components",
   "version": "0.1.46",
   "description": "よく使われるコンポーネント",
-  "main": "lib/index/index.js",
   "author": "lourd70330729",
-  "private": false,
-  "license": "MIT",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
+    "test:debug": "vue-cli-service test:unit",
+    "test:e2e": "vue-cli-service test:e2e",
+    "lint": "vue-cli-service lint",
+    "lib": "vue-cli-service build --target lib --name lourd-components --dest lib src/index.js",
+    "storybook:build": "vue-cli-service storybook:build -s ./public -c config/storybook",
+    "storybook:serve": "vue-cli-service storybook:serve -s ./public -p 6006 -c config/storybook"
+  },
+  "main": "lib/index/index.js",
   "files": [
     "lib",
     "src",
     "packages"
   ],
-  "scripts": {
-    "lib": "vue-cli-service build --target lib --name lourd-components --dest lib src/index.js",
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint",
-    "storybook:build": "vue-cli-service storybook:build -s ./public -c config/storybook",
-    "storybook:serve": "vue-cli-service storybook:serve -s ./public -p 6006 -c config/storybook"
-  },
   "dependencies": {
+    "@editorjs/delimiter": "^1.2.0",
+    "@editorjs/editorjs": "^2.22.2",
+    "@editorjs/header": "^2.6.1",
+    "@editorjs/marker": "^1.2.2",
+    "@editorjs/paragraph": "^2.8.0",
+    "@editorjs/quote": "^2.4.0",
+    "@editorjs/warning": "^1.2.0",
     "axios": "^0.21.3",
     "clipboard": "^2.0.8",
     "core-js": "^3.6.5",
+    "editorjs-alert": "^1.0.3",
+    "editorjs-header-with-anchor": "^2.6.0",
+    "editorjs-paragraph-with-alignment": "^3.0.0",
     "element-ui": "^2.15.6",
     "minimongo": "^6.9.0",
     "monaco-markdown": "0.0.11",
     "ts-dedent": "^2.2.0",
     "vue": "^2.6.10",
-    "vue-json-pretty": "^1.8.1"
+    "vue-json-pretty": "^1.8.1",
+    "vue-router": "^3.5.2"
   },
   "devDependencies": {
+    "@editorjs/checklist": "^1.3.0",
     "@storybook/addon-actions": "^6.3.6",
     "@storybook/addon-docs": "^6.3.8",
     "@storybook/addon-essentials": "^6.0.26",
@@ -42,7 +53,7 @@
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-e2e-cypress": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-plugin-unit-mocha": "^4.5.13",
+    "@vue/cli-plugin-unit-jest": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/test-utils": "^1.0.3",
@@ -53,6 +64,8 @@
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^6.2.2",
+    "jsdom": "^17.0.0",
+    "jsdom-global": "^3.0.2",
     "lodash": "^4.17.21",
     "monaco-editor": "0.19.3",
     "monaco-editor-vue": "^1.0.10",
@@ -67,5 +80,6 @@
     "vue-cropper": "^0.5.6",
     "vue-echarts": "^5.0.0-beta.0",
     "vue-template-compiler": "^2.6.11"
-  }
+  },
+  "license": "MIT"
 }
