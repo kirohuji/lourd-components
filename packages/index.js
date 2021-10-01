@@ -1,6 +1,8 @@
 import BaseMonacoEditor from "./BaseMonacoEditor";
 import DataForm from "./DataForm";
 import DataSearchForm from "./DataSearchForm";
+import DataTree from "./DataTree";
+import DataMenu from "./DataMenu";
 import DataTable from "./DataTable";
 import StepTabs from "./StepTabs";
 import Thenable from "./Thenable";
@@ -21,6 +23,8 @@ const installComponents = [
   DataForm,
   DataCacheSearchForm,
   DataSearchForm,
+  DataTree,
+  DataMenu,
   DataTable,
   EditTable,
   Thenable,
@@ -49,6 +53,8 @@ export default {
   DataSearchForm,
   DataTable,
   EditTable,
+  DataTree,
+  DataMenu,
   StepTabs,
   DataFormDialog,
 };

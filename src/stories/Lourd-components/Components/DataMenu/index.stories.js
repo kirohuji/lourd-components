@@ -17,4 +17,31 @@ export const withBasic = (args, { argTypes }) => ({
 withBasic.args = {
   plus: true,
   defaultGroup: "可用版本",
+  data: [
+    {
+      label: "人类",
+      value: "human",
+      description: "",
+      // children: [
+      //   {
+      //     group: "已选版本",
+      //     label: "1.0",
+      //     value: "1.0",
+      //   },
+      //   {
+      //     label: "1.1",
+      //     value: "1.1",
+      //   },
+      //   {
+      //     label: "1.2",
+      //     value: "1.2",
+      //   },
+      // ],
+    },
+    {
+      label: "性别",
+      value: "human",
+      description: "",
+    },
+  ],
 };

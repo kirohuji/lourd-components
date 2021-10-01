@@ -18,7 +18,6 @@ module.exports = {
       }
       return ret;
     }, {});
-    console.dir(componentEntries);
     return componentEntries;
   },
 };

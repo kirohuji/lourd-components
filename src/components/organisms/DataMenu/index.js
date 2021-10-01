@@ -1,33 +1,17 @@
 import { Menu, Submenu, MenuItemGroup, MenuItem, Button } from "element-ui";
 import { groupBy } from "lodash";
-// const data = [
-//   {
-//     label: "人类",
-//     value: "human",
-//     description: "",
-//     children: [
-//       {
-//         group: "已选版本",
-//         label: "1.0",
-//         value: "1.0",
-//       },
-//       {
-//         label: "1.1",
-//         value: "1.1",
-//       },
-//       {
-//         label: "1.2",
-//         value: "1.2",
-//       },
-//     ],
-//   },
-//   {
-//     label: "性别",
-//     value: "human",
-//     description: "",
-//   },
-// ];
-
+import DataFormDialog from "../DataFormDialog";
+const forms = [
+  {
+    label: "名称",
+    prop: "label",
+    use: "input",
+    size: "small",
+    row: 1,
+    span: 8,
+    question: true,
+  },
+];
 export default {
   componentName: "DataMenu",
   name: "DataMenu",
@@ -35,6 +19,20 @@ export default {
     data: {
       type: Array,
       default: () => [],
+    },
+    form: {
+      type: Object,
+      default: () => {
+        return {
+          forms: forms,
+          data: {},
+          layout: {
+            use: "inline",
+            gutter: 20,
+            direction: "column",
+          },
+        };
+      },
     },
     plus: {
       type: Boolean,
@@ -49,11 +47,71 @@ export default {
     handleGroup(item) {
       console.log("groupBy", groupBy(item, "group"));
     },
+    insert() {
+      this.form.data = {};
+      this.dialog.title = "新增";
+      this.dialog.mode = "insert";
+      this.dialog.width = "40%";
+      this.dialog.visible = true;
+    },
+    remove(data) {
+      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          this.$emit("remove", data);
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
+        });
+    },
+    update(data) {
+      this.form.data = data;
+      this.dialog.title = "编辑";
+      this.dialog.mode = "update";
+      this.dialog.width = "40%";
+      this.dialog.visible = true;
+    },
   },
-  mounted() {},
+  data() {
+    return {
+      dialog: {
+        visible: false,
+        title: "测试",
+        mode: "edit",
+        width: "30%",
+      },
+    };
+  },
   render() {
     return (
       <div>
+        <DataFormDialog
+          {...{
+            props: {
+              ...this.dialog,
+              form: this.form,
+              visible: this.dialog.visible,
+            },
+            on: {
+              submit: (val) => this.$emit("submit", val),
+              "update:visible": (val) => (this.dialog.visible = val),
+            },
+            // scopedSlots: {
+            //   footer: (cancel, submit) => (
+            //     <div>
+            //       <button onClick={() => cancel()}>取消</button>
+            //       <button onClick={() => submit()}>提交</button>
+            //     </div>
+            //   ),
+            // },
+          }}
+        />
         <div
           style={{
             width: "100%",
@@ -67,6 +125,7 @@ export default {
             size="small"
             type="primary"
             style="width: 80%; margin: 8px"
+            onClick={() => this.insert()}
           >
             新增组
           </Button>
@@ -86,7 +145,10 @@ export default {
                 <template slot="title">
                   {item.label}
                   <div style="float: right;margin-right: 16px">
-                    <i class="el-icon-edit-outline"></i>
+                    <i
+                      class="el-icon-edit-outline"
+                      onClick={() => this.update(item)}
+                    ></i>
                     <i class="el-icon-document-copy"></i>
                     <i class="el-icon-delete"></i>
                     {this.plus && <i class="el-icon-plus"></i>}
@@ -104,9 +166,15 @@ export default {
                         <MenuItem index={`${item.value}-${child.value}`}>
                           {child.label}
                           <div style="float: right;margin-right: 20px">
-                            <i class="el-icon-edit-outline"></i>
+                            <i
+                              class="el-icon-edit-outline"
+                              onClick={() => this.update(item)}
+                            ></i>
                             <i class="el-icon-document-copy"></i>
-                            <i class="el-icon-delete"></i>
+                            <i
+                              class="el-icon-delete"
+                              onClick={() => this.remove(item)}
+                            ></i>
                           </div>
                         </MenuItem>
                       ))}
@@ -118,9 +186,15 @@ export default {
               <MenuItem index={item.value}>
                 {item.label}
                 <div style="float: right;margin-right: 16px">
-                  <i class="el-icon-edit-outline"></i>
-                  <i class="el-icon-document-copy"></i>
-                  <i class="el-icon-delete"></i>
+                  <i
+                    class="el-icon-edit-outline"
+                    onClick={() => this.update(item)}
+                  ></i>
+                  {/* <i class="el-icon-document-copy"></i> */}
+                  <i
+                    class="el-icon-delete"
+                    onClick={() => this.remove(item)}
+                  ></i>
                   {this.plus && <i class="el-icon-plus"></i>}
                 </div>
               </MenuItem>
