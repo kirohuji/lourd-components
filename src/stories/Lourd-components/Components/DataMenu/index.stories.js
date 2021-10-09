@@ -40,7 +40,7 @@ withBasic.args = {
     },
     {
       label: "性别",
-      value: "human",
+      value: "gender",
       description: "",
     },
   ],

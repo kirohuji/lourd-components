@@ -80,6 +80,7 @@ export default {
   },
   data() {
     return {
+      activeIndex: "",
       dialog: {
         visible: false,
         title: "测试",
@@ -127,10 +128,11 @@ export default {
             style="width: 80%; margin: 8px"
             onClick={() => this.insert()}
           >
-            新增组
+            新增
           </Button>
         </div>
         <Menu
+          onSelect={(index) => this.$emit("select", index)}
           {...{
             props: {
               defaultActive: this.activeIndex,
@@ -186,15 +188,19 @@ export default {
               <MenuItem index={item.value}>
                 {item.label}
                 <div style="float: right;margin-right: 16px">
-                  <i
-                    class="el-icon-edit-outline"
-                    onClick={() => this.update(item)}
-                  ></i>
+                  {item.value !== "" && (
+                    <i
+                      class="el-icon-edit-outline"
+                      onClick={() => this.update(item)}
+                    ></i>
+                  )}
                   {/* <i class="el-icon-document-copy"></i> */}
-                  <i
-                    class="el-icon-delete"
-                    onClick={() => this.remove(item)}
-                  ></i>
+                  {item.value !== "" && (
+                    <i
+                      class="el-icon-delete"
+                      onClick={() => this.remove(item)}
+                    ></i>
+                  )}
                   {this.plus && <i class="el-icon-plus"></i>}
                 </div>
               </MenuItem>

@@ -33,7 +33,7 @@ export const witchBasic = (args, { argTypes }) => ({
   mounted() {
     this.editor = new EditorJS({
       holder: this.holder,
-      inlineToolbar: ["marker", "quote"],
+      inlineToolbar: true,
       tools: {
         header: Header,
         delimiter: Delimiter,

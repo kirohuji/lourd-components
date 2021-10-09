@@ -12,6 +12,8 @@ export default {
           this.multipleSelectionAll = val;
         }
       },
+      immediate: true,
+      deep: true,
     },
     data: {
       handler() {

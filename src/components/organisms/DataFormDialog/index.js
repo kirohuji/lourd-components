@@ -43,7 +43,7 @@ export default {
         this.form.forms = this.form.forms.map((item) => {
           return {
             ...item,
-            disabled: item[this.mode],
+            disabled: !item[this.mode],
           };
         });
         this.dataFormKey++;
@@ -74,7 +74,10 @@ export default {
       this.$emit("submit", {
         ref: this.$refs.dataForm.refs(),
         validate: this.$refs.dataForm.refs().validate,
-        data: this.$refs.dataForm.currentData(),
+        data: {
+          ...this.form.data,
+          ...this.$refs.dataForm.currentData(),
+        },
         mode: this.mode,
       });
     },

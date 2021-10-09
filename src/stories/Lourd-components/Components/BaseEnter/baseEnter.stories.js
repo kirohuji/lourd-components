@@ -327,3 +327,12 @@ withAsyncSelectTwo.args = {
 };
 
 withAsyncSelectTwo.storyName = "thenable";
+export const withEditor = Template.bind({ key: "editor" });
+withEditor.argTypes = {
+  ...commomTypes,
+};
+withEditor.args = {
+  use: "editor",
+};
+
+withEditor.storyName = "use = 'editor'";
