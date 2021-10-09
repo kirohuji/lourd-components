@@ -4,6 +4,9 @@ import "@/plugins/echarts";
 import ThenableProvider from "@/plugins/thenable";
 import BaseEnterProvider from "@/plugins/baseEnter";
 import { addParameters } from "@storybook/vue";
+import Croppa from 'vue-croppa'
+
+Vue.use(Croppa)       
 Vue.use(ThenableProvider);
 Vue.use(BaseEnterProvider);
 export const parameters = {

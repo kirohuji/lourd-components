@@ -14,6 +14,7 @@ import RowGrid from "@/components/molecules/Layout/row-grid";
 import BaseSearch from "@/components/molecules/BaseSearch";
 import BaseRadio from "@/components/molecules/BaseRadio";
 import BaseEditor from "@/components/molecules/BaseEditor";
+import BaseImageUpload from "@/components/molecules/BaseImageUpload";
 // import BaseRadio from "@/components/molecules/BaseRadio";
 const Label = ({ props: { value } }) => <span>{value} </span>;
 const HtmlText = ({ props: { value } }) => <div domPropsInnerHTML={value} />;
@@ -33,6 +34,7 @@ export const components = {
   inline: Inline,
   editor: BaseEditor,
   "row-grid": RowGrid,
+  "image-upload": BaseImageUpload,
   search: BaseSearch,
 };
 const BaseEnterProvider = {};

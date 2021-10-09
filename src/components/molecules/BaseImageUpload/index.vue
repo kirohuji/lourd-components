@@ -105,9 +105,9 @@
           <el-button size="large" @click="dialogVisible = false">
             取消
           </el-button>
-          <!-- <el-button type="primary" size="large" @click="uploadFile">
+          <el-button type="primary" size="large" @click="uploadFile">
             保存
-          </el-button> -->
+          </el-button>
         </div>
       </template>
     </el-dialog>
@@ -152,10 +152,13 @@ export default {
     },
     "$attrs.value": {
       handler(value) {
-        if (this.fileList.length === 0 && value.length > 0) {
-          this.fileList.push({
-            url: value,
-          });
+        // debugger
+        if (value) {
+          if (this.fileList.length === 0 && value.length > 0) {
+            this.fileList.push({
+              url: value,
+            });
+          }
         }
       },
       immediate: true,

@@ -340,3 +340,14 @@ withEditor.args = {
 };
 
 withEditor.storyName = "use = 'editor'";
+
+
+export const withImage = Template.bind({ key: "image" });
+withImage.argTypes = {
+  ...commomTypes,
+};
+withImage.args = {
+  use: "image-upload",
+};
+
+withImage.storyName = "use image-upload";
