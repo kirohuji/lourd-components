@@ -20,6 +20,7 @@ export default {
   inheritAttrs: false,
   data() {
     return {
+      initialized: false,
       innerValue: undefined,
       thenableKey: "",
       component: undefined,
@@ -30,27 +31,31 @@ export default {
   },
   methods: {
     renderChildren(children, innerH) {
-      // debugger;
-      // this.checkCached(children);
-      // debugger;
       return this.checkRunner(children) ? (
         <Thenable
           {...{
             props: children.options,
             scopedSlots: {
               default: ({ result }) => {
-                // console.log("加载2");
+                if (!result.loading && !this.initialized) {
+                  this.initialized = true;
+                  result.initData &&
+                    (this.$attrs.value = result.initData.call(
+                      this,
+                      result.data
+                    ));
+                }
                 return (
                   <div>
                     {!result.loading &&
-                      result.data.map((item, index) =>
-                        this.renderChildrenComponent(
+                      result.data.map((item, index) => {
+                        return this.renderChildrenComponent(
                           children.use,
                           item,
                           index,
                           innerH
-                        )
-                      )}
+                        );
+                      })}
                   </div>
                 );
               },
@@ -157,8 +162,8 @@ export default {
           props: this.isThenable,
           scopedSlots: {
             default: ({ result: { loading, data, initData } }) => {
-              console.log("加载");
-              if (!loading) {
+              if (!loading && !this.initialized) {
+                this.initialized = true;
                 initData && (this.$attrs.value = initData.call(this, data));
               }
               return this.renderComponent(h, {

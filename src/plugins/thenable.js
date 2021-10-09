@@ -15,6 +15,7 @@ export class Thenable {
     cache,
     initData,
   }) {
+    // console.log("this.initialized", this.initialized);
     if (Array.isArray(runner)) {
       this.runner = runner[0];
       this.variables = runner[1];
@@ -56,6 +57,7 @@ export class Thenable {
       error: false,
       data: data,
       initData: this.initData,
+      initialized: false,
     });
   }
   listeners(variables) {

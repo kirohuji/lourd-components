@@ -253,8 +253,8 @@ withAsyncSelect.args = {
       },
       variables: {},
       immediate: true,
-      initData: function (data) {
-        return data.length && [data[0].value];
+      initData: function () {
+        return [1];
       },
       callback: (data) => {
         return data.map((item) => {
@@ -310,6 +310,10 @@ withAsyncSelectTwo.args = {
     },
     variables: {},
     immediate: true,
+    initData: function () {
+      console.log("加载数据");
+      return [1];
+    },
     callback: (data) => {
       return data.map((item) => {
         return {
@@ -321,7 +325,7 @@ withAsyncSelectTwo.args = {
   },
   children: {
     use: "option",
-    // cache: "test",
+    cache: "test",
   },
   ...common,
 };

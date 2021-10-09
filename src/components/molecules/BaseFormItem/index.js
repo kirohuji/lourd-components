@@ -47,9 +47,6 @@ export default {
   created() {
     this.initData(this.$attrs.value);
   },
-  // mounted() {
-  //   console.log("重新加载");
-  // },
   render() {
     return (
       <FormItem
