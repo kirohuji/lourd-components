@@ -223,8 +223,8 @@ withAsyncSelect.argTypes = {
 };
 withAsyncSelect.args = {
   use: "select",
-  multiple: true,
-  filterable: true,
+  // multiple: true,
+  // filterable: true,
   allowCreate: false,
   defaultFirstOption: false,
   children: {
@@ -280,8 +280,8 @@ withAsyncSelectTwo.argTypes = {
 };
 withAsyncSelectTwo.args = {
   use: "select",
-  multiple: true,
-  filterable: true,
+  // multiple: true,
+  // filterable: true,
   allowCreate: false,
   defaultFirstOption: false,
   options: {
