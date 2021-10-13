@@ -2,6 +2,8 @@ import DataForm from "../components/organisms/DataForm";
 import DataSearchForm from "../components/organisms/DataSearchForm";
 import DataCacheSearchForm from "../components/organisms/DataCacheSearchForm";
 import Inline from "../components/molecules/Layout/inline";
+import { api } from "@/utils/http";
+import _ from "lodash";
 // import { Button } from "element-ui";
 export default {
   title: "Design System/Organisms/DataForm",
@@ -346,18 +348,65 @@ export const withCacheSearchForm = () => ({
       },
     };
   },
+  methods:{
+    handleEvent(){
+      this.$refs.searcher.isRefresh=false
+    }
+  },
   render() {
     return (
       <DataCacheSearchForm
+      ref="searcher"
         {...{
           props: {
             forms: searchForm,
             data: this.data,
+            searcher: true,
+            request: {
+              getItem(model) {
+                let cacheid;
+                if (typeof model === "string") {
+                  const strings = model.split("-");
+                  cacheid = strings[strings.length - 1];
+                } else {
+                  cacheid = model.cacheid || model.name;
+                }
+                return _.find(
+                  this.store.records,
+                  (o) => o.cacheid == Number(cacheid) || o.name == cacheid
+                );
+              },
+              // 请求
+              removeItem(id) {
+                return api.delete(`/searcher/${id}`).then(() => true);
+              },
+              // 请求
+              list() {
+                return api.get(`/searcher`, {}).then((data) => {
+                  // debugger
+                  console.log("获取数据", data);
+                  return {
+                    data: data,
+                  };
+                });
+              },
+              setItem(name, payload) {
+                return api
+                  .post(`/searcher`, {
+                    alias: name,
+                    user: "1",
+                    scoped: this.scoped,
+                    label: JSON.stringify(payload),
+                  })
+                  .then(() => true);
+              },
+            },
             layout: {
               use: "inline",
             },
           },
           on: {
+            events: (data) => this.handleEvent(data),
             "update:data": (data) => (this.data = data),
           },
         }}

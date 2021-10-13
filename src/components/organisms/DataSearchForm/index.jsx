@@ -60,6 +60,7 @@ export default {
             class="search-button"
             onReset={() => this.reset()}
             onSubmit={(payload) => this.submit(payload)}
+            onSearch={()=>this.search()}
           />
         )}
         {this.$scopedSlots.right ? (

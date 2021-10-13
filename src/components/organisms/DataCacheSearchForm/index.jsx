@@ -190,6 +190,7 @@ export default {
     },
     // 当一个搜索器被选中切换
     handleChangeCurrent(payload) {
+      // debugger
       if (payload.index != -1) {
         const form = this.store.select(payload.tag);
         this.$refs.searchForm.setModel(form.data);

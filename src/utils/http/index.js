@@ -8,7 +8,7 @@ import { findIndex } from "lodash";
 axios.defaults.headers.post["Content-Type"] = "application/json; charset=utf-8";
 
 const config = {
-  baseURL: "http://10.123.234.87:18083/api",
+  baseURL: "http://localhost:3000/api",
   timeout: 120 * 1000, // Timeout
   // withCredentials: true, // Check cross-site Access-Control
 };
@@ -83,29 +83,30 @@ _axios.interceptors.response.use(
   (res) => {
     // Do something with response data
     removePending(res); // 在请求结束后，移除本次请求
-    const { code } = res.data;
-    if (Number(code) === 200) {
-      // debugger;
-      localStorage.setItem("token", "Bearer " + res.headers.authorization);
-      return res.data;
-    } else {
-      const { message, msg } = res.data;
-      // debugger
-      if (Number(code) === 401) {
-        // console.log('/调整')
-        // Message({
-        //   message: message || msg,
-        //   type: 'error'
-        // })
+    return res.data;
+    // const { code } = res.data;
+    // if (Number(code) === 200) {
+    //   // debugger;
+    //   localStorage.setItem("token", "Bearer " + res.headers.authorization);
+    //   return res.data;
+    // } else {
+    //   const { message, msg } = res.data;
+    //   // debugger
+    //   if (Number(code) === 401) {
+    //     // console.log('/调整')
+    //     // Message({
+    //     //   message: message || msg,
+    //     //   type: 'error'
+    //     // })
 
-        // new DonMessage().error(message || msg)
-        localStorage.removeItem("token");
-        // router.go('/login')
-        return;
-      } else {
-        return Promise.reject(message || msg);
-      }
-    }
+    //     // new DonMessage().error(message || msg)
+    //     localStorage.removeItem("token");
+    //     // router.go('/login')
+    //     return;
+    //   } else {
+    //     return Promise.reject(message || msg);
+    //   }
+    // }
   },
   (err) => {
     // Do something with response error

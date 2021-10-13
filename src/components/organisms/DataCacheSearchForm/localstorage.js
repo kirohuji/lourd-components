@@ -114,6 +114,7 @@ class MeteorBackend {
         return this.datasource()
           .list()
           .then((res) => {
+            console.log('refresh',res)
             Vue.set(
               this,
               "records",

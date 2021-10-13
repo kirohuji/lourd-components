@@ -78,7 +78,15 @@ export default {
       this.$refs.form && this.$refs.form.resetFields();
     },
     initData(data) {
-      this.model = _.pick(Object.assign(this.model, data), this.properties);
+      // debugger
+      // this.model = _.pick(Object.assign(this.model, data), this.properties);
+      this.$set(
+        this,
+        "model",
+        _.pick(Object.assign(this.model, data), this.properties)
+      );
+      // this.$forceUpdate()
+      // console.log(this.model)
     },
     search() {
       this.$emit("search", this.model);

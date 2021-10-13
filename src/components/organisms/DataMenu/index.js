@@ -16,6 +16,14 @@ export default {
   componentName: "DataMenu",
   name: "DataMenu",
   props: {
+    create: {
+      type: Boolean,
+      default: true,
+    },
+    operation: {
+      type: Boolean,
+      default: true,
+    },
     data: {
       type: Array,
       default: () => [],
@@ -113,24 +121,26 @@ export default {
             // },
           }}
         />
-        <div
-          style={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            borderBottom: "solid 1px #e6e6e6",
-          }}
-        >
-          <Button
-            plain
-            size="small"
-            type="primary"
-            style="width: 80%; margin: 8px"
-            onClick={() => this.insert()}
+        {this.create && (
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              borderBottom: "solid 1px #e6e6e6",
+            }}
           >
-            新增
-          </Button>
-        </div>
+            <Button
+              plain
+              size="small"
+              type="primary"
+              style="width: 80%; margin: 8px"
+              onClick={() => this.insert()}
+            >
+              新增
+            </Button>
+          </div>
+        )}
         <Menu
           onSelect={(index) => this.$emit("select", index)}
           {...{
@@ -187,22 +197,24 @@ export default {
             ) : (
               <MenuItem index={item.value}>
                 {item.label}
-                <div style="float: right;margin-right: 16px">
-                  {item.value !== "" && (
-                    <i
-                      class="el-icon-edit-outline"
-                      onClick={() => this.update(item)}
-                    ></i>
-                  )}
-                  {/* <i class="el-icon-document-copy"></i> */}
-                  {item.value !== "" && (
-                    <i
-                      class="el-icon-delete"
-                      onClick={() => this.remove(item)}
-                    ></i>
-                  )}
-                  {this.plus && <i class="el-icon-plus"></i>}
-                </div>
+                {this.operation && (
+                  <div style="float: right;margin-right: 16px">
+                    {item.value !== "" && (
+                      <i
+                        class="el-icon-edit-outline"
+                        onClick={() => this.update(item)}
+                      ></i>
+                    )}
+                    {/* <i class="el-icon-document-copy"></i> */}
+                    {item.value !== "" && (
+                      <i
+                        class="el-icon-delete"
+                        onClick={() => this.remove(item)}
+                      ></i>
+                    )}
+                    {this.plus && <i class="el-icon-plus"></i>}
+                  </div>
+                )}
               </MenuItem>
             )
           )}
