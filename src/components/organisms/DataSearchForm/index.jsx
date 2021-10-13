@@ -32,6 +32,12 @@ export default {
     setModel(data) {
       this.$refs.dataForm.initData(data);
     },
+    resetFields() {
+      this.$refs.dataForm.resetFields();
+    },
+    clearFields() {
+      this.$refs.dataForm.clearFields();
+    },
   },
   mounted() {
     this.$on("search", () => {
@@ -60,7 +66,7 @@ export default {
             class="search-button"
             onReset={() => this.reset()}
             onSubmit={(payload) => this.submit(payload)}
-            onSearch={()=>this.search()}
+            onSearch={() => this.search()}
           />
         )}
         {this.$scopedSlots.right ? (

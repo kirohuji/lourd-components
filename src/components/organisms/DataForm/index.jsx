@@ -77,13 +77,20 @@ export default {
     resetFields() {
       this.$refs.form && this.$refs.form.resetFields();
     },
+    clearFields(){
+      this.$set(
+        this,
+        "model",
+        {}
+      );
+    },
     initData(data) {
       // debugger
       // this.model = _.pick(Object.assign(this.model, data), this.properties);
       this.$set(
         this,
         "model",
-        _.pick(Object.assign(this.model, data), this.properties)
+        _.pick(data, this.properties)
       );
       // this.$forceUpdate()
       // console.log(this.model)

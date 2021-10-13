@@ -125,6 +125,7 @@ export default {
       if (this.filter) {
         this.$refs.searchFilter.reset();
         this.store.clearSelected();
+        this.$refs.searchForm.clearFields();
         this.search();
       }
     },
