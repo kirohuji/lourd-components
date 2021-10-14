@@ -30,7 +30,7 @@ export default {
       this.$emit("reset");
     },
     setModel(data) {
-      this.$refs.dataForm.onAfter(data);
+      this.$refs.dataForm.initData(data);
     },
     resetFields() {
       this.$refs.dataForm.resetFields();
