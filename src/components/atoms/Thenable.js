@@ -10,7 +10,7 @@ export default {
     "data",
     "target",
     "cache",
-    "initData",
+    "onAfter",
   ],
   data() {
     return {

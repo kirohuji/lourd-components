@@ -253,8 +253,9 @@ withAsyncSelect.args = {
       },
       variables: {},
       immediate: true,
-      initData: function () {
-        return [1];
+      onAfter: function () {
+        // debugger
+        return 1;
       },
       callback: (data) => {
         return data.map((item) => {
@@ -310,7 +311,7 @@ withAsyncSelectTwo.args = {
     },
     variables: {},
     immediate: true,
-    initData: function () {
+    onAfter: function () {
       console.log("加载数据");
       return [1];
     },

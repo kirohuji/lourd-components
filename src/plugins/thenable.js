@@ -13,9 +13,8 @@ export class Thenable {
     data,
     target,
     cache,
-    initData,
+    onAfter,
   }) {
-    // console.log("this.initialized", this.initialized);
     if (Array.isArray(runner)) {
       this.runner = runner[0];
       this.variables = runner[1];
@@ -29,7 +28,7 @@ export class Thenable {
       this.callback = (data) => data;
     }
     this.cache = cache;
-    this.initData = initData;
+    this.onAfter = onAfter;
     this._watchers = [];
     this.vm = vm;
     this.immediate = immediate;
@@ -56,7 +55,7 @@ export class Thenable {
       loading: true,
       error: false,
       data: data,
-      initData: this.initData,
+      onAfter: this.onAfter,
       initialized: false,
     });
   }
@@ -154,50 +153,6 @@ export class Thenable {
   }
 }
 const ThenableProvider = {};
-// 全局的Thenable
-// class DollarThenable {
-//   constructor(vm) {
-//     this._watchers = []
-//     this.vm = vm
-//     this.queries = {}
-//     this.loadingKey = undefined
-//     this.error = undefined
-//   }
-//   query(options) {
-//     console.log('查询')
-//   }
-//   loading() {
-//     return this.vm.$data.$_thenable.loading !== 0
-//   }
-//   data() {
-//     return this.vm.$data.$_thenable.data
-//   }
-//   defineReactiveSetter(key, func, deep) {
-//     const _this = this
-
-//     this._watchers.push(
-//       this.vm.$watch(
-//         func,
-//         function(value) {
-//           _this[key] = value
-//         },
-//         {
-//           immediate: true,
-//           deep: deep
-//         }
-//       )
-//     )
-//   }
-//   destroy() {
-//     for (let _i = 0, _this$_watchers = this._watchers; _i < _this$_watchers.length; _i++) {
-//       const unwatch = _this$_watchers[_i]
-//       unwatch()
-//     }
-//     for (const key in this.queries) {
-//       this.queries[key].destroy()
-//     }
-//   }
-// }
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
 
@@ -266,7 +221,7 @@ function hasProperty(holder, key) {
 function proxyData() {
   var _this = this;
 
-  this.$_thenableInitData = {};
+  this.$_thenableonAfter = {};
   var thenable = this.$options.thenable;
 
   if (thenable) {
@@ -286,7 +241,7 @@ function proxyData() {
             },
             // For component class constructor
             set: function set(value) {
-              return (_this.$_thenableInitData[key] = value);
+              return (_this.$_thenableonAfter[key] = value);
             },
             enumerable: true,
             configurable: true,
@@ -343,7 +298,7 @@ function installMixin(Vue) {
           data: function data() {
             return {
               $thenableData: {
-                data: this.$_thenableInitData,
+                data: this.$_thenableonAfter,
               },
             };
           },
@@ -381,18 +336,6 @@ function install(Vue) {
 
     return Object.assign(map, merge(toData, fromData));
   }; // Lazy creation
-  // 全局设置了一个$thenable
-  // if (!Object.prototype.hasOwnProperty.call(Vue, '$thenable')) {
-  //   Object.defineProperty(Vue.prototype, '$thenable', {
-  //     get: function get() {
-  //       if (!this.$_thenable) {
-  //         this.$_thenable = new DollarThenable(this)
-  //       }
-
-  //       return this.$_thenable
-  //     }
-  //   })
-  // }
   installMixin(Vue, vueVersion);
 }
 ThenableProvider.install = install;

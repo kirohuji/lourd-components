@@ -27,6 +27,7 @@ export default {
       isThenable: false,
       props: undefined,
       attrs: undefined,
+      loading: true,
     };
   },
   methods: {
@@ -39,11 +40,14 @@ export default {
               default: ({ result }) => {
                 if (!result.loading && !this.initialized) {
                   this.initialized = true;
-                  result.initData &&
-                    (this.$attrs.value = result.initData.call(
-                      this,
-                      result.data
-                    ));
+                  this.loading = false;
+                  result.onAfter &&
+                    this.$emit("input", result.onAfter.call(this, result.data));
+                }
+                if (result.loading) {
+                  this.loading = true;
+                } else {
+                  this.loading = false;
                 }
                 return (
                   <div>
@@ -102,22 +106,20 @@ export default {
         directives: [
           {
             name: "loading",
-            value: loading,
+            value: loading || this.loading,
           },
         ],
         props: {
           ...this.props,
           [this.thenableKey]: data,
-          value: this.innerValue,
+          value: this.$attrs.value,
         },
         attrs: {
           ...this.attrs,
           [this.thenableKey]: data,
         },
-        on: {
-          ...this.$listeners,
-          input: (val) => (this.innerValue = val),
-        },
+        on: this.$listeners,
+        ref: "parent",
         // 判断子节点
         scopedSlots: this.$attrs.children
           ? {
@@ -161,10 +163,10 @@ export default {
         {...{
           props: this.isThenable,
           scopedSlots: {
-            default: ({ result: { loading, data, initData } }) => {
+            default: ({ result: { loading, data, onAfter } }) => {
               if (!loading && !this.initialized) {
                 this.initialized = true;
-                initData && (this.$attrs.value = initData.call(this, data));
+                onAfter && this.$emit("input", onAfter.call(this, data));
               }
               return this.renderComponent(h, {
                 data: data,
