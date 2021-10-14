@@ -27,7 +27,7 @@ export default {
       isThenable: false,
       props: undefined,
       attrs: undefined,
-      loading: true,
+      loading: false,
     };
   },
   methods: {
