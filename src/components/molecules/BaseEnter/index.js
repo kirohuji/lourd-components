@@ -70,8 +70,8 @@ export default {
               default: ({ result }) => {
                 if (!result.loading) {
                   console.log("修改");
-                  result.initData &&
-                    (this.$attrs.value = result.initData.call(
+                  result.onAfter &&
+                    (this.$attrs.value = result.onAfter.call(
                       this,
                       result.data
                     ));
@@ -147,10 +147,10 @@ export default {
         {...{
           props: this.isThenable,
           scopedSlots: {
-            default: ({ result: { loading, data, initData } }) => {
+            default: ({ result: { loading, data, onAfter } }) => {
               console.log("加载");
               if (!loading) {
-                initData && (this.$attrs.value = initData.call(this, data));
+                onAfter && (this.$attrs.value = onAfter.call(this, data));
               }
               return render({
                 data: data,

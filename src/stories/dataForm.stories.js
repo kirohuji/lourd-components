@@ -274,7 +274,7 @@ const searchForm = [
         },
         variables: {},
         immediate: true,
-        initData: function (data) {
+        onAfter: function (data) {
           return data.length && [data[0].value];
         },
         callback: (data) => {

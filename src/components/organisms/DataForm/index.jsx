@@ -58,7 +58,7 @@ export default {
     data(val) {
       if (val) {
         this.transform();
-        this.initData(val);
+        this.onAfter(val);
       } else {
         this.model = {};
       }
@@ -67,7 +67,7 @@ export default {
   created() {
     this.transform();
     if (this.data) {
-      this.initData(this.data);
+      this.onAfter(this.data);
     }
   },
   methods: {
@@ -77,7 +77,7 @@ export default {
     resetFields() {
       this.$refs.form && this.$refs.form.resetFields();
     },
-    initData(data) {
+    onAfter(data) {
       // debugger
       // this.model = _.pick(Object.assign(this.model, data), this.properties);
       this.$set(

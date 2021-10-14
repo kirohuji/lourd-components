@@ -1,6 +1,5 @@
 import { FormItem } from "element-ui";
 import BaseEnter from "../BaseEnter";
-// import _ from "lodash";
 import emitter from "element-ui/src/mixins/emitter";
 export default {
   name: "BaseFormItem",
@@ -17,36 +16,6 @@ export default {
   mixins: [emitter],
   props: ["item"],
   inheritAttrs: false,
-  // data() {
-  //   return {
-  //     hasUpdate: false,
-  //     innerValue: undefined,
-  //   };
-  // },
-  // watch: {
-  //   innerValue() {
-  //     if (this.item.isReal) {
-  //       this.dispatch("DataSearchForm", "search");
-  //     }
-  //   },
-  //   "$attrs.value"(val) {
-  //     console.log("我更新了", val);
-  //     if (val) {
-  //       this.initData(val);
-  //     }
-  //   },
-  // },
-  // methods: {
-  //   initData(value) {
-  //     if (!this.hasUpdate) {
-  //       this.innerValue = _.cloneDeep(value);
-  //       this.hasUpdate = true;
-  //     }
-  //   },
-  // },
-  // created() {
-  //   this.initData(this.$attrs.value);
-  // },
   render() {
     return (
       <FormItem
@@ -77,7 +46,6 @@ export default {
               attrs: this.item || this.$attrs,
               on: this.$listeners,
             }}
-            // value={this.innerValue}
           />
         )}
       </FormItem>
