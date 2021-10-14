@@ -105,7 +105,7 @@ export default {
       Object.keys(this.$refs)
         .filter((item) => item.includes("baseFormItem-"))
         .forEach((item) => {
-          currentData[this.$refs[item].item.prop] = this.$refs[item].innerValue;
+          currentData[this.$refs[item].item.prop] = this.$refs[item].$attrs.value;
         });
       return currentData;
     },
