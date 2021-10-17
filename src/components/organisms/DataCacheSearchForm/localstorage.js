@@ -40,7 +40,7 @@ class MeteorBackend {
   }
   static getInstance(config) {
     window.Backend = this._instance;
-    const name = `${config.name}-searcher`;
+    const name = `${config.scoped}-${config.name}-searcher`;
     if (!this._instance.get(name)) {
       this._instance.set(name, new MeteorBackend(config));
     }
@@ -49,7 +49,7 @@ class MeteorBackend {
   init() {
     this.url = new Map(this.config.urls);
     this.extend();
-    this.store = new Store(`${this.config.name}-searcher`);
+    this.store = new Store(`${this.config.scoped}-${this.config.name}-searcher`);
   }
   // 获取索引
   getItem(model) {
@@ -107,22 +107,24 @@ class MeteorBackend {
         return this.records;
       },
       destroy: function (model) {
-        return this.datasource().removeItem(model.cacheid);
+        return this.datasource().removeItem(model);
       },
       refresh: function () {
         Vue.set(this, "isLoading", false);
         return this.datasource()
           .list()
           .then((res) => {
-            console.log('refresh',res)
+            console.log("refresh", res);
             Vue.set(
               this,
               "records",
               res.data.map((m) => {
                 return {
-                  cacheid: m.alias,
+                  cacheid: m._id,
                   id: m._id,
                   name: m.alias,
+                  user: m.user,
+                  scoped: m.scoped,
                   data: this.jsonData(m.label),
                 };
               })
@@ -164,10 +166,10 @@ class MeteorBackend {
     });
   }
 }
-export default function (name, scope, override = {}) {
+export default function (name, scoped, override = {}) {
   return MeteorBackend.getInstance({
     name: `${name}`,
-    scope: scope,
+    scoped: scoped,
     override: override,
   });
 }

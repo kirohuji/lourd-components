@@ -17,6 +17,7 @@ export default {
   props: ["item"],
   inheritAttrs: false,
   render() {
+    // debugger
     return (
       <FormItem
         {...{
@@ -38,7 +39,7 @@ export default {
           />
         ) : (
           <BaseEnter
-            value={this.$attrs.value}
+            vModel={this.$attrs.value[this.item.prop]}
             {...{
               props: {
                 use: this.item?.use || this.$attrs.use,

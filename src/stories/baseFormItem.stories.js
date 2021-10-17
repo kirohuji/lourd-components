@@ -6,15 +6,23 @@ export default {
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   data: () => ({
-    value: 1,
+    form: {
+      value: 1,
+    },
   }),
   render() {
     return (
-      <Form>
+      <Form
+        {...{
+          props: {
+            model: this.form,
+          },
+        }}
+      >
         <BaseFormItem
           use="input"
           size="mini"
-          value={this.value}
+          vModel={this.form.value}
           style="width: 200px"
           {...{
             attrs: this.$props,
@@ -26,7 +34,7 @@ const Template = (args, { argTypes }) => ({
 });
 export const withBasic = Template.bind({});
 withBasic.args = {
-  prop: "name",
+  prop: "value",
   label: "名称",
   required: true,
   error: "",

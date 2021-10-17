@@ -1,7 +1,7 @@
 import "./plugins/element.js";
 import NoContnetShow from "./components/atoms/NoContentShow";
 import Card from "./components/atoms/Card";
-import BaseEnter from "./components/molecules/BaseEnter";
+import BaseEnter from "./components/molecules/BaseEnter/newIndex";
 import BaseDialog from "./components/molecules/BaseDialog";
 import BaseEchart from "./components/molecules/BaseEchart";
 import BaseFormItem from "./components/molecules/BaseFormItem";

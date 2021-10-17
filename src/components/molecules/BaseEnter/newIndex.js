@@ -1,4 +1,4 @@
-import { isFunction, isObject, pick, omit } from "lodash";
+import { isFunction, isObject, pick, omit,isBoolean } from "lodash";
 import { dictionaries } from "../../../composables/context-cache";
 import Thenable from "@/components/atoms/Thenable";
 export default {
@@ -106,7 +106,7 @@ export default {
         directives: [
           {
             name: "loading",
-            value: loading || this.loading,
+            value: isBoolean(loading) ? loading : this.loading,
           },
         ],
         props: {
@@ -164,6 +164,7 @@ export default {
           props: this.isThenable,
           scopedSlots: {
             default: ({ result: { loading, data, onAfter } }) => {
+              this.loading=loading
               if (!loading && !this.initialized) {
                 this.initialized = true;
                 onAfter && this.$emit("input", onAfter.call(this, data));
@@ -177,7 +178,9 @@ export default {
         }}
       />
     ) : (
-      this.renderComponent(h, {})
+      this.renderComponent(h, {
+        loading: false
+      })
     );
   },
 };
