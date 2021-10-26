@@ -13,9 +13,33 @@ import BaseEnter from "@/components/molecules/BaseEnter/newIndex";
 <ArgsTable of={BaseEnter} />
 BaseEnter 是模板化系统中的最小单位，任何一个组件都可以进行注册到BaseEnter进行模板化
 
-BaseEnter 组件里有一个注册表，其中包含了所有注册的组件，默认已经有 10 来种组件了，之后也可以通过动态进行注册,
+使用方法如下：
 
----
+```html
+<BaseEnter use="component name" />
+```
+
+### 拿 Input 组件为例子
+
+其中 `use` 参数是`BaseEnter`的 props，此为必选，其他参数就是原组件`(element ui组件)`的入参
+
+```html
+<BaseEnter
+  use="input"
+  placeholder="请输入内容"
+  size="mini"
+  :clearable="false"
+  :readonly="false"
+  :disabled="false"
+  type="text"
+  :showPassword="false"
+/>
+```
+
+
+# 组件注册机制
+
+BaseEnter 组件里有一个注册表，其中包含了所有注册的组件，默认已经有 10 来种组件了，之后也可以通过动态进行注册,
 
 默认注册表的中组件已经组织到了`/plugins/baseEnter.js` 开发者如果要使用默认的组件
 
@@ -56,7 +80,8 @@ import Inline from "@/components/molecules/Layout/inline";
 import RowGrid from "@/components/molecules/Layout/row-grid";
 import BaseSearch from "@/components/molecules/BaseSearch";
 import BaseRadio from "@/components/molecules/BaseRadio";
-
+import BaseEditor from "@/components/molecules/BaseEditor";
+import BaseImageUpload from "@/components/molecules/BaseImageUpload";
 const Label = ({ props: { value } }) => <span>{value} </span>;
 const HtmlText = ({ props: { value } }) => <div domPropsInnerHTML={value} />;
 
@@ -75,7 +100,9 @@ export const components = {
   radio: Radio,
   "base-radio": BaseRadio,
   inline: Inline,
+  editor: BaseEditor,
   "row-grid": RowGrid,
+  "image-upload": BaseImageUpload,
   search: BaseSearch,
 };
 
@@ -88,29 +115,4 @@ function install(Vue) {
 BaseEnterProvider.install = install;
 
 export default BaseEnterProvider;
-```
-
-使用方法如下：
-
-```html
-<BaseEnter use="component name" />
-```
-
-拿 Input 组件为例子
-
-关于组件的传参
-
-其中 `use` 参数是`BaseEnter`的 props，此为必选，其他参数就是原组件`(element ui组件)`的入参
-
-```html
-<BaseEnter
-  use="input"
-  placeholder="请输入内容"
-  size="mini"
-  :clearable="false"
-  :readonly="false"
-  :disabled="false"
-  type="text"
-  :showPassword="false"
-/>
 ```

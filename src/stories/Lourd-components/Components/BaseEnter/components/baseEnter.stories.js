@@ -1,9 +1,10 @@
 import BaseEnter from "@/components/molecules/BaseEnter/newIndex";
 import { components } from "@/plugins/baseEnter";
 import { common, commomTypes, cascaderOptions } from "./constants";
+import './baseEnter.scss'
 export default {
   component: BaseEnter,
-  title: "Lourd Components/Components/BaseEnter/输入器 BaseEnter",
+  title: "Lourd Components/Components/BaseEnter/基本案例/输入器 BaseEnter",
   argTypes: {
     use: {
       description: "要渲染的组件的类型",
@@ -341,14 +342,3 @@ withEditor.args = {
 };
 
 withEditor.storyName = "use = 'editor'";
-
-
-export const withImage = Template.bind({ key: "image" });
-withImage.argTypes = {
-  ...commomTypes,
-};
-withImage.args = {
-  use: "image-upload",
-};
-
-withImage.storyName = "use image-upload";
