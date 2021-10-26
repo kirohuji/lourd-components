@@ -1,6 +1,6 @@
 import _ from "lodash";
 import BaseFormItem from "../../molecules/BaseFormItem";
-import BaseEnter from "../../molecules/BaseEnter";
+import BaseEnter from "../../molecules/BaseEnter/newIndex";
 import "./style.scss";
 // import { isObject, isFunction } from "lodash";
 // const isPromise = (val) => {
@@ -51,14 +51,17 @@ export default {
   data() {
     return {
       properties: [],
-      model: {},
+      model: {
+        age: 1,
+      },
+      uses: [],
     };
   },
   watch: {
     data(val) {
       if (val) {
         this.transform();
-        this.onAfter(val);
+        this.initData(val);
       } else {
         this.model = {};
       }
@@ -67,8 +70,45 @@ export default {
   created() {
     this.transform();
     if (this.data) {
-      this.onAfter(this.data);
+      this.initData(this.data);
     }
+    this.uses = this.forms.map((item, index) =>
+      Array.isArray(item) ? (
+        item.map((rowItem, rowIndex) => (
+          <BaseFormItem
+            ref={`baseFormItem-${rowIndex}`}
+            key={index}
+            item={rowItem}
+            {...{
+              on: {
+                ...this.$listeners,
+                input: (val) => {
+                  this.model[rowItem.prop] = val;
+                  this.data[rowItem.prop] = val;
+                },
+              },
+            }}
+            value={this.model}
+          />
+        ))
+      ) : (
+        <BaseFormItem
+          key={index}
+          ref={`baseFormItem-${index}`}
+          item={item}
+          {...{
+            on: {
+              ...this.$listeners,
+              input: (val) => {
+                this.model[item.prop] = val;
+                this.data[item.prop] = val;
+              },
+            },
+          }}
+          value={this.model}
+        />
+      )
+    );
   },
   methods: {
     refs() {
@@ -77,29 +117,27 @@ export default {
     resetFields() {
       this.$refs.form && this.$refs.form.resetFields();
     },
-    onAfter(data) {
-      // debugger
-      // this.model = _.pick(Object.assign(this.model, data), this.properties);
-      this.$set(
-        this,
-        "model",
-        _.pick(Object.assign(this.model, data), this.properties)
-      );
-      // this.$forceUpdate()
-      // console.log(this.model)
+    clearFields() {
+      this.$set(this, "model", {});
+    },
+    initData(data) {
+      console.log('初始化')
+      this.properties.forEach(item=>{
+        this.model[item]=data[item]
+      })
     },
     search() {
       this.$emit("search", this.model);
     },
     currentData() {
       const currentData = {};
-      // console.log(this);
-      // debugger;
       Object.keys(this.$refs)
         .filter((item) => item.includes("baseFormItem-"))
         .forEach((item) => {
-          currentData[this.$refs[item].item.prop] = this.$refs[item].innerValue;
+          currentData[this.$refs[item].item.prop] =
+            this.$refs[item].$attrs.value[this.$refs[item].item.prop];
         });
+      console.log("currentData", currentData);
       return currentData;
     },
     transform() {
@@ -121,33 +159,7 @@ export default {
     },
   },
   render() {
-    const uses = this.forms.map((item, index) =>
-      Array.isArray(item) ? (
-        item.map((rowItem, rowIndex) => (
-          <BaseFormItem
-            ref={`baseFormItem-${rowIndex}`}
-            key={index}
-            item={rowItem}
-            vModel={this.model[rowItem.prop]}
-            {...{
-              on: this.$listeners,
-            }}
-          />
-        ))
-      ) : (
-        <BaseFormItem
-          key={index}
-          ref={`baseFormItem-${index}`}
-          item={item}
-          vModel={this.model[item.prop]}
-          {...{
-            on: {
-              ...this.$listeners,
-            },
-          }}
-        />
-      )
-    );
+    console.log("更新render");
     return (
       <ElForm
         inline
@@ -161,7 +173,7 @@ export default {
         }}
       >
         {this.$scopedSlots.default ? (
-          this.$scopedSlots.default({ uses })
+          this.$scopedSlots.default({ uses: this.uses })
         ) : (
           <BaseEnter
             {...{
@@ -169,8 +181,8 @@ export default {
                 use: this.layout.use,
               },
               attrs: {
-                uses: uses,
-                length: uses.length,
+                uses: this.uses,
+                length: this.uses.length,
                 ...this.layout,
               },
               on: this.$listeners,

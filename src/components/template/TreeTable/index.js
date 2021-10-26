@@ -4,7 +4,7 @@ import DataTable from "../../organisms/DataTable";
 import Store from "./model/store";
 import emitter from "element-ui/src/mixins/emitter";
 import { find } from "lodash";
-import BaseEnter from "../../molecules/BaseEnter";
+import BaseEnter from "../../molecules/BaseEnter/newIndex";
 import DataDialog from "../../organisms/DataDialog";
 import "./index.scss";
 import {

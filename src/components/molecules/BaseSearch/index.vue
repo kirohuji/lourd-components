@@ -1,5 +1,5 @@
 <template>
-  <el-input v-bind="$attrs" v-on="$listeners">
+  <el-input v-bind="$attrs" v-on="$listeners" :value="value">
     <el-button
       slot="append"
       type="primary"
@@ -12,6 +12,7 @@
 <script>
 import emitter from "element-ui/src/mixins/emitter";
 export default {
+  props:['value'],
   mixins: [emitter],
 };
 </script>

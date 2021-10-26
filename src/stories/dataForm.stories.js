@@ -12,7 +12,7 @@ const forms = [
   {
     label: "名称",
     prop: "name",
-    use: "label",
+    use: "input",
     row: 1,
     span: 8,
     question: true,
@@ -63,7 +63,7 @@ export const withAttrs = () => ({
       <DataForm
         {...{
           props: {
-            question: true,
+            question: false,
             forms,
             data: {
               name: "zyd",
@@ -254,29 +254,36 @@ const searchForm = [
     children: {
       use: "option",
       options: {
+        onAfter: function (data) {
+          // debugger
+          // debugger
+          console.log("触发了Onafter");
+          return data[0].value;
+        },
         runner: () => {
-          return Promise.resolve({
-            data: [
-              {
-                node_id: 1,
-              },
-              {
-                node_id: 2,
-              },
-              {
-                node_id: 3,
-              },
-              {
-                node_id: 4,
-              },
-            ],
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              resolve({
+                data: [
+                  {
+                    node_id: 1111,
+                  },
+                  {
+                    node_id: 2,
+                  },
+                  {
+                    node_id: 3,
+                  },
+                  {
+                    node_id: 4,
+                  },
+                ],
+              });
+            }, 6000);
           });
         },
         variables: {},
         immediate: true,
-        onAfter: function (data) {
-          return data.length && [data[0].value];
-        },
         callback: (data) => {
           return data.map((item) => {
             return {
@@ -303,7 +310,7 @@ const searchForm = [
   {
     label: "标题",
     prop: "title",
-    use: "input",
+    use: "search",
     size: "mini",
   },
 ];
@@ -311,10 +318,7 @@ export const withSearch = () => ({
   data() {
     return {
       data: {
-        name: "zyd",
-        title: 1,
-        age: 30,
-        sex: "男",
+        // name: "zyd",
       },
     };
   },
@@ -348,20 +352,22 @@ export const withCacheSearchForm = () => ({
       },
     };
   },
-  methods:{
-    handleEvent(){
-      this.$refs.searcher.isRefresh=false
-    }
+  methods: {
+    handleEvent() {
+      this.$refs.searcher.isRefresh = false;
+    },
   },
   render() {
     return (
       <DataCacheSearchForm
-      ref="searcher"
+        ref="searcher"
         {...{
           props: {
             forms: searchForm,
             data: this.data,
             searcher: true,
+            user: "user",
+            scoped: "users",
             request: {
               getItem(model) {
                 let cacheid;
@@ -377,12 +383,13 @@ export const withCacheSearchForm = () => ({
                 );
               },
               // 请求
-              removeItem(id) {
-                return api.delete(`/searcher/${id}`).then(() => true);
+              removeItem(item) {
+                // debugger
+                return api.delete(`/searcher/${item.id}`).then(() => true);
               },
               // 请求
               list() {
-                return api.get(`/searcher`, {}).then((data) => {
+                return api.get(`/searcher/list/user/users`).then((data) => {
                   // debugger
                   console.log("获取数据", data);
                   return {
@@ -394,8 +401,76 @@ export const withCacheSearchForm = () => ({
                 return api
                   .post(`/searcher`, {
                     alias: name,
-                    user: "1",
-                    scoped: this.scoped,
+                    user: "user",
+                    scoped: "users",
+                    label: JSON.stringify(payload),
+                  })
+                  .then(() => true);
+              },
+            },
+            layout: {
+              use: "inline",
+            },
+          },
+          on: {
+            events: (data) => this.handleEvent(data),
+            "update:data": (data) => (this.data = data),
+          },
+        }}
+      />
+    );
+  },
+});
+export const withCacheSearchFormRole = () => ({
+  data() {
+    return {
+      data: {
+        name: "zyd",
+        title: 1,
+        age: 30,
+        sex: "男",
+      },
+    };
+  },
+  methods: {
+    handleEvent() {
+      this.$refs.searcher.isRefresh = false;
+    },
+  },
+  render() {
+    return (
+      <DataCacheSearchForm
+        ref="searcher"
+        {...{
+          props: {
+            forms: searchForm,
+            data: this.data,
+            searcher: true,
+            user: "user",
+            scoped: "roles",
+            request: {
+              // 请求
+              removeItem(item) {
+                // debugger
+                return api.delete(`/searcher/${item.id}`).then(() => true);
+              },
+              // 请求
+              list() {
+                return api.get(`/searcher/list/user/roles`).then((data) => {
+                  // debugger
+                  console.log("获取数据", data);
+                  return {
+                    data: data,
+                  };
+                });
+              },
+              setItem(name, payload) {
+                console.log("角色请求");
+                return api
+                  .post(`/searcher`, {
+                    alias: name,
+                    user: "user",
+                    scoped: "roles",
                     label: JSON.stringify(payload),
                   })
                   .then(() => true);

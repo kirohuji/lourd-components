@@ -1,6 +1,7 @@
-import { isFunction, isObject, pick, omit } from "lodash";
+import { isFunction, isObject, pick, omit, isBoolean } from "lodash";
 import { dictionaries } from "../../../composables/context-cache";
 import Thenable from "@/components/atoms/Thenable";
+import emitter from 'element-ui/src/mixins/emitter'
 export default {
   name: "BaseEnter",
   componentName: "BaseEnter",
@@ -18,6 +19,7 @@ export default {
     },
   },
   inheritAttrs: false,
+  mixins: [emitter],
   data() {
     return {
       initialized: false,
@@ -38,6 +40,7 @@ export default {
             props: children.options,
             scopedSlots: {
               default: ({ result }) => {
+                console.log('真的是哔了狗了')
                 if (!result.loading && !this.initialized) {
                   this.initialized = true;
                   this.loading = false;
@@ -106,7 +109,7 @@ export default {
         directives: [
           {
             name: "loading",
-            value: loading || this.loading,
+            value: isBoolean(loading) ? loading : this.loading,
           },
         ],
         props: {
@@ -164,9 +167,11 @@ export default {
           props: this.isThenable,
           scopedSlots: {
             default: ({ result: { loading, data, onAfter } }) => {
+              // console.log('真的是哔了狗了2')
+              this.loading = loading;
               if (!loading && !this.initialized) {
                 this.initialized = true;
-                onAfter && this.$emit("input", onAfter.call(this, data));
+                onAfter && this.$emit("input'", onAfter.call(this, data));
               }
               return this.renderComponent(h, {
                 data: data,
@@ -177,7 +182,9 @@ export default {
         }}
       />
     ) : (
-      this.renderComponent(h, {})
+      this.renderComponent(h, {
+        loading: false,
+      })
     );
   },
 };

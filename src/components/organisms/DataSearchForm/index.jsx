@@ -30,7 +30,13 @@ export default {
       this.$emit("reset");
     },
     setModel(data) {
-      this.$refs.dataForm.onAfter(data);
+      this.$refs.dataForm.initData(data);
+    },
+    resetFields() {
+      this.$refs.dataForm.resetFields();
+    },
+    clearFields() {
+      this.$refs.dataForm.clearFields();
     },
   },
   mounted() {
@@ -52,6 +58,9 @@ export default {
               collector: "dataSearchForm",
               ...this.$props,
             },
+            on: {
+              ...this.$listeners
+            },
           }}
         />
         {this.searcher && (
@@ -60,7 +69,7 @@ export default {
             class="search-button"
             onReset={() => this.reset()}
             onSubmit={(payload) => this.submit(payload)}
-            onSearch={()=>this.search()}
+            onSearch={() => this.search()}
           />
         )}
         {this.$scopedSlots.right ? (

@@ -42,6 +42,14 @@ export default {
     layout: Object,
     data: Object,
     searcher: Boolean,
+    user: {
+      type: String,
+      default: 'default'
+    },
+    scoped: {
+      type: String,
+      default: 'default'
+    },
   },
   computed: {
     filters() {
@@ -91,7 +99,7 @@ export default {
       this.store.fetchCurrent(this.fetchCurrent);
       this.refresh();
     }
-    this.store = Store(this.author || "lourd", this.id, this.request);
+    this.store = Store(this.user || "lourd", this.scoped, this.request);
     // debugger;
   },
   methods: {
@@ -125,6 +133,7 @@ export default {
       if (this.filter) {
         this.$refs.searchFilter.reset();
         this.store.clearSelected();
+        this.$refs.searchForm.clearFields();
         this.search();
       }
     },
