@@ -52,7 +52,7 @@ export default {
     return {
       properties: [],
       model: {
-        age: 1
+        age: 1,
       },
       uses: [],
     };
@@ -82,11 +82,13 @@ export default {
             {...{
               on: {
                 ...this.$listeners,
-                input: (val) => this.model[rowItem.prop] = val,
+                input: (val) => {
+                  this.model[rowItem.prop] = val;
+                  this.data[rowItem.prop] = val;
+                },
               },
             }}
             value={this.model}
-            // vModel={this.model[rowItem.prop]}
           />
         ))
       ) : (
@@ -97,11 +99,13 @@ export default {
           {...{
             on: {
               ...this.$listeners,
-              input: (val) => this.model[item.prop] = val,
+              input: (val) => {
+                this.model[item.prop] = val;
+                this.data[item.prop] = val;
+              },
             },
           }}
           value={this.model}
-          // vModel={this.model[item.prop]}
         />
       )
     );
@@ -117,25 +121,23 @@ export default {
       this.$set(this, "model", {});
     },
     initData(data) {
-      // debugger
-      // this.model = _.pick(Object.assign(this.model, data), this.properties);
-      this.$set(this, "model", _.pick(data, this.properties));
-      // this.$forceUpdate()
-      // console.log(this.model)
+      console.log('初始化')
+      this.properties.forEach(item=>{
+        this.model[item]=data[item]
+      })
     },
     search() {
       this.$emit("search", this.model);
     },
     currentData() {
       const currentData = {};
-      // console.log(this);
-      // debugger;
       Object.keys(this.$refs)
         .filter((item) => item.includes("baseFormItem-"))
         .forEach((item) => {
           currentData[this.$refs[item].item.prop] =
-            this.$refs[item].$attrs.value;
+            this.$refs[item].$attrs.value[this.$refs[item].item.prop];
         });
+      console.log("currentData", currentData);
       return currentData;
     },
     transform() {

@@ -1,5 +1,5 @@
 import { FormItem } from "element-ui";
-import BaseEnter from "../BaseEnter";
+import BaseEnter from "../BaseEnter/newIndex";
 import emitter from "element-ui/src/mixins/emitter";
 export default {
   name: "BaseFormItem",
@@ -17,7 +17,6 @@ export default {
   props: ["item"],
   inheritAttrs: false,
   render() {
-    // debugger
     return (
       <FormItem
         {...{
@@ -45,7 +44,9 @@ export default {
                 use: this.item?.use || this.$attrs.use,
               },
               attrs: this.item || this.$attrs,
-              on: this.$listeners,
+              on: {
+                ...this.$listeners,
+              },
             }}
           />
         )}

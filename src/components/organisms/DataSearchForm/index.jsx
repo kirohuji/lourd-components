@@ -58,6 +58,9 @@ export default {
               collector: "dataSearchForm",
               ...this.$props,
             },
+            on: {
+              ...this.$listeners
+            },
           }}
         />
         {this.searcher && (

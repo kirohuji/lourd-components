@@ -254,29 +254,36 @@ const searchForm = [
     children: {
       use: "option",
       options: {
+        onAfter: function (data) {
+          // debugger
+          // debugger
+          console.log("触发了Onafter");
+          return data[0].value;
+        },
         runner: () => {
-          return Promise.resolve({
-            data: [
-              {
-                node_id: 1,
-              },
-              {
-                node_id: 2,
-              },
-              {
-                node_id: 3,
-              },
-              {
-                node_id: 4,
-              },
-            ],
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              resolve({
+                data: [
+                  {
+                    node_id: 1111,
+                  },
+                  {
+                    node_id: 2,
+                  },
+                  {
+                    node_id: 3,
+                  },
+                  {
+                    node_id: 4,
+                  },
+                ],
+              });
+            }, 6000);
           });
         },
         variables: {},
         immediate: true,
-        onAfter: function (data) {
-          return data.length && [data[0].value];
-        },
         callback: (data) => {
           return data.map((item) => {
             return {
@@ -303,7 +310,7 @@ const searchForm = [
   {
     label: "标题",
     prop: "title",
-    use: "input",
+    use: "search",
     size: "mini",
   },
 ];
@@ -311,10 +318,7 @@ export const withSearch = () => ({
   data() {
     return {
       data: {
-        name: "zyd",
-        title: 1,
-        age: 30,
-        sex: "男",
+        // name: "zyd",
       },
     };
   },
@@ -385,15 +389,13 @@ export const withCacheSearchForm = () => ({
               },
               // 请求
               list() {
-                return api
-                  .get(`/searcher/list/user/users`)
-                  .then((data) => {
-                    // debugger
-                    console.log("获取数据", data);
-                    return {
-                      data: data,
-                    };
-                  });
+                return api.get(`/searcher/list/user/users`).then((data) => {
+                  // debugger
+                  console.log("获取数据", data);
+                  return {
+                    data: data,
+                  };
+                });
               },
               setItem(name, payload) {
                 return api
@@ -454,18 +456,16 @@ export const withCacheSearchFormRole = () => ({
               },
               // 请求
               list() {
-                return api
-                  .get(`/searcher/list/user/roles`)
-                  .then((data) => {
-                    // debugger
-                    console.log("获取数据", data);
-                    return {
-                      data: data,
-                    };
-                  });
+                return api.get(`/searcher/list/user/roles`).then((data) => {
+                  // debugger
+                  console.log("获取数据", data);
+                  return {
+                    data: data,
+                  };
+                });
               },
               setItem(name, payload) {
-                console.log('角色请求')
+                console.log("角色请求");
                 return api
                   .post(`/searcher`, {
                     alias: name,
