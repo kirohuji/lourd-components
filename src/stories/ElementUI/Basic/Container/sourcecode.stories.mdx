@@ -1,0 +1,66 @@
+import { Meta, Story, Canvas, Source } from "@storybook/addon-docs";
+
+<Meta title="Element UI/组件/Basic/Container/源码(Sourcecode)"/>
+
+# Container 布局容器
+
+Container & Header & Aside & Main & Footer 一共五个组件组成一套布局容器
+
+
+## Container
+
+> 主要还是通过Flex进行布局
+
+
+```css
+
+.el-container.is-vertical {
+    flex-direction: column;
+}
+
+.el-container {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    flex-basis: auto;
+    box-sizing: border-box;
+    min-width: 0;
+}
+
+```
+
+源码
+
+```html
+<template>
+  <section class="el-container" :class="{ 'is-vertical': isVertical }">
+    <slot></slot>
+  </section>
+</template>
+
+<script>
+  export default {
+    name: 'ElContainer',
+    componentName: 'ElContainer',
+    props: {
+      direction: String
+    },
+    computed: {
+      isVertical() {
+        if (this.direction === 'vertical') {
+          return true;
+        } else if (this.direction === 'horizontal') {
+          return false;
+        }
+        return this.$slots && this.$slots.default
+          ? this.$slots.default.some(vnode => {
+            const tag = vnode.componentOptions && vnode.componentOptions.tag;
+            return tag === 'el-header' || tag === 'el-footer';
+          })
+          : false;
+      }
+    }
+  };
+</script>
+
+```

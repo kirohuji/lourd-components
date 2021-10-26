@@ -1,5 +1,4 @@
 import BasicLayout from "./components/Basic.vue";
-import "./style.css";
 import GutterAndSpanLayout from "./components/GutterAndSpan.vue";
 import MixLayout from "./components/Mix.vue";
 import OffsetLayout from "./components/Offset.vue";

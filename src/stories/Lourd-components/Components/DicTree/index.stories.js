@@ -1,7 +1,7 @@
 import DataTree from "@/components/organisms/DataTree";
 import DataMenu from "@/components/organisms/DataMenu";
 import { Col, Row } from "element-ui";
-import "./style.scss";
+// import "./style.scss";
 export default {
   title: "Lourd Components/Components/DicTree/字典数据结构 DicTree",
 };
