@@ -38,7 +38,7 @@ export default {
           />
         ) : (
           <BaseEnter
-            vModel={this.$attrs.value[this.item.prop]}
+            vModel={this.$attrs.value[this.item?.prop || this.$attrs.prop]}
             {...{
               props: {
                 use: this.item?.use || this.$attrs.use,

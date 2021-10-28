@@ -1,12 +1,12 @@
-import DataForm from "../components/organisms/DataForm";
-import DataSearchForm from "../components/organisms/DataSearchForm";
-import DataCacheSearchForm from "../components/organisms/DataCacheSearchForm";
-import Inline from "../components/molecules/Layout/inline";
+import DataForm from "@/components/organisms/DataForm";
+import DataSearchForm from "@/components/organisms/DataSearchForm";
+import DataCacheSearchForm from "@/components/organisms/DataCacheSearchForm";
+import Inline from "@/components/molecules/Layout/inline";
 import { api } from "@/utils/http";
 import _ from "lodash";
 // import { Button } from "element-ui";
 export default {
-  title: "Design System/Organisms/DataForm",
+  title: "Lourd Components/Components/DataForm/基本案例",
 };
 const forms = [
   {
@@ -57,13 +57,12 @@ const forms = [
     },
   },
 ];
-export const withAttrs = () => ({
+export const withAttrs = (args) => ({
   render() {
     return (
       <DataForm
         {...{
           props: {
-            question: false,
             forms,
             data: {
               name: "zyd",

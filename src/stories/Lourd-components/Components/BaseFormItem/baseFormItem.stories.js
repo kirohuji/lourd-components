@@ -1,13 +1,13 @@
-import BaseFormItem from "../components/molecules/BaseFormItem";
+import BaseFormItem from "@/components/molecules/BaseFormItem";
 import { Form } from "element-ui";
 export default {
-  title: "Design System/Molecules/BaseFormItem",
+  title: "Lourd Components/Components/BaseFormItem/基本案例",
 };
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   data: () => ({
     form: {
-      value: 1,
+      name: "",
     },
   }),
   render() {
@@ -22,10 +22,14 @@ const Template = (args, { argTypes }) => ({
         <BaseFormItem
           use="input"
           size="mini"
-          vModel={this.form.value}
+          value={this.form}
           style="width: 200px"
           {...{
             attrs: this.$props,
+            on: {
+              ...this.$listeners,
+              input: (val) => (this.form[this.$props.prop] = val),
+            },
           }}
         />
       </Form>
@@ -34,7 +38,7 @@ const Template = (args, { argTypes }) => ({
 });
 export const withBasic = Template.bind({});
 withBasic.args = {
-  prop: "value",
+  prop: "name",
   label: "名称",
   required: true,
   error: "",
@@ -52,7 +56,12 @@ withBasic.argTypes = {
     control: { type: "radio" },
   },
 };
-export const withAttrs = () => ({
+export const withAttrs = (args) => ({
+  data: () => ({
+    form: {
+      name: "",
+    },
+  }),
   render() {
     return (
       <Form>
@@ -66,14 +75,25 @@ export const withAttrs = () => ({
               { label: 2, value: 2 },
             ],
           }}
+          {...{
+            on: {
+              ...this.$listeners,
+              input: (val) => (this.form["name"] = val),
+            },
+          }}
           prop="name"
-          value={1}
+          value={this.form}
         />
       </Form>
     );
   },
 });
 export const withItem = () => ({
+  data: () => ({
+    form: {
+      name: "",
+    },
+  }),
   render() {
     const item = {
       use: "select",
@@ -89,7 +109,7 @@ export const withItem = () => ({
     };
     return (
       <Form>
-        <BaseFormItem item={item} value={1} />
+        <BaseFormItem item={item} value={this.form} />
       </Form>
     );
   },
