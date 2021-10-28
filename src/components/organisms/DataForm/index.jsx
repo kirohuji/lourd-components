@@ -83,6 +83,7 @@ export default {
               on: {
                 ...this.$listeners,
                 input: (val) => {
+  
                   this.model[rowItem.prop] = val;
                   this.data[rowItem.prop] = val;
                 },
@@ -121,7 +122,6 @@ export default {
       this.$set(this, "model", {});
     },
     initData(data) {
-      console.log('初始化')
       this.properties.forEach(item=>{
         this.model[item]=data[item]
       })
@@ -159,7 +159,6 @@ export default {
     },
   },
   render() {
-    console.log("更新render");
     return (
       <ElForm
         inline

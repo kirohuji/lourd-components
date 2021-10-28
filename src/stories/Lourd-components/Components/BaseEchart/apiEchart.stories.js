@@ -1,8 +1,8 @@
-import ApiEchart from "../components/organisms/ApiEchart/index";
+import ApiEchart from "@/components/organisms/ApiEchart/index";
 
 export default {
   component: ApiEchart,
-  title: "Design System/Organisms/ApiEchart(未写完)",
+  title: "Lourd Components/Components/ApiEchart/基本案例",
   argTypes: {
     isLoading: {
       control: { type: "boolean" },

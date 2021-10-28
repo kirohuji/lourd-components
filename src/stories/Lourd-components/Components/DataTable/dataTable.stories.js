@@ -1,6 +1,6 @@
-import DataTable from "../components/organisms/DataTable";
-import * as TableStories from "./ElementUI/Data/Table/table.stories";
-import * as events from "./events";
+import DataTable from "../../../../components/organisms/DataTable";
+import * as TableStories from "../../../ElementUI/Data/Table/table.stories";
+import * as events from "../../../events";
 import { action } from "@storybook/addon-actions";
 const data = [
   {
@@ -61,7 +61,7 @@ const data = [
   },
 ];
 export default {
-  title: "Design System/Organisms/DataTable",
+  title: "Lourd Components/Components/DataTable/基本案例",
   actions: { argTypesRegex: "^on[A-Z].*" },
   argTypes: {
     currentRowKey: {

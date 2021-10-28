@@ -1,8 +1,8 @@
-import BaseEchart from "../components/molecules/BaseEchart";
+import BaseEchart from "@/components/molecules/BaseEchart";
 
 export default {
   component: BaseEchart,
-  title: "Design System/Molecules/BaseEchart",
+  title: "Lourd Components/Components/BaseEchart/基本案例",
   parameters: {
     backgrounds: {
       values: [

@@ -1,6 +1,6 @@
-import DataFormDialog from "../components/organisms/DataFormDialog";
+import DataFormDialog from "@/components/organisms/DataFormDialog";
 export default {
-  title: "Design System/Organisms/DataFormDialog",
+  title: "Lourd Components/Components/DataFormDialog/基本案例",
 };
 const forms = [
   {
@@ -8,7 +8,9 @@ const forms = [
     prop: "name",
     use: "input",
     row: 1,
+    edit: true,
     span: 8,
+    size: 'mini',
     question: true,
   },
   {
@@ -55,7 +57,7 @@ const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   data() {
     return {
-      innerVisible: false,
+      innerVisible: true,
     };
   },
   watch: {
@@ -72,14 +74,14 @@ const Template = (args, { argTypes }) => ({
             visible: this.innerVisible,
           },
           on: {
-            submit: (val) => console.log(val),
+            submit: (val) => alert(JSON.stringify(val)),
             "update:visible": (val) => (this.innerVisible = val),
           },
           scopedSlots: {
             footer: (cancel, submit) => (
               <div>
-                <button onClick={() => cancel()}>取消</button>
-                <button onClick={() => submit()}>提交</button>
+                <el-button onClick={() => cancel()}>取消</el-button>
+                <el-button onClick={() => submit()}>提交</el-button>
               </div>
             ),
           },

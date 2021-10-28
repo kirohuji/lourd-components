@@ -63,8 +63,8 @@ export const withAttrs = (args) => ({
       <DataForm
         {...{
           props: {
-            forms,
-            data: {
+            forms, // 参数配置
+            data: { // 初始化的值
               name: "zyd",
               title: 1,
               age: 30,
@@ -72,7 +72,7 @@ export const withAttrs = (args) => ({
               level: 10,
               position: "测试部",
             },
-            layout: {
+            layout: { // 布局
               use: "inline",
               gutter: 20,
               direction: "column",
@@ -83,7 +83,7 @@ export const withAttrs = (args) => ({
     );
   },
 });
-export const withScopedSlots = () => ({
+export const withScopedSlots = (args) => ({
   render() {
     return (
       <DataForm
@@ -249,14 +249,11 @@ const searchForm = [
     prop: "name",
     use: "select",
     size: "mini",
-    isReal: true,
+    isReal: false,
     children: {
       use: "option",
       options: {
         onAfter: function (data) {
-          // debugger
-          // debugger
-          console.log("触发了Onafter");
           return data[0].value;
         },
         runner: () => {

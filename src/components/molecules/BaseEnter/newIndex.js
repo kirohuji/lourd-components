@@ -40,7 +40,6 @@ export default {
             props: children.options,
             scopedSlots: {
               default: ({ result }) => {
-                console.log('真的是哔了狗了')
                 if (!result.loading && !this.initialized) {
                   this.initialized = true;
                   this.loading = false;
@@ -167,7 +166,6 @@ export default {
           props: this.isThenable,
           scopedSlots: {
             default: ({ result: { loading, data, onAfter } }) => {
-              // console.log('真的是哔了狗了2')
               this.loading = loading;
               if (!loading && !this.initialized) {
                 this.initialized = true;
